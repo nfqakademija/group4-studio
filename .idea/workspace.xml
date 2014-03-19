@@ -2,19 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67d88733-09ac-4c5d-b149-b51f3c1ae2fa" name="Default" comment="">
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\Controller\DefaultController.php" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/Controller/DefaultController.php" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\DependencyInjection\Configuration.php" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/DependencyInjection/Configuration.php" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\DependencyInjection\UserExtension.php" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/DependencyInjection/UserExtension.php" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\Entity\User.php" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/Entity/User.php" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\Resources\config\routing.yml" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/Resources/config/routing.yml" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\Resources\config\services.yml" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/Resources/config/services.yml" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\Resources\doc\index.rst" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/Resources/doc/index.rst" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\Resources\translations\messages.fr.xlf" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/Resources/translations/messages.fr.xlf" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\Resources\views\Default\index.html.twig" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/Resources/views/Default/index.html.twig" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\Tests\Controller\DefaultControllerTest.php" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/Tests/Controller/DefaultControllerTest.php" />
+      <change type="MOVED" beforePath="C:\Users\Latitude\Documents\group4-studio\src\Group4\Bundle\UserBundle.php" afterPath="$PROJECT_DIR$/src/Group4/UserBundle/UserBundle.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AppKernel.php" afterPath="$PROJECT_DIR$/app/AppKernel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/SymfonyRequirements.php" afterPath="$PROJECT_DIR$/app/SymfonyRequirements.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/bundles/framework/css/body.css" afterPath="$PROJECT_DIR$/web/bundles/framework/css/body.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bootstrap.php.cache" afterPath="$PROJECT_DIR$/app/bootstrap.php.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/check.php" afterPath="$PROJECT_DIR$/app/check.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/config.php" afterPath="$PROJECT_DIR$/web/config.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.yml" afterPath="$PROJECT_DIR$/app/config/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/bundles/sensiodistribution/webconfigurator/css/configurator.css" afterPath="$PROJECT_DIR$/web/bundles/sensiodistribution/webconfigurator/css/configurator.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/bundles/framework/css/exception.css" afterPath="$PROJECT_DIR$/web/bundles/framework/css/exception.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/bundles/sensiodistribution/webconfigurator/css/install.css" afterPath="$PROJECT_DIR$/web/bundles/sensiodistribution/webconfigurator/css/install.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/routing.yml" afterPath="$PROJECT_DIR$/app/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/security.yml" afterPath="$PROJECT_DIR$/app/config/security.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/bundles/framework/css/structure.css" afterPath="$PROJECT_DIR$/web/bundles/framework/css/structure.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="group4-studio.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,10 +38,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="parameters.yml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
+      <file leaf-file-name="UserBundle.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/UserBundle.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="26" selection-start="96" selection-end="96" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+            <state line="6" column="25" selection-start="111" selection-end="111" vertical-scroll-proportion="-3.9230769" vertical-offset="0" max-vertical-offset="255">
               <folding />
             </state>
           </provider>
@@ -49,28 +50,19 @@
       <file leaf-file-name="AppKernel.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="27" selection-start="833" selection-end="833" vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="782">
+            <state line="23" column="47" selection-start="881" selection-end="881" vertical-scroll-proportion="-8.807693" vertical-offset="145" max-vertical-offset="782">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="User.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/Entity/User.php">
+        <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/Entity/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="1" selection-start="239" selection-end="239" vertical-scroll-proportion="0.3967684" vertical-offset="0" max-vertical-offset="557">
+            <state line="3" column="21" selection-start="67" selection-end="67" vertical-scroll-proportion="0.087030716" vertical-offset="0" max-vertical-offset="586">
               <folding>
-                <element signature="e#79#121#0" expanded="true" />
+                <element signature="e#83#125#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="security.yml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/security.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="46" selection-start="755" selection-end="755" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -78,43 +70,25 @@
       <file leaf-file-name="config.yml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="45" selection-start="2121" selection-end="2121" vertical-scroll-proportion="0.0" vertical-offset="760" max-vertical-offset="1343">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserBundle.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/UserBundle.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="47" selection-start="80" selection-end="80" vertical-scroll-proportion="-2.6153846" vertical-offset="0" max-vertical-offset="255">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="services.yml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/Resources/config/services.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.rst" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/Resources/doc/index.rst">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+            <state line="63" column="12" selection-start="1797" selection-end="1797" vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="1343">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="UserExtension.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/DependencyInjection/UserExtension.php">
+        <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/DependencyInjection/UserExtension.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="527">
+            <state line="2" column="21" selection-start="28" selection-end="28" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="527">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Configuration.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/DependencyInjection/Configuration.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="21" selection-start="28" selection-end="28" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="578">
               <folding />
             </state>
           </provider>
@@ -137,10 +111,14 @@
         <option value="$PROJECT_DIR$/src/Group4/Bundle/Entity/UserBundle.php" />
         <option value="$PROJECT_DIR$/src/Group4/Bundle/UserBundle.php" />
         <option value="$PROJECT_DIR$/app/config/security.yml" />
-        <option value="$PROJECT_DIR$/app/config/config.yml" />
-        <option value="$PROJECT_DIR$/app/AppKernel.php" />
         <option value="$PROJECT_DIR$/src/Group4/Bundle/Resources/config/doctrine/User.orm.yml" />
         <option value="$PROJECT_DIR$/src/Group4/Bundle/Entity/User.php" />
+        <option value="$PROJECT_DIR$/src/Group4/UserBundle/UserBundle.php" />
+        <option value="$PROJECT_DIR$/app/AppKernel.php" />
+        <option value="$PROJECT_DIR$/app/config/config.yml" />
+        <option value="$PROJECT_DIR$/src/Group4/UserBundle/DependencyInjection/UserExtension.php" />
+        <option value="$PROJECT_DIR$/src/Group4/UserBundle/DependencyInjection/Configuration.php" />
+        <option value="$PROJECT_DIR$/src/Group4/UserBundle/Entity/User.php" />
       </list>
     </option>
   </component>
@@ -148,8 +126,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="736" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -177,7 +155,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -228,7 +205,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Bundle" />
+              <option name="myItemId" value="UserBundle" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -250,63 +227,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Bundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="group4-studio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="group4-studio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Group4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bundle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="group4-studio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="group4-studio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Group4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bundle" />
+              <option name="myItemId" value="UserBundle" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -324,7 +245,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Group4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="UserBundle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DependencyInjection" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -341,13 +274,10 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -385,25 +315,26 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="736" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291536" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -426,16 +357,74 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/composer.json">
+    <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="50" selection-start="793" selection-end="793" vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="1003">
+        <state line="2" column="26" selection-start="96" selection-end="96" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="340">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/routing.yml">
+    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="20" selection-start="628" selection-end="628" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+        <state line="22" column="27" selection-start="833" selection-end="833" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="799">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/Entity/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="1" selection-start="239" selection-end="239" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="544">
+          <folding>
+            <element signature="e#83#125#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/security.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="46" selection-start="755" selection-end="755" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="527">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="41" selection-start="2117" selection-end="2117" vertical-scroll-proportion="0.0" vertical-offset="760" max-vertical-offset="1343">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/UserBundle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="47" selection-start="80" selection-end="80" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/Resources/config/services.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/Resources/doc/index.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/DependencyInjection/UserExtension.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="50" selection-start="793" selection-end="793" vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="1003">
           <folding />
         </state>
       </provider>
@@ -447,48 +436,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="45" selection-start="2121" selection-end="2121" vertical-scroll-proportion="0.0" vertical-offset="760" max-vertical-offset="1343">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/DependencyInjection/UserExtension.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="583">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/Resources/doc/index.rst">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="583">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/Resources/config/services.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="583">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/UserBundle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="47" selection-start="80" selection-end="80" vertical-scroll-proportion="-2.6153846" vertical-offset="0" max-vertical-offset="255">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="27" selection-start="833" selection-end="833" vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="782">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="26" selection-start="96" selection-end="96" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
@@ -496,11 +443,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Group4/Bundle/Entity/User.php">
+    <entry file="file://$PROJECT_DIR$/app/config/routing.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="1" selection-start="239" selection-end="239" vertical-scroll-proportion="0.3967684" vertical-offset="0" max-vertical-offset="557">
+        <state line="21" column="20" selection-start="628" selection-end="628" vertical-scroll-proportion="0.6040609" vertical-offset="0" max-vertical-offset="591">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Acme/DemoBundle/AcmeDemoBundle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="591">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Acme/DemoBundle/Controller/DemoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.27079645" vertical-offset="153" max-vertical-offset="935">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Acme/DemoBundle/Controller/WelcomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="62" selection-start="421" selection-end="423" vertical-scroll-proportion="0.45132744" vertical-offset="0" max-vertical-offset="565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/Resources/config/services.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="583">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/Resources/doc/index.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="583">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="47" selection-start="881" selection-end="881" vertical-scroll-proportion="-8.807693" vertical-offset="145" max-vertical-offset="782">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="12" selection-start="1797" selection-end="1797" vertical-scroll-proportion="0.0" vertical-offset="731" max-vertical-offset="1343">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/DependencyInjection/Configuration.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="21" selection-start="28" selection-end="28" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="578">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/DependencyInjection/UserExtension.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="21" selection-start="28" selection-end="28" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="527">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/UserBundle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="25" selection-start="111" selection-end="111" vertical-scroll-proportion="-3.9230769" vertical-offset="0" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group4/UserBundle/Entity/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="21" selection-start="67" selection-end="67" vertical-scroll-proportion="0.087030716" vertical-offset="0" max-vertical-offset="586">
           <folding>
-            <element signature="e#79#121#0" expanded="true" />
+            <element signature="e#83#125#0" expanded="true" />
           </folding>
         </state>
       </provider>

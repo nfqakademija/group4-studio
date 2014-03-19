@@ -1,6 +1,5 @@
 group4-studio
 =============
-asdasdasdasdasdasdsad
 Vilniaus 5 komanda ;)
 =============
 Useful links:

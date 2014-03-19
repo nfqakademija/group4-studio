@@ -1,0 +1,5 @@
+/vendor/
+/app/cache/*
+app/config/parameters.yml
+composer.phar
+/bin/

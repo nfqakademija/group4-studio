@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <title>{% block title %}Photo Challenge{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
     <div id="header">
         {% embed "UserBundle::index.html.twig" %}
         {% endembed %}
     </div>
+    {% block body %}
     <div id="content">
         <!-- Content stuff goes here -->
     </div>
     <div id="footer">
         <!-- Footer stuff goes here -->
     </div>
+    {% endblock %}
     </body>
 </html>

@@ -1,0 +1,7 @@
+challenge_homepage:
+    pattern:  /challenge
+    defaults: { _controller: ChallengeBundle:Challenge:index }
+
+challenge_enter:
+    pattern: /challenge/new
+    defaults: { _controller: ChallengeBundle:Challenge:new }

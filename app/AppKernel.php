@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             #Group4 Bundles
             new Group4\UserBundle\UserBundle(),
             new Group4\BaseBundle\BaseBundle(),
+            new Group4\ChallengeBundle\ChallengeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

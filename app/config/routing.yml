@@ -1,3 +1,7 @@
+challenge:
+    resource: "@ChallengeBundle/Resources/config/routing.yml"
+    prefix:   /
+
 base:
     resource: "@BaseBundle/Controller/"
     type:     annotation

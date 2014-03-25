@@ -1,0 +1,27 @@
+{% extends 'BaseBundle:Default:index.html.twig' %}
+
+{% block title %}Participate{% endblock %}
+
+{% block stylesheets %}
+    <style>
+    #btn {
+        background: #66dd66;
+        border-radius: 4px;
+        padding: 5px;
+        width: 210px;
+        text-align: center;
+        font-size: 30px;
+        margin: 0 auto;
+        font-variant: small-caps;
+    }
+    #btn:hover {
+        background: #77ff77;
+    }
+    #btn a{text-decoration: none;color: #fff;}
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div id="btn"><a href="{{ path('challenge_enter') }}">Challenge me!</a></div>
+{% endblock %}

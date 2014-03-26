@@ -2,30 +2,9 @@
 
 {% block title %}Participate{% endblock %}
 
-{% block stylesheets %}
-    <style>
-    #btn {
-        background: #66dd66;
-        border-radius: 4px;
-        padding: 5px;
-        width: 210px;
-        text-align: center;
-        font-size: 30px;
-        margin: 0 auto;
-        font-variant: small-caps;
-    }
-    #btn:hover {
-        background: #77ff77;
-    }
-    #btn a{text-decoration: none;color: #fff;}
-    </style>
-{% endblock %}
-
-{% block body %}
-    <div id="btn"><a href="#">Challenge me!</a></div><br/>
-    <div style="margin: 0 auto;background: #aacd4e;border-radius: 10px;padding: 15px;width: 200px;text-align: center;">
+{% block content %}
+    <a href="#">Challenge me!</a><br/>
     Manage themes:<br/>
     <a href="{{ path('challenge_new') }}">New challenge theme</a><br/>
     <a href="{{ path('theme_list_all') }}">List all challenge themes</a>
-    </div>
 {% endblock %}

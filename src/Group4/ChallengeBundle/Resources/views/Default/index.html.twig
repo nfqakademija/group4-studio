@@ -22,6 +22,10 @@
 {% endblock %}
 
 {% block body %}
-
-    <div id="btn"><a href="{{ path('challenge_enter') }}">Challenge me!</a></div>
+    <div id="btn"><a href="#">Challenge me!</a></div><br/>
+    <div style="margin: 0 auto;background: #aacd4e;border-radius: 10px;padding: 15px;width: 200px;text-align: center;">
+    Manage themes:<br/>
+    <a href="{{ path('challenge_new') }}">New challenge theme</a><br/>
+    <a href="{{ path('theme_list_all') }}">List all challenge themes</a>
+    </div>
 {% endblock %}

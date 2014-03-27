@@ -26,7 +26,9 @@
         "knplabs/knp-menu-bundle": "dev-master",
         "knplabs/knp-menu": "2.0.*@dev",
         "craue/formflow-bundle": "dev-master",
-        "oyejorge/less.php": "dev-master"
+        "oyejorge/less.php": "dev-master",
+        "sonata-project/admin-bundle": "dev-master",
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

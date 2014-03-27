@@ -2,14 +2,26 @@ challenge_homepage:
     pattern:  /challenge
     defaults: { _controller: ChallengeBundle:Challenge:index }
 
-challenge_new:
-    pattern: /challenge/new
-    defaults: { _controller: ChallengeBundle:Challenge:new }
+theme_add_new:
+    pattern: /challenge/themes/new
+    defaults: { _controller: ChallengeBundle:Theme:new }
 
 theme_insert_success:
-    pattern: /challenge/new/success
-    defaults: { _controller: ChallengeBundle:Challenge:newSuccess }
+    pattern: /challenge/themes/new/success
+    defaults: { _controller: ChallengeBundle:Theme:newSuccess }
 
 theme_list_all:
-    pattern: /challenge/listAll
-    defaults: { _controller: ChallengeBundle:Challenge:listAll }
+    pattern: /challenge/themes/listAll
+    defaults: { _controller: ChallengeBundle:Theme:listAll }
+
+theme_admin:
+    pattern: /challenge/themes
+    defaults: { _controller: ChallengeBundle:Theme:themeAdmin }
+
+theme_edit:
+    pattern: /challenge/themes/edit/{id}
+    defaults: { _controller: ChallengeBundle:Theme:edit }
+
+theme_delete:
+    pattern: /challenge/themes/delete/{id}
+    defaults: { _controller: ChallengeBundle:Theme:delete }

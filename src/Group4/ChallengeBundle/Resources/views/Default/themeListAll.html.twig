@@ -1,0 +1,15 @@
+{% extends 'BaseBundle:Default:index.html.twig' %}
+
+{% block content %}
+    Temos, esančios duomenų bazėje:<br/>
+
+    <table border="1">
+        <tr><td></td><td>ID</td><td>NAME</td></tr>
+    {% for item in themes %}
+        <tr>
+            <td><a href="{{ path('theme_delete', {'id': item.id}) }}">X</a></td><td><a href="{{ path('theme_edit', {'id': item.id}) }}">Edit</a></td><td>{{ item.getId }}</td><td>{{ item.getName }}</td>
+        </tr>
+    {% endfor %}
+
+    </table>
+{% endblock %}

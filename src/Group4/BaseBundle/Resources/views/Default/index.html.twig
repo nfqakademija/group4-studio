@@ -3,10 +3,9 @@
 %}
 <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
 {% endstylesheets %}
-
+{% block head %}<head><title>{% block title %}Photo Challenge!{% endblock %}</title></head>{% endblock %}
 {% block header %}
-{% embed "UserBundle::index.html.twig" %}
-{% endembed %}
+{{ render(controller("FOSUserBundle:Security:login")) }}
 {% endblock %}
 {% block content %}
 {% endblock %}

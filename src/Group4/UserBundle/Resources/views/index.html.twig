@@ -5,15 +5,15 @@
         {% block user_login %}
             <form action="{{ path("fos_user_security_check") }}" method="post">
                 <label for="username">{{ 'security.login.username'|trans }}</label>
-                <input type="text" id="username" name="_username" value="" required="required" />
+                <input type="text" id="username" name="_username" value="" required="required"/>
 
                 <label for="password">{{ 'security.login.password'|trans }}</label>
-                <input type="password" id="password" name="_password" required="required" />
+                <input type="password" id="password" name="_password" required="required"/>
 
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
                 <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
 
-                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
             </form>
             <a class="btn" href="{{ path("user_register") }}">{{ 'user_register'|trans }}</a>
         {% endblock user_login %}

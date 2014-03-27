@@ -8,10 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class BaseController extends Controller
 {
-    /**
-     * @Route("/")
-     * @Template()
-     */
     public function indexAction()
     {
         return $this->render('BaseBundle:Default:index.html.twig');

@@ -1,11 +1,12 @@
-{% stylesheets
-'@BaseBundle/Resources/public/less/style.less'
-%}
-<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
-{% endstylesheets %}
-{% block head %}<head><title>{% block title %}Photo Challenge!{% endblock %}</title></head>{% endblock %}
-{% block header %}
-{{ render(controller("FOSUserBundle:Security:login")) }}
-{% endblock %}
-{% block content %}
-{% endblock %}
+{% extends "MopaBootstrapBundle::base_less.html.twig" %}
+{% block title %}Photo Challenge!{% endblock title %}
+{% block navbar %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+        </a>
+    {% else %}
+        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+    {% endif %}
+{% endblock navbar %}

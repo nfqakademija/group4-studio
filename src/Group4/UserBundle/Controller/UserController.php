@@ -10,9 +10,4 @@ class UserController extends Controller
     {
         return $this->render('UserBundle:index.html.twig', array('name' => $name));
     }
-
-    public function registerAction ()
-    {
-        return $this->render('UserBundle::register.html.twig');
-    }
 }

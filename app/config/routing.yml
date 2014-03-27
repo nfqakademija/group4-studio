@@ -3,9 +3,8 @@ challenge:
     prefix:   /
 
 base:
-    resource: "@BaseBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    pattern: /
+    defaults: { _controller: BaseBundle:Base:index }
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"

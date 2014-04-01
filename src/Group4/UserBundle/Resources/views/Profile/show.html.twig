@@ -1,7 +1,9 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
+    {% if app.user is null %}
     <a href="{{ path("fos_user_profile_edit") }}">{{ 'profile.show.edit'|trans({},'FOSUserBundle') }}</a>
     <hr />
+    {% endif %}
 {% include "FOSUserBundle:Profile:show_content.html.twig" %}
 {% endblock fos_user_content %}

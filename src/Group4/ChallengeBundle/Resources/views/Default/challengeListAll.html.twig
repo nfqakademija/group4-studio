@@ -1,0 +1,30 @@
+{% extends 'BaseBundle:Default:index.html.twig' %}
+
+{% block content %}
+    Challenges in database:<br/>
+
+    <table border="1">
+        <tr><td></td>
+            <td></td>
+            <td>ID</td>
+            <td>STATUS</td>
+            <td>START-DATE</td>
+            <td>END-DATE</td>
+            <td>TYPE</td>
+            <td>THEME-ID</td>
+        </tr>
+    {% for item in challenges %}
+        <tr>
+            <td><a href="{{ path('challenge_delete', {'id': item.id}) }}">X</a></td>
+            <td><a href="{{ path('challenge_edit', {'id': item.id}) }}">Edit</a></td>
+            <td>{{ item.getId }}</td>
+            <td>{{ item.getStatus }}</td>
+            <td>{{ item.getStartDate|date('Y-m-d')}}</td>
+            <td>{{ item.getEndDate|date('Y-m-d')}}</td>
+            <td>{{ item.getType }}</td>
+            <td>{{ item.getThemeId }}</td>
+        </tr>
+    {% endfor %}
+
+    </table>
+{% endblock %}

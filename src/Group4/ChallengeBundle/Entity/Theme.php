@@ -28,6 +28,13 @@ class Theme
      */
     private $name;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="approved", type="integer")
+     */
+    private $approved;
+
 
     /**
      * Get id
@@ -61,4 +68,22 @@ class Theme
     {
         return $this->name;
     }
+
+    /**
+     * @param int $approved
+     */
+    public function setApproved($approved)
+    {
+        $this->approved = $approved;
+    }
+
+    /**
+     * @return int
+     */
+    public function getApproved()
+    {
+        return $this->approved;
+    }
+
+
 }

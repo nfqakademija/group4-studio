@@ -1,6 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+<form role="form" class="form-signin col-md-4 col-xs-10" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
     {{ form_widget(form) }}
     <div>
         <input type="submit" value="{{ 'registration.submit'|trans }}" />

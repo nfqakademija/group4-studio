@@ -19,6 +19,11 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\Column{name="image_id" type="integer"}
+     */
+    protected $image_id;
+
     public function __construct()
     {
         parent::__construct();

@@ -15,6 +15,7 @@ class PostAdmin extends Admin
     {
         $formMapper
             ->add('name')
+            ->add('approved')
         ;
     }
 
@@ -24,6 +25,7 @@ class PostAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('name')
+            ->add('approved')
         ;
     }
 
@@ -33,6 +35,7 @@ class PostAdmin extends Admin
         $listMapper
             ->addIdentifier('id')
             ->add('name')
+            ->add('approved')
         ;
     }
 }

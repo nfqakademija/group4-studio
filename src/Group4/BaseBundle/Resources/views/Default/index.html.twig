@@ -5,8 +5,9 @@
     <nav class="navbar navbar-default">
         <div class="navbar-header">
             <ul class="nav navbar-nav">
+                <li><a href="/" class="navbar-brand">Title</a></li>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                    <li class="navbar-text" >{{ 'layout.logged_in_as'|trans({}, 'FOSUserBundle') }} <a  href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> </li>
                     <li>
                         <a href="{{ path('fos_user_security_logout') }}">
                             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
@@ -26,3 +27,6 @@
         </div>
     </nav>
 {% endblock navbar %}
+{% block page_header %}
+    <div></div>
+{% endblock page_header %}

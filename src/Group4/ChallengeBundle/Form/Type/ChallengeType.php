@@ -11,10 +11,8 @@ class ChallengeType extends AbstractType
     public function __construct(array $themes)
     {
         foreach($themes as $t){
-            $themeNames[]=$t->getName();
-            //$themeApproveds[]=$t->getThemeApproved;
+            $this->themeNames[]=$t->getName();
         }
-        $this->themeNames = $themeNames;
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,7 +20,7 @@ class ChallengeType extends AbstractType
         ->add('status','choice',array('choices' => array('Not started','Shooting/Uploading','Voting','Ended')))
         ->add('startDate')
         ->add('endDate')
-        ->add('type')
+        ->add('type','text')
         ->add('themeId','choice',array('choices' => array($this->themeNames),'required' => true))
         ->add('Create challenge', 'submit');
     }

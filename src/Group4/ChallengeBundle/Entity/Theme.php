@@ -28,6 +28,13 @@ class Theme
      */
     private $name;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="approved", type="boolean")
+     */
+    private $approved;
+
 
     /**
      * Get id
@@ -38,6 +45,7 @@ class Theme
     {
         return $this->id;
     }
+
 
     /**
      * Set name
@@ -61,4 +69,22 @@ class Theme
     {
         return $this->name;
     }
+
+    /**
+     * @param boolean $approved
+     */
+    public function setApproved($approved)
+    {
+        $this->approved = $approved;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getApproved()
+    {
+        return $this->approved;
+    }
+
+
 }

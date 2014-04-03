@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Group4\ChallengeBundle\Form\Type\ChallengeType;
 use Group4\ChallengeBundle\Entity\Challenge;
+use Group4\ChallengeBundle\Entity\Theme;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -23,12 +24,14 @@ class ChallengeController extends Controller
     public function newAction(Request $request)
     {
         $challenge = new Challenge();
-
-        $form = $this->createForm(new ChallengeType(), $challenge);
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Theme');
+        $themes = $repository->findAll();
+        $form = $this->createForm(new ChallengeType($themes), $challenge);
 
         $form->handleRequest($request);
-
         if ($form->isValid()) {
+            $challenge->setThemeId($themes[$challenge->getThemeId()]->getId());
+            throw $this->createNotFoundException($challenge->getThemeId());
             $em = $this->getDoctrine()->getManager();
             $em->persist($challenge);
             $em->flush();
@@ -50,8 +53,9 @@ class ChallengeController extends Controller
                 'No challenge found for id '.$id
             );
         }
-
-        $form = $this->createForm(new ChallengeType(), $challenge);
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Theme');
+        $themes = $repository->findAll();
+        $form = $this->createForm(new ChallengeType($themes), $challenge);
 
         $form->handleRequest($request);
 
@@ -71,7 +75,6 @@ class ChallengeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $challenge = $em->getRepository('ChallengeBundle:Challenge')->find($id);
-
         $em->remove($challenge);
         $em->flush();
 
@@ -83,9 +86,93 @@ class ChallengeController extends Controller
     {
         $repository = $this->getDoctrine()
             -> getRepository('ChallengeBundle:Challenge');
-
         $challenges = $repository->findAll();
+        $repository = $this->getDoctrine()
+            -> getRepository('ChallengeBundle:Theme');
 
+        foreach($challenges as $chal){
+            $theme = $repository->find($chal->getThemeId());
+
+            if(!$theme){
+                throw $this->createNotFoundException("Theme id " + $chal->getThemeId() + " not found!");
+            }
+            $themeName = $theme->getName();
+            $chal->setThemeId($themeName);
+
+            // 0 - Not started yet (disabled), 1 - Started, users uploading photos already (enabled),
+            // 2 - After all uploaded, voting started, //3 - Winners nominated, karma added, voting disabled.
+            switch($chal->getStatus()){
+                case 0:
+                    $chal->setStatus("Not started");
+                    break;
+                case 1:
+                    $chal->setStatus("Shooting/uploading");
+                    break;
+                case 2:
+                    $chal->setStatus("Voting");
+                    break;
+                case 3:
+                    $chal->setStatus("Ended");
+                    break;
+                default:
+                    $chal->setStatus("Status id " + $chal->getStatus() + " not known!");
+
+            }
+            switch($chal->getType()){
+                case 0:
+                    $chal->setType("5 min");
+                    break;
+                case 1:
+                    $chal->setType("15 min");
+                    break;
+                case 2:
+                    $chal->setType("30 min");
+                    break;
+                case 3:
+                    $chal->setType("1h");
+                    break;
+                case 4:
+                    $chal->setType("2h");
+                    break;
+                case 5:
+                    $chal->setType("5h");
+                    break;
+                case 6:
+                    $chal->setType("10h");
+                    break;
+                case 7:
+                    $chal->setType("1 day");
+                    break;
+                case 8:
+                    $chal->setType("3 day");
+                    break;
+                case 9:
+                    $chal->setType("5 day");
+                    break;
+                case 10:
+                    $chal->setType("1 week");
+                    break;
+                case 11:
+                    $chal->setType("2 week");
+                    break;
+                case 12:
+                    $chal->setType("1 month");
+                    break;
+                case 13:
+                    $chal->setType("3 month");
+                    break;
+                case 14:
+                    $chal->setType("6 month");
+                    break;
+                case 15:
+                    $chal->setType("1 year");
+                    break;
+                default:
+                    $chal->setType("Status id " + $chal->getStatus() + " not known!");
+
+            }
+
+        }
         return $this->render('ChallengeBundle:Default:challengeListAll.html.twig', array('challenges' => $challenges));
     }
 

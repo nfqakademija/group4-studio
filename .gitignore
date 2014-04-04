@@ -1,5 +1,25 @@
-/vendor/
-/app/cache/*
+# https://github.com/github/gitignore/blob/master/Symfony2.gitignore
+
+
+# Bootstrap
+app/bootstrap*
+
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+web/uploads/*
+web/bundles/*
+
+# Configuration files
+app/config/parameters.ini
 app/config/parameters.yml
+
+# Composer
 composer.phar
-/bin/
+
+#
+bin/*
+.idea/*
+composer.lock
+composer.json

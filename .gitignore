@@ -22,4 +22,3 @@ composer.phar
 bin/*
 .idea/*
 composer.lock
-composer.json

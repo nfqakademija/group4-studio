@@ -27,19 +27,22 @@ class PlayerController extends Controller
 
         if ($form->isValid()) {
             $type = $form->get('Type')->getData();
-            $cRepository = $this->getDoctrine()
+
+            $Repository = $this->getDoctrine()
                 ->getRepository('ChallengeBundle:Challenge');
-            $query = $cRepository->createQueryBuilder('p')
+
+            $query = $Repository->createQueryBuilder('p')
                 ->setParameter('status', '1')
                 ->setParameter('type', $type)
                 ->orderBy('p.date', 'ASC')
                 ->getQuery();
 
             $challenges = $query->getResult();
-            $user = $this->container->get('security.context')->getToken()->getUser();
 
-            $tRepository = $this->getDoctrine()
+            $Repository = $this->getDoctrine()
                 ->getRepository('ChallengeBundle:Theme');
+
+            $user = $this->container->get('security.context')->getToken()->getUser();
 
             if (!empty($challenges)) {
                 $playerToChallenge = new PlayerToChallenge();
@@ -52,7 +55,7 @@ class PlayerController extends Controller
                 $em->flush();
 
             } else {
-                $themes = $tRepository->listAll();
+                $themes = $Repository->listAll();
                 $challenge = new Challenge();
                 $challenge->setStatus(1);
                 $challenge->setStartDate(date("Y-m-d H:i:s"));

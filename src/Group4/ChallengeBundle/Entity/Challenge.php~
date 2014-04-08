@@ -2,6 +2,7 @@
 
 namespace Group4\ChallengeBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Challenge
 {
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PlayersToChallenge", mappedBy="challenge")
+     */
+    private $playerToChallenges;
+
+
     /**
      * @var integer
      *
@@ -160,25 +169,25 @@ class Challenge
     }
 
     /**
-     * Set theme-id
+     * Set themeId
      *
      * @param integer $themeId
      * @return Challenge
      */
     public function setThemeId($themeId)
     {
-        $this->themeid = $themeId;
+        $this->themeId = $themeId;
 
         return $this;
     }
 
     /**
-     * Get theme-id
+     * Get themeId
      *
      * @return integer 
      */
     public function getThemeId()
     {
-        return $this->theme-id;
+        return $this->themeId;
     }
 }

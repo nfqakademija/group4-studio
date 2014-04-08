@@ -70,12 +70,12 @@ class PlayerToChallenge
     }
 
     /**
-     * Set userId
+     * Set user
      *
-     * @param integer $userId
-     * @return Player
+     * @param user $userId
+     * @return PlayerToChallenge
      */
-    public function setUserId($userId)
+    public function setUser($userId)
     {
         $this->userId = $userId;
 
@@ -85,41 +85,18 @@ class PlayerToChallenge
     /**
      * Get userId
      *
-     * @return integer 
+     * @return user
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
-    }
-
-    /**
-     * Set eventId
-     *
-     * @param integer $eventId
-     * @return Player
-     */
-    public function setEventId($eventId)
-    {
-        $this->eventId = $eventId;
-
-        return $this;
-    }
-
-    /**
-     * Get eventId
-     *
-     * @return integer 
-     */
-    public function getEventId()
-    {
-        return $this->eventId;
+        return $this->user;
     }
 
     /**
      * Set status
      *
      * @param string $status
-     * @return Player
+     * @return PlayerToChallenge
      */
     public function setStatus($status)
     {
@@ -131,7 +108,7 @@ class PlayerToChallenge
     /**
      * Get status
      *
-     * @return string 
+     * @return integer
      */
     public function getStatus()
     {
@@ -142,7 +119,7 @@ class PlayerToChallenge
      * Set date
      *
      * @param \DateTime $date
-     * @return Player
+     * @return PlayerToChallenge
      */
     public function setDate($date)
     {
@@ -161,30 +138,6 @@ class PlayerToChallenge
         return $this->date;
     }
 
-
-    /**
-     * Set user
-     *
-     * @param integer $user
-     * @return PlayerToChallenge
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return integer 
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
     /**
      * Set challenge
      *
@@ -201,7 +154,7 @@ class PlayerToChallenge
     /**
      * Get challenge
      *
-     * @return integer 
+     * @return challenge
      */
     public function getChallenge()
     {

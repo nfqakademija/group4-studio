@@ -3,6 +3,7 @@
 namespace Group4\ChallengeBundle\Controller;
 
 
+use Group4\ChallengeBundle\Entity\PlayerToChallenge;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Group4\ChallengeBundle\Entity\Challenge;
@@ -26,12 +27,30 @@ class PlayerController extends Controller
 
         if ($form->isValid()) {
             $type = $form->get('Type')->getData();
-            $cRepository = $this->getDoctrine()->getRepository('ChallengeBundle:Challenge');
-            $challenges = $cRepository->getByStatus(1);
-            $tRepository = $this->getDoctrine()->getRepository('ChallengeBundle:Theme');
+            $cRepository = $this->getDoctrine()
+                ->getRepository('ChallengeBundle:Challenge');
+            $query = $cRepository->createQueryBuilder('p')
+                ->setParameter('status', '1')
+                ->setParameter('type', $type)
+                ->orderBy('p.date', 'ASC')
+                ->getQuery();
+
+            $challenges = $query->getResult();
+            $user = $this->container->get('security.context')->getToken()->getUser();
+
+            $tRepository = $this->getDoctrine()
+                ->getRepository('ChallengeBundle:Theme');
 
             if (!empty($challenges)) {
-                //TODO: function to join da challenge
+                $playerToChallenge = new PlayerToChallenge();
+                $playerToChallenge->setStatus(0)
+                    ->setUser($user)
+                    ->setDate(date("Y-m-d H:i:s"))
+                    ->setChallenge($challenges[0]);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($playerToChallenge);
+                $em->flush();
+
             } else {
                 $themes = $tRepository->listAll();
                 $challenge = new Challenge();
@@ -39,12 +58,20 @@ class PlayerController extends Controller
                 $challenge->setStartDate(date("Y-m-d H:i:s"));
                 $challenge->setEndDate(date("Y-m-d H:i:s", strtotime("+2 days")));
                 $challenge->setThemeId(rand(1,count($themes)));
+                $challenge->setType($type);
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($challenge);
                 $em->flush();
 
+                $playerToChallenge = new PlayerToChallenge();
+                $playerToChallenge->setStatus(0)
+                    ->setUser($user)
+                    ->setDate(date("Y-m-d H:i:s"))
+                    ->setChallenge($challenge);
 
+                $em->persist($playerToChallenge);
+                $em->flush();
             }
         }
 

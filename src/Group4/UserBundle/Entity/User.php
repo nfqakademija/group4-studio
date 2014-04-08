@@ -20,6 +20,8 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var integer
+     *
      * @ORM\Column(name="image_id", type="integer", nullable=true)
      */
     protected $imageId;

@@ -6,6 +6,10 @@ base:
     pattern: /
     defaults: { _controller: BaseBundle:Base:index }
 
+baseRoutes:
+    prefix: /
+    resource: "@BaseBundle/Resources/config/routing.yml"
+
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /

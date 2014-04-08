@@ -98,6 +98,4 @@ class ChallengeController extends Controller
         return $this->render('ChallengeBundle:Default:challengeAdmin.html.twig');
     }
 
-
-
 }

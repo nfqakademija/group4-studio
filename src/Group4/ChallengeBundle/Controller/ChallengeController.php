@@ -4,10 +4,8 @@ namespace Group4\ChallengeBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Group4\ChallengeBundle\Form\Type\ChallengeType;
 use Group4\ChallengeBundle\Entity\Challenge;
-use Group4\ChallengeBundle\Entity\Theme;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -19,6 +17,17 @@ class ChallengeController extends Controller
     public function indexAction()
     {
         return $this->render('ChallengeBundle:Default:index.html.twig');
+    }
+
+    public function getPlayerAmountAction($challengeId)
+    {
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
+        $playersToChallenge = $repository->findBy(array('challengeId' => $challengeId));
+        return sizeof($playersToChallenge);
+    }
+
+    public function isMoreOrEqualThanMinimumAmountOfPlayersMinusOneAction($challengeId,$min){
+        return getPlayerAmountAction($challengeId)>=$min-1 ? true : false;
     }
 
     public function newAction(Request $request)
@@ -105,10 +114,10 @@ class ChallengeController extends Controller
         $repository = $this->getDoctrine()
             -> getRepository('ChallengeBundle:Challenge');
         $challenges = $repository->findAll();
-        $repository = $this->getDoctrine()
-            -> getRepository('ChallengeBundle:Theme');
 
         foreach($challenges as $chal){
+            $repository = $this->getDoctrine()
+                -> getRepository('ChallengeBundle:Theme');
             $theme = $repository->find($chal->getThemeId());
 
             if(!$theme){
@@ -119,7 +128,7 @@ class ChallengeController extends Controller
             $chal->setThemeId($themeName);
 
             // 0 - Not started yet (disabled), 1 - Started, users uploading photos already (enabled),
-            // 2 - After all uploaded, voting started, //3 - Winners nominated, karma added, voting disabled.
+            // 2 - After all uploaded, voting started, //3 - Winners nominated, points added, voting disabled.
             switch($chal->getStatus()){
                 case 0:
                     $chal->setStatus("Not started");

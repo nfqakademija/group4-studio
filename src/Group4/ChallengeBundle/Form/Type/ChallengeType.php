@@ -6,14 +6,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ChallengeType extends AbstractType
 {
+    private $themeIds;
+    private $themeNames;
+    public function __construct(array $themes)
+    {
+        foreach($themes as $t){
+            $this->themeNames[]=$t->getName();
+        }
+    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('status')
+        ->add('status','choice',array('choices' => array('Not started','Shooting/Uploading','Voting','Ended')))
         ->add('startDate')
         ->add('endDate')
-        ->add('type')
-        ->add('themeId')
+        ->add('type','text')
+        ->add('themeId','choice',array('choices' => array($this->themeNames),'required' => true))
         ->add('Create challenge', 'submit');
     }
 

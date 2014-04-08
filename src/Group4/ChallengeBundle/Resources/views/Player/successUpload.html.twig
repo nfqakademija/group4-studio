@@ -1,0 +1,6 @@
+{% extends 'BaseBundle:Default:index.html.twig' %}
+
+{% block content %}
+    <h2>Photo upload completed successfully!</h2>
+    <img src="{{ vich_uploader_asset(photo, 'image') }}" alt="" />
+{% endblock %}

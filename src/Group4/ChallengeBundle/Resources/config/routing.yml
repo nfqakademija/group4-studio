@@ -49,3 +49,7 @@ challenge_edit:
 challenge_delete:
     pattern: /challenge/delete/{id}
     defaults: { _controller: ChallengeBundle:Challenge:delete }
+
+player_photo_upload:
+    pattern: /challenge/upload
+    defaults: { _controller: ChallengeBundle:Player:upload }

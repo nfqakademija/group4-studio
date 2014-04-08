@@ -85,3 +85,25 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts:   [admin]
         # Your other blocks
+
+knp_gaufrette:
+    stream_wrapper: ~
+
+    adapters:
+        challenge_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/images/challenge
+
+    filesystems:
+        players_challenge_image_fs:
+            adapter:    challenge_adapter
+
+vich_uploader:
+    db_driver: orm # or mongodb or propel
+    gaufrette: true
+    storage: vich_uploader.storage.gaufrette
+    mappings:
+            players_challenge_image:
+                uri_prefix:         /images/challenge
+                upload_destination: players_challenge_image_fs
+                namer:              vich_uploader.namer_uniqid

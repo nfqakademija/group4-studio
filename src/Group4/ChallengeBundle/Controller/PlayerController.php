@@ -21,60 +21,67 @@ class PlayerController extends Controller
                 'required'  => true,
             ))
             ->add('Start Challenge', 'submit')
+            ->setAction($this->generateUrl("challenge_me"))
             ->getForm();
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $type = $form->get('Type')->getData();
+        if ('POST' === $request->getMethod()) {
+            if ($form->isValid()) {
+                $type = $form->get('Type')->getData();
 
-            $Repository = $this->getDoctrine()
-                ->getRepository('ChallengeBundle:Challenge');
+                $repository = $this->getDoctrine()
+                    ->getRepository('ChallengeBundle:Challenge');
 
-            $query = $Repository->createQueryBuilder('p')
-                ->setParameter('status', '1')
-                ->setParameter('type', $type)
-                ->orderBy('p.date', 'ASC')
-                ->getQuery();
+                $query = $repository->createQueryBuilder('p')
+                    ->where('p.status = :status AND p.type = :type')
+                    ->setParameter('status','1')
+                    ->setParameter('type', $type)
+                    ->orderBy('p.startDate', 'DESC')
+                    ->getQuery();
 
-            $challenges = $query->getResult();
+                $challenges = array();
+                $challenges = $query->getResult();
 
-            $Repository = $this->getDoctrine()
-                ->getRepository('ChallengeBundle:Theme');
+                $repository = $this->getDoctrine()
+                    ->getRepository('ChallengeBundle:Theme');
 
-            $user = $this->container->get('security.context')->getToken()->getUser();
+                $user = $this->container->get('security.context')->getToken()->getUser();
 
-            if (!empty($challenges)) {
-                $playerToChallenge = new PlayerToChallenge();
-                $playerToChallenge->setStatus(0)
-                    ->setUser($user)
-                    ->setDate(date("Y-m-d H:i:s"))
-                    ->setChallenge($challenges[0]);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($playerToChallenge);
-                $em->flush();
+                if (isset($challenges)) {
+                    $playerToChallenge = new PlayerToChallenge();
+                    $playerToChallenge->setStatus(0)
+                        ->setUser($user)
+                        ->setDate(new \DateTime("now"))
+                        ->setChallenge($challenges[0]);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($playerToChallenge);
+                    $em->flush();
 
-            } else {
-                $themes = $Repository->listAll();
-                $challenge = new Challenge();
-                $challenge->setStatus(1);
-                $challenge->setStartDate(date("Y-m-d H:i:s"));
-                $challenge->setEndDate(date("Y-m-d H:i:s", strtotime("+2 days")));
-                $challenge->setThemeId(rand(1,count($themes)));
-                $challenge->setType($type);
+                } else {
+                    $themes = array();
+                    $themes = $repository->findByApproved(true);
+                    $challenge = new Challenge();
+                    $challenge->setStatus(1);
+                    $date = new \DateTime("now");
+                    $challenge->setStartDate($date);
+                    $challenge->setEndDate($date->modify("+2 days"));
+                    $challenge->setThemeId($themes[rand(1,count($themes))]->getId());
+                    $challenge->setType($type);
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($challenge);
-                $em->flush();
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($challenge);
+                    $em->flush();
 
-                $playerToChallenge = new PlayerToChallenge();
-                $playerToChallenge->setStatus(0)
-                    ->setUser($user)
-                    ->setDate(date("Y-m-d H:i:s"))
-                    ->setChallenge($challenge);
+                    $playerToChallenge = new PlayerToChallenge();
+                    $playerToChallenge->setStatus(0)
+                        ->setUser($user)
+                        ->setDate(new \DateTime("now"))
+                        ->setChallenge($challenge);
 
-                $em->persist($playerToChallenge);
-                $em->flush();
+                    $em->persist($playerToChallenge);
+                    $em->flush();
+                }
             }
         }
 

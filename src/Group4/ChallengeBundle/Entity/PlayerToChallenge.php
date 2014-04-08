@@ -26,7 +26,7 @@ class PlayerToChallenge
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="Group4\UserBundle\Entity\User", inversedBy="playerToChallenges")
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
@@ -34,7 +34,7 @@ class PlayerToChallenge
      * @var Challenge
      *
      * @ORM\ManyToOne(targetEntity="Group4\ChallengeBundle\Entity\Challenge", inversedBy="playerToChallenges")
-     * @ORM\Column(name="challenge_id", type="integer")
+     * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
      */
     private $challenge;
 
@@ -55,7 +55,7 @@ class PlayerToChallenge
     /**
      * @var integer
      *
-     * @ORM\Column(name="image_id", type="integer")
+     * @ORM\Column(name="image_id", type="integer", nullable=true)
      */
     private $image;
 
@@ -72,12 +72,12 @@ class PlayerToChallenge
     /**
      * Set user
      *
-     * @param user $userId
+     * @param user $user
      * @return PlayerToChallenge
      */
-    public function setUser($userId)
+    public function setUser($user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -95,7 +95,7 @@ class PlayerToChallenge
     /**
      * Set status
      *
-     * @param string $status
+     * @param Integer $status
      * @return PlayerToChallenge
      */
     public function setStatus($status)
@@ -131,7 +131,7 @@ class PlayerToChallenge
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -141,7 +141,7 @@ class PlayerToChallenge
     /**
      * Set challenge
      *
-     * @param integer $challenge
+     * @param Challenge $challenge
      * @return PlayerToChallenge
      */
     public function setChallenge($challenge)

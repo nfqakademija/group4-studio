@@ -65,6 +65,10 @@ class Challenge
      */
     private $themeId;
 
+    public function __construct()
+    {
+        $this->playerToChallenges = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -138,7 +142,7 @@ class Challenge
     /**
      * Get endDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEndDate()
     {
@@ -189,13 +193,6 @@ class Challenge
     public function getThemeId()
     {
         return $this->themeId;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->playerToChallenges = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

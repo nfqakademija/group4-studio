@@ -1,3 +1,0 @@
-challenge_me:
-    defaults: { _controller: ChallengeBundle:Player:JoinChallenge }
-    pattern: /challenge/participate

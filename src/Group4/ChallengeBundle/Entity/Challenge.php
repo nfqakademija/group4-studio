@@ -2,6 +2,7 @@
 
 namespace Group4\ChallengeBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Challenge
 {
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Group4\ChallengeBundle\Entity\PlayerToChallenge", mappedBy="challenge")
+     */
+    private $playerToChallenges;
+
+
     /**
      * @var integer
      *
@@ -180,5 +189,45 @@ class Challenge
     public function getThemeId()
     {
         return $this->themeId;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->playerToChallenges = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add playerToChallenges
+     *
+     * @param \Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges
+     * @return Challenge
+     */
+    public function addPlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges)
+    {
+        $this->playerToChallenges[] = $playerToChallenges;
+
+        return $this;
+    }
+
+    /**
+     * Remove playerToChallenges
+     *
+     * @param \Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges
+     */
+    public function removePlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges)
+    {
+        $this->playerToChallenges->removeElement($playerToChallenges);
+    }
+
+    /**
+     * Get playerToChallenges
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPlayerToChallenges()
+    {
+        return $this->playerToChallenges;
     }
 }

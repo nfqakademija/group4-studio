@@ -25,13 +25,15 @@ class PlayerToChallenge
     /**
      * @var User
      *
-     * @ORM\Column(name="user_id", type="integer", )
+     * @ORM\ManyToOne(targetEntity="Group4\UserBundle\Entity\User", inversedBy="playerToChallenges")
+     * @ORM\Column(name="user_id", type="integer")
      */
     private $user;
 
     /**
      * @var Challenge
      *
+     * @ORM\ManyToOne(targetEntity="Group4\ChallengeBundle\Entity\Challenge", inversedBy="playerToChallenges")
      * @ORM\Column(name="challenge_id", type="integer")
      */
     private $challenge;
@@ -51,11 +53,11 @@ class PlayerToChallenge
     private $date;
 
     /**
-     * @var \integer
+     * @var integer
      *
      * @ORM\Column(name="image_id", type="integer")
      */
-    private $imageId;
+    private $image;
 
     /**
      * Get id
@@ -159,4 +161,73 @@ class PlayerToChallenge
         return $this->date;
     }
 
+
+    /**
+     * Set user
+     *
+     * @param integer $user
+     * @return PlayerToChallenge
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return integer 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set challenge
+     *
+     * @param integer $challenge
+     * @return PlayerToChallenge
+     */
+    public function setChallenge($challenge)
+    {
+        $this->challenge = $challenge;
+
+        return $this;
+    }
+
+    /**
+     * Get challenge
+     *
+     * @return integer 
+     */
+    public function getChallenge()
+    {
+        return $this->challenge;
+    }
+
+    /**
+     * Set image
+     *
+     * @param integer $image
+     * @return PlayerToChallenge
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return integer 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
 }

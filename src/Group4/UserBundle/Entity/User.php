@@ -3,6 +3,7 @@
 
 namespace Group4\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,6 +19,13 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Group4\ChallengeBundle\Entity\PlayerToChallenge", mappedBy="user")
+     */
+    private $playerToChallenges;
 
     /**
      * @var integer

@@ -2,6 +2,7 @@
 
 namespace Group4\ChallengeBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Group4\UserBundle\Entity\User;
 
@@ -37,6 +38,13 @@ class PlayerToChallenge
      * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
      */
     private $challenge;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Vote", mappedBy="playerToChallenge")
+     */
+    private $votes;
 
     /**
      * @var integer
@@ -212,5 +220,45 @@ class PlayerToChallenge
     public function getPlace()
     {
         return $this->place;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->votes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add votes
+     *
+     * @param \Group4\ChallengeBundle\Entity\Votes $votes
+     * @return PlayerToChallenge
+     */
+    public function addVote(\Group4\ChallengeBundle\Entity\Votes $votes)
+    {
+        $this->votes[] = $votes;
+
+        return $this;
+    }
+
+    /**
+     * Remove votes
+     *
+     * @param \Group4\ChallengeBundle\Entity\Votes $votes
+     */
+    public function removeVote(\Group4\ChallengeBundle\Entity\Votes $votes)
+    {
+        $this->votes->removeElement($votes);
+    }
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

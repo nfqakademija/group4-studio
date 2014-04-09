@@ -16,7 +16,7 @@ class Challenge
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="PlayersToChallenge", mappedBy="challenge")
+     * @ORM\OneToMany(targetEntity="PlayerToChallenge", mappedBy="challenge")
      */
     private $playerToChallenges;
 
@@ -65,6 +65,10 @@ class Challenge
      */
     private $themeId;
 
+    public function __construct()
+    {
+        $this->playerToChallenges = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -138,7 +142,7 @@ class Challenge
     /**
      * Get endDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEndDate()
     {
@@ -189,5 +193,38 @@ class Challenge
     public function getThemeId()
     {
         return $this->themeId;
+    }
+
+    /**
+     * Add playerToChallenges
+     *
+     * @param \Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges
+     * @return Challenge
+     */
+    public function addPlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges)
+    {
+        $this->playerToChallenges[] = $playerToChallenges;
+
+        return $this;
+    }
+
+    /**
+     * Remove playerToChallenges
+     *
+     * @param \Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges
+     */
+    public function removePlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges)
+    {
+        $this->playerToChallenges->removeElement($playerToChallenges);
+    }
+
+    /**
+     * Get playerToChallenges
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPlayerToChallenges()
+    {
+        return $this->playerToChallenges;
     }
 }

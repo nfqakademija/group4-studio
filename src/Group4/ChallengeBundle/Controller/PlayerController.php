@@ -14,7 +14,7 @@ class PlayerController extends Controller
 {
     public function JoinChallengeFormAction(Request $request)
     {
-
+        //TODO: Perkelti i entity
         $form = $this->createFormBuilder()
             ->add('Type', 'choice', array(
                 'choices'   => array('1' => '5 minutes', '2' => '15 minutes'),
@@ -48,7 +48,7 @@ class PlayerController extends Controller
 
                 $user = $this->container->get('security.context')->getToken()->getUser();
 
-                if (isset($challenges)) {
+                if (!empty($challenges)) {
                     $playerToChallenge = new PlayerToChallenge();
                     $playerToChallenge->setStatus(0)
                         ->setUser($user)
@@ -66,7 +66,7 @@ class PlayerController extends Controller
                     $date = new \DateTime("now");
                     $challenge->setStartDate($date);
                     $challenge->setEndDate($date->modify("+2 days"));
-                    $challenge->setThemeId($themes[rand(1,count($themes))]->getId());
+                    $challenge->setThemeId($themes[rand(0,count($themes)-1)]->getId());
                     $challenge->setType($type);
 
                     $em = $this->getDoctrine()->getManager();

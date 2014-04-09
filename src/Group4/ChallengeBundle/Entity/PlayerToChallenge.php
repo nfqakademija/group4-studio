@@ -59,6 +59,12 @@ class PlayerToChallenge
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
      */
     private $image;
+    /**
+     * @var Integer
+     *
+     * @ORM\Column(name="place", type="integer", nullable=true)
+     */
+    private $place;
 
     /**
      * Get id
@@ -165,7 +171,7 @@ class PlayerToChallenge
     /**
      * Set image
      *
-     * @param integer $image
+     * @param Photo $image
      * @return PlayerToChallenge
      */
     public function setImage($image)
@@ -178,10 +184,33 @@ class PlayerToChallenge
     /**
      * Get image
      *
-     * @return integer 
+     * @return Photo
      */
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Set place
+     *
+     * @param integer $place
+     * @return PlayerToChallenge
+     */
+    public function setPlace($place)
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
+    /**
+     * Get place
+     *
+     * @return integer 
+     */
+    public function getPlace()
+    {
+        return $this->place;
     }
 }

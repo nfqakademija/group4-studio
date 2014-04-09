@@ -133,4 +133,27 @@ class Photo
     {
         return $this->userId;
     }
+
+    /**
+     * Set playerToChallenges
+     *
+     * @param \Group4\ChallengeBundle\Entity\PlayerToChallenge $playerToChallenges
+     * @return Photo
+     */
+    public function setPlayerToChallenges(\Group4\ChallengeBundle\Entity\PlayerToChallenge $playerToChallenges = null)
+    {
+        $this->playerToChallenges = $playerToChallenges;
+
+        return $this;
+    }
+
+    /**
+     * Get playerToChallenges
+     *
+     * @return \Group4\ChallengeBundle\Entity\PlayerToChallenge 
+     */
+    public function getPlayerToChallenges()
+    {
+        return $this->playerToChallenges;
+    }
 }

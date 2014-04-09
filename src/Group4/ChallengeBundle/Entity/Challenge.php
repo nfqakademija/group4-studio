@@ -16,7 +16,7 @@ class Challenge
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Group4\ChallengeBundle\Entity\PlayerToChallenge", mappedBy="challenge")
+     * @ORM\OneToMany(targetEntity="PlayerToChallenge", mappedBy="challenge")
      */
     private $playerToChallenges;
 

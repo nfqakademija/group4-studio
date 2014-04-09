@@ -2,6 +2,7 @@
 
 namespace Group4\ChallengeBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -36,6 +37,12 @@ class Photo
      */
     private $image;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToOne(targetEntity="PlayerToChallenge", mappedBy="image")
+     */
+    private $playerToChallenges;
 
     /**
      * @ORM\Column(type="string", length=255, name="image_name")

@@ -33,7 +33,7 @@ class PlayerToChallenge
     /**
      * @var Challenge
      *
-     * @ORM\ManyToOne(targetEntity="Group4\ChallengeBundle\Entity\Challenge", inversedBy="playerToChallenges")
+     * @ORM\ManyToOne(targetEntity="Challenge", inversedBy="playerToChallenges")
      * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
      */
     private $challenge;
@@ -53,9 +53,10 @@ class PlayerToChallenge
     private $date;
 
     /**
-     * @var integer
+     * @var Photo
      *
-     * @ORM\Column(name="image_id", type="integer", nullable=true)
+     * @ORM\OneToOne(targetEntity="Photo", inversedBy="playerToChallenges")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
      */
     private $image;
 

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Group4\ChallengeBundle\Entity\Challenge;
 use Group4\ChallengeBundle\Form\Type\UploadFormType;
 use Group4\ChallengeBundle\Entity\Photo;
+use Group4\ChallengeBundle\Controller\ChallengeController;
 
 const PHOTO_WIDTH = 500;
 
@@ -49,20 +50,31 @@ class PlayerController extends Controller
                     ->getRepository('ChallengeBundle:Theme');
 
                 $user = $this->container->get('security.context')->getToken()->getUser();
+                $challengeController = new ChallengeController();
 
+                $thereAreSomeFreeRooms = false;
+                $repository2 = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
                 if (!empty($challenges)) {
-                    $playerToChallenge = new PlayerToChallenge();
-                    $playerToChallenge->setStatus(0)
-                        ->setUser($user)
-                        ->setDate(new \DateTime("now"))
-                        ->setChallenge($challenges[0]);
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($playerToChallenge);
-                    $em->flush();
+                    foreach($challenges as $chal){
+                        if($challengeController->isNotFull($chal->getId(),10,$repository2)){
+                            $thereAreSomeFreeRooms=true;
 
-                    $eventId = $challenges[0]->getId();
+                            $playerToChallenge = new PlayerToChallenge();
+                            $playerToChallenge->setStatus(0)
+                            ->setUser($user)
+                            ->setDate(new \DateTime("now"))
+                            ->setChallenge($chal);
+                            $em = $this->getDoctrine()->getManager();
+                            $em->persist($playerToChallenge);
+                            $em->flush();
 
-                } else {
+                            $eventId = $chal->getId();
+                            break;
+                        }
+                    }
+                }
+
+                if(!$thereAreSomeFreeRooms){
                     $themes = array();
                     $themes = $repository->findByApproved(true);
                     $challenge = new Challenge();

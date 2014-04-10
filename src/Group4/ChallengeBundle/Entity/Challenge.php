@@ -47,6 +47,13 @@ class Challenge
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="voteDate", type="datetime", nullable=true)
+     */
+    private $voteDate;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="endDate", type="datetime")
      */
     private $endDate;

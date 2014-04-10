@@ -198,10 +198,10 @@ class Challenge
     /**
      * Add playerToChallenges
      *
-     * @param \Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges
+     * @param \Group4\ChallengeBundle\Entity\PlayerToChallenge $playerToChallenges
      * @return Challenge
      */
-    public function addPlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges)
+    public function addPlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayerToChallenge $playerToChallenges)
     {
         $this->playerToChallenges[] = $playerToChallenges;
 
@@ -211,9 +211,9 @@ class Challenge
     /**
      * Remove playerToChallenges
      *
-     * @param \Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges
+     * @param \Group4\ChallengeBundle\Entity\PlayerToChallenge $playerToChallenges
      */
-    public function removePlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges)
+    public function removePlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayerToChallenge $playerToChallenges)
     {
         $this->playerToChallenges->removeElement($playerToChallenges);
     }

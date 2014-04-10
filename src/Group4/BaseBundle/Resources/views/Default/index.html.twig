@@ -1,33 +1,47 @@
 {% extends "MopaBootstrapBundle::base_less.html.twig" %}
+{% block head_style %}
+    <link href="//fonts.googleapis.com/css?family=Archivo+Narrow:400italic,400,700italic,700" rel="stylesheet" type="text/css">
+    {{ asset('BaseBundle/') }}
+{% endblock head_style %}
 {% block title %}Photo Challenge!{% endblock title %}
 {% block navbar %}
 
     <nav class="navbar navbar-default">
-        <div class="navbar-header">
-            <ul class="nav navbar-nav">
-                <li><a href="/" class="navbar-brand">Title</a></li>
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <li class="navbar-text" >{{ 'layout.logged_in_as'|trans({}, 'FOSUserBundle') }} <a  href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> </li>
-                    <li>
-                        <a href="{{ path('fos_user_security_logout') }}">
-                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                        </a>
-                    </li>
-                    <li><a href="#"> Challenge me !</a></li>
-                    <li>{{ render(controller('ChallengeBundle:Player:joinChallengeForm')) }}</li>
+        <ul class="nav navbar-nav navbar-left">
+            <li><a href="/" class="navbar-brand">Title</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li><a href="#"> Challenge me !</a></li>
+                <li>{{ render(controller('ChallengeBundle:Player:joinChallengeForm')) }}</li>
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li class="dropdown">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown">{{ app.user.username }}<b class="caret"></b></a>
+                    <ul class="dropdown-menu dropdown-features">
+                        <li><a href="#">Dayum</a></li>
+                        <li>damn</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                    </a>
+                </li>
 
-                {% else %}
-                    <li>
-                        <a href="{{ path('fos_user_registration_register') }}">
-                            {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
+            {% else %}
+                <li>
+                    <a href="{{ path('fos_user_registration_register') }}">
+                        {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                </li>
+            {% endif %}
+        </ul>
     </nav>
 {% endblock navbar %}
 {% block page_header %}

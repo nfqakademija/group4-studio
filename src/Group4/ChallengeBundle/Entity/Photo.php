@@ -4,6 +4,7 @@ namespace Group4\ChallengeBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Group4\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -52,11 +53,12 @@ class Photo
     protected $imageName;
 
     /**
-     * @var integer
+     * @var User
      *
-     * @ORM\Column(name="userId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Group4\UserBundle\Entity\User", inversedBy="photos")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $userId;
+    private $user;
 
 
     /**

@@ -99,7 +99,7 @@ class PlayerController extends Controller
             if($form->isValid()) {
 
                 $em = $this->getDoctrine()->getManager();
-                $photo->setUserId($this->getUser()->getId());
+                $photo->setUserId($this->container->get('security.context')->getToken()->getUser()->getId());
                 $em->persist($photo);
                 $em->flush();
 

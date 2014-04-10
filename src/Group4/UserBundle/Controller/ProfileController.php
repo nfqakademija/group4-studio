@@ -16,18 +16,23 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
+use Group4\ChallengeBundle\Entity\Photo;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Group4\ChallengeBundle\Form\Type\UploadFormType;
+
+
 
 /**
  * Controller managing the user profile
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class ProfileController extends ContainerAware
+class ProfileController extends Controller
 {
     /**
      * Show the user
@@ -54,6 +59,33 @@ class ProfileController extends ContainerAware
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:showUser.html.'.$this->container->getParameter('fos_user.template.engine'), array('user' => $user));
     }
 
+    public function editPhotoAction(Request $request) {
+        $photo = new Photo();
+        $form = $this->createForm(new UploadFormType(), $photo);
+        $form->setAction($this->generateUrl());
+        if('POST' === $request->getMethod()) {
+            $form->bind($request);
+
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $photo->setUserId($this->container->get('security.context')->getToken()->getUser()->getId());
+                $em->persist($photo);
+                $em->flush();
+
+                return $this->container->get('templating')->renderResponse(
+                    'FOSUserBundle:Profile:editUpload.html.'.$this->container->getParameter('fos_user.template.engine'),
+                    array('form' => $form->createView())
+                );
+            }
+
+        }
+
+        return $this->container->get('templating')->renderResponse(
+            'FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'),
+            array('form' => $form->createView())
+        );
+    }
+
     /**
      * Edit the user
      */
@@ -76,12 +108,11 @@ class ProfileController extends ContainerAware
 
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('fos_user.profile.form.factory');
-
         $form = $formFactory->createForm();
         $form->setData($user);
 
         if ('POST' === $request->getMethod()) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */

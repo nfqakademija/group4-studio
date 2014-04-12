@@ -234,4 +234,28 @@ class Challenge
     {
         return $this->playerToChallenges;
     }
+
+    /**
+     * Get voteDate
+     *
+     * @return \DateTime
+     */
+    public function getVoteDate()
+    {
+        return $this->voteDate;
+    }
+
+    /**
+     * Set voteDate
+     *
+     * @param \DateTime $voteDate
+     * @return Challenge
+     */
+    public function setVoteDate($voteDate)
+    {
+        $this->voteDate = $voteDate;
+
+        return $this;
+    }
+
 }

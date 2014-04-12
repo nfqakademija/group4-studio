@@ -12,6 +12,10 @@ use Group4\ChallengeBundle\Entity\Photo;
 use Group4\ChallengeBundle\Controller\ChallengeController;
 
 const PHOTO_WIDTH = 500;
+const PLAYERS_MIN = 3;
+const PLAYERS_MAX = 10;
+const VOTE_DATE_AFTER_DAYS = 1;
+const END_DATE_AFTER_DAYS = 2;
 
 class PlayerController extends Controller
 {
@@ -37,17 +41,16 @@ class PlayerController extends Controller
                     ->getRepository('ChallengeBundle:Challenge');
 
                 $query = $repository->createQueryBuilder('p')
-                    ->where('p.status = :status AND p.type = :type')
+                    ->where('p.status = :status AND p.type = :type AND :now BETWEEN p.startDate AND p.endDate')
                     ->setParameter('status','1')
                     ->setParameter('type', $type)
-                    ->orderBy('p.startDate', 'DESC')
+                    ->setParameter('now', new \DateTime('now'))
+                    ->orderBy('p.startDate', 'ASC')
                     ->getQuery();
 
-                $challenges = array();
                 $challenges = $query->getResult();
 
-                $repository = $this->getDoctrine()
-                    ->getRepository('ChallengeBundle:Theme');
+
 
                 $user = $this->container->get('security.context')->getToken()->getUser();
                 $challengeController = new ChallengeController();
@@ -56,32 +59,48 @@ class PlayerController extends Controller
                 $repository2 = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
                 if (!empty($challenges)) {
                     foreach($challenges as $chal){
-                        if($challengeController->isNotFull($chal->getId(),10,$repository2)){
-                            $thereAreSomeFreeRooms=true;
+                        $now = new \DateTime("now");
+                        if($now < $chal->getVoteDate() || is_null($chal->getVoteDate())){  //TODO: substract status time from now
 
-                            $playerToChallenge = new PlayerToChallenge();
-                            $playerToChallenge->setStatus(0)
-                            ->setUser($user)
-                            ->setDate(new \DateTime("now"))
-                            ->setChallenge($chal);
-                            $em = $this->getDoctrine()->getManager();
-                            $em->persist($playerToChallenge);
-                            $em->flush();
 
-                            $eventId = $chal->getId();
-                            break;
+                            if($challengeController->isNotFull($chal->getId(),PLAYERS_MAX,$repository2)){
+                                $thereAreSomeFreeRooms=true;
+                                if($challengeController->isAlmostMinPlayers($chal->getId(),PLAYERS_MIN,$repository2)){
+                                    $voteDate = new \DateTime("now");
+                                    $voteDate->modify("+".VOTE_DATE_AFTER_DAYS." days");
+                                    $chal->setVoteDate($voteDate);
+                                    $em = $this->getDoctrine()->getManager();
+                                    $em->persist($chal);
+                                    $em->flush();
+                                }
+
+                                $playerToChallenge = new PlayerToChallenge();
+                                $playerToChallenge->setStatus(0)
+                                ->setUser($user)
+                                ->setDate(new \DateTime("now"))
+                                ->setChallenge($chal);
+                                $em = $this->getDoctrine()->getManager();
+                                $em->persist($playerToChallenge);
+                                $em->flush();
+
+                                $eventId = $chal->getId();
+                                break;
+
+                            }
                         }
                     }
                 }
 
                 if(!$thereAreSomeFreeRooms){
-                    $themes = array();
+                    $repository = $this->getDoctrine()
+                        ->getRepository('ChallengeBundle:Theme');
                     $themes = $repository->findByApproved(true);
                     $challenge = new Challenge();
                     $challenge->setStatus(1);
                     $date = new \DateTime("now");
+                    $date2 = new \DateTime('now + '.END_DATE_AFTER_DAYS.' days');
                     $challenge->setStartDate($date);
-                    $challenge->setEndDate($date->modify("+2 days"));
+                    $challenge->setEndDate($date2);
                     $challenge->setThemeId($themes[rand(0,count($themes)-1)]->getId());
                     $challenge->setType($type);
 

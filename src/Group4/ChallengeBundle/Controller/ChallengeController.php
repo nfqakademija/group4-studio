@@ -21,19 +21,16 @@ class ChallengeController extends Controller
 
     public function getPlayerAmount($challengeId,$repository)
     {
-        //$repository = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
-        
         $playersToChallenge = $repository->findBy(array('challenge' => $challengeId));
         return count($playersToChallenge);
     }
 
-    public function isMoreOrEqualThanMinimumAmountOfPlayersMinusOne($challengeId,$min,$repository){
-        return $this->getPlayerAmount($challengeId,$repository)>=$min-1 ? true : false;
+    public function isAlmostMinPlayers($challengeId,$min,$repository){
+        return $this->getPlayerAmount($challengeId,$repository)==$min-1 ? true : false;
     }
 
     public function isNotFull($challengeId,$max,$repository){
-        $this->getPlayerAmount($challengeId,$repository);
-        //return $this->getPlayerAmountAction($challengeId)<$max ? true : false;
+        return $this->getPlayerAmount($challengeId,$repository)<$max ? true : false;
     }
     public function newAction(Request $request)
     {

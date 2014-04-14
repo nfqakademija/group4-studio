@@ -2,6 +2,7 @@
 
 namespace Group4\ChallengeBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +13,60 @@ use Doctrine\ORM\EntityRepository;
  */
 class ChallengeRepository extends EntityRepository
 {
+    /**
+     * @param int $type
+     * @param boolean $full
+     * @return ArrayCollection|Challenge[]
+     */
+    public function getActiveChallenges($type = 1, $full = false)
+    {
+        $query = $this->getEntityManager()->createQuery('
+            SELECT c FROM Group4\ChallengeBundle\Entity\Challenge AS c
+            JOIN c.playerToChallenges AS p2c
+            WHERE c.status = 1 AND c.type ='.$type.'
+            ORDER BY c.startDate DESC
+         ');
+
+        $challenges = $query->getResult();
+
+        if (!$full) {
+             foreach($challenges as $key => $challenge) {
+                if ($challenge->getPlayersCount() >= 10) {
+                    unset($challenges[$key]);
+                }
+             }
+        }
+
+        return $challenges;
+    }
+
+    /**
+     * @param int $type
+     * @param bool $full
+     * @return Challenge
+     */
+    public function getActiveChallenge($type = 1, $full = false)
+    {
+
+        $query = $this->getEntityManager()->createQuery('
+            SELECT c FROM Group4\ChallengeBundle\Entity\Challenge AS c
+            JOIN c.playerToChallenges AS p2c
+            WHERE c.status = 1 AND c.type ='.$type.'
+            ORDER BY c.startDate DESC
+         ');
+
+        if(!$full) {
+            $challenges = $query->getResult();
+        } else {
+            return $query->getOneOrNullResult();
+        }
+
+        foreach($challenges as $challenge) {
+            if($challenge->getPlayersCount()<10) {
+                return $challenge;
+            }
+        }
+
+        return null;
+    }
 }

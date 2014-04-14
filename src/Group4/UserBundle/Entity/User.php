@@ -8,6 +8,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Group4\ChallengeBundle\Entity\Photo;
 use Group4\ChallengeBundle\Entity\Vote;
+use Group4\ChallengeBundle\Entity\PlayerToChallenge;
 
 /**
  * @ORM\Entity
@@ -23,9 +24,9 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|\Group4\ChallengeBundle\Entity\PlayerToChallenge[]
      *
-     * @ORM\OneToMany(targetEntity="Group4\ChallengeBundle\Entity\PlayerToChallenge", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="\Group4\ChallengeBundle\Entity\PlayerToChallenge", mappedBy="user")
      */
     private $playerToChallenges;
 
@@ -50,8 +51,31 @@ class User extends BaseUser
      */
     protected $image;
 
+    /**
+     * @param PlayerToChallenge $playerToChallenge
+     * @return $this
+     */
+    public function removePlayerToChallenge(PlayerToChallenge $playerToChallenge)
+    {
+        $this->playerToChallenges->remove($playerToChallenge);
+
+        return $this;
+    }
+
+    /**
+     * @param PlayerToChallenge $playerToChallenge
+     * @return $this
+     */
+    public function addPlayerToChallenge(PlayerToChallenge $playerToChallenge)
+    {
+        $this->playerToChallenges->add($playerToChallenge);
+        $playerToChallenge->setUser($this);
+
+        return $this;
+    }
     public function __construct()
     {
         parent::__construct();
+        $this->playerToChallenges = new ArrayCollection();
     }
 }

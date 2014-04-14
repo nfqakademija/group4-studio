@@ -3,6 +3,7 @@
 namespace Group4\ChallengeBundle\Controller;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Group4\ChallengeBundle\Entity\PlayerToChallenge;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +15,10 @@ const PHOTO_WIDTH = 500;
 
 class PlayerController extends Controller
 {
-    public function JoinChallengeFormAction(Request $request)
+    public function joinChallengeFormAction(Request $request)
     {
-        //TODO: Perkelti i entity
         $form = $this->createFormBuilder()
-            ->add('Type', 'choice', array(
+            ->add('type', 'choice', array(
                 'choices'   => array('1' => '5 minutes', '2' => '15 minutes'),
                 'required'  => true,
             ))
@@ -30,66 +30,36 @@ class PlayerController extends Controller
 
         if ('POST' === $request->getMethod()) {
             if ($form->isValid()) {
-                $type = $form->get('Type')->getData();
+                $type = $form->get('type')->getData();
 
                 $repository = $this->getDoctrine()
                     ->getRepository('ChallengeBundle:Challenge');
 
-                $query = $repository->createQueryBuilder('p')
-                    ->where('p.status = :status AND p.type = :type')
-                    ->setParameter('status','1')
-                    ->setParameter('type', $type)
-                    ->orderBy('p.startDate', 'DESC')
-                    ->getQuery();
-
-                $challenges = array();
-                $challenges = $query->getResult();
-
+                $challenge = $repository->getActiveChallenge($type);
                 $repository = $this->getDoctrine()
                     ->getRepository('ChallengeBundle:Theme');
 
-                $user = $this->container->get('security.context')->getToken()->getUser();
+                $user = $this->getUser();
 
-                if (!empty($challenges)) {
+                if (!empty($challenge) && !$challenge->isInChallenge($user)) {
                     $playerToChallenge = new PlayerToChallenge();
                     $playerToChallenge->setStatus(0)
                         ->setUser($user)
-                        ->setDate(new \DateTime("now"))
-                        ->setChallenge($challenges[0]);
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($playerToChallenge);
-                    $em->flush();
-
-                    $eventId = $challenges[0]->getId();
-
+                        ->setDate(new \DateTime("now"));
+                    $challenge->addPlayerToChallenge($playerToChallenge);
                 } else {
                     $themes = array();
                     $themes = $repository->findByApproved(true);
-                    $challenge = new Challenge();
-                    $challenge->setStatus(1);
-                    $date = new \DateTime("now");
-                    $challenge->setStartDate($date);
-                    $challenge->setEndDate($date->modify("+2 days"));
-                    $challenge->setTheme($themes[rand(0,count($themes)-1)]);
-                    $challenge->setType($type);
-
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($challenge);
-                    $em->flush();
-
-                    $eventId = $challenge->getId();
-
+                    $challenge = new Challenge($themes[rand(0,count($themes)-1)]->getId(),$type);
                     $playerToChallenge = new PlayerToChallenge();
                     $playerToChallenge->setStatus(0)
                         ->setUser($user)
-                        ->setDate(new \DateTime("now"))
-                        ->setChallenge($challenge);
-
-                    $em->persist($playerToChallenge);
-                    $em->flush();
+                        ->setDate(new \DateTime("now"));
+                    $challenge->addPlayerToChallenge($playerToChallenge);
                 }
-
-                return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $eventId)));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($challenge);
+                $em->flush();
             }
         }
 

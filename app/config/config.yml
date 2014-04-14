@@ -107,3 +107,7 @@ vich_uploader:
                 uri_prefix:         /images/challenge
                 upload_destination: players_challenge_image_fs
                 namer:              vich_uploader.namer_uniqid
+
+mopa_bootstrap:
+    menu: ~
+    form: ~

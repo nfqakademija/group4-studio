@@ -66,11 +66,12 @@ class Challenge
     private $type;
 
     /**
-     * @var integer
+     * @var Theme
      *
-     * @ORM\Column(name="themeId", type="integer")
+     * @ORM\OneToOne(targetEntity="Theme")
+     * @ORM\JoinColumn(name="theme", referencedColumnName="id")
      */
-    private $themeId;
+    private $theme;
 
     public function __construct()
     {
@@ -180,26 +181,19 @@ class Challenge
     }
 
     /**
-     * Set themeId
-     *
-     * @param integer $themeId
-     * @return Challenge
+     * @param \Group4\ChallengeBundle\Entity\Theme $theme
      */
-    public function setThemeId($themeId)
+    public function setTheme($theme)
     {
-        $this->themeId = $themeId;
-
-        return $this;
+        $this->theme = $theme;
     }
 
     /**
-     * Get themeId
-     *
-     * @return integer 
+     * @return \Group4\ChallengeBundle\Entity\Theme
      */
-    public function getThemeId()
+    public function getTheme()
     {
-        return $this->themeId;
+        return $this->theme;
     }
 
     /**
@@ -233,5 +227,10 @@ class Challenge
     public function getPlayerToChallenges()
     {
         return $this->playerToChallenges;
+    }
+
+    public function __toString()
+    {
+        return $this->id;
     }
 }

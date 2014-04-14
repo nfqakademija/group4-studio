@@ -70,7 +70,7 @@ class PlayerController extends Controller
                     $date = new \DateTime("now");
                     $challenge->setStartDate($date);
                     $challenge->setEndDate($date->modify("+2 days"));
-                    $challenge->setThemeId($themes[rand(0,count($themes)-1)]->getId());
+                    $challenge->setTheme($themes[rand(0,count($themes)-1)]);
                     $challenge->setType($type);
 
                     $em = $this->getDoctrine()->getManager();
@@ -93,7 +93,7 @@ class PlayerController extends Controller
             }
         }
 
-        return $this->render('ChallengeBundle:Default:JoinChallengeForm.html.twig', array('form' => $form->createView()));
+        return $this->render('ChallengeBundle:Default:joinChallengeForm.html.twig', array('form' => $form->createView()));
     }
 
     public function showChallengeAction(Request $request, $eventId)
@@ -105,6 +105,7 @@ class PlayerController extends Controller
 
         if(!is_null($event)) {
             $status = $event->getStatus();
+            $theme = $event->getTheme();
         } else {
             return $this->render('BaseBundle:Default:404.html.twig');
         }
@@ -129,14 +130,20 @@ class PlayerController extends Controller
                     return $this->render('BaseBundle:Default:404.html.twig');
                 }
 
+//                $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Theme');
+//                $event = $repository->findOneBy(
+//                    array('id' => $themeId)
+//                );
+//                $theme = $event->getName();
+
                 switch ($status) //Switch by playerToChallenge.status
                 {
                     case 0:
                         //Player has not yet uploaded the photo
-                        return $this->uploadAction($request, $eventId);
+                        return $this->uploadAction($request, $eventId, $theme);
                     case 1:
                         //Player uploaded the photo, waits for voting to start
-                        return $this->waitForVoteAction($eventId);
+                        return $this->waitForVoteAction($eventId, $theme);
                     default:
                         return $this->render('BaseBundle:Default:404.html.twig');
                 }
@@ -155,27 +162,30 @@ class PlayerController extends Controller
 
     }
 
-    private function waitForVoteAction($eventId)
+    private function waitForVoteAction($eventId, $theme)
     {
+        //Info about player BEGIN
         $userId = $this->getUser();
         $repository = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
         $event = $repository->findOneBy(
             array('user' => $userId, 'challenge' => $eventId)
         );
         $myphoto = $event->getImage();
+        //Info about player END
 
+        //Info about challenge BEGIN
         $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Challenge');
         $event = $repository->findOneBy(
             array('id' => $eventId)
         );
+        //TODO: get voteDate (if null, then waiting for players)
+        //Info about challenge END
 
-        $themeId = $event->getThemeId();
-
-        return $this->render('ChallengeBundle:Player:waitForVote.html.twig', array('eventId' => $eventId, 'myphoto' => $myphoto));
+        return $this->render('ChallengeBundle:Player:waitForVote.html.twig', array('eventId' => $eventId, 'myphoto' => $myphoto, 'theme' => $theme));
     }
 
-    private function uploadAction(Request $request, $eventId) {
-
+    private function uploadAction(Request $request, $eventId, $theme) {
+        //TODO: get and show time left till playerToChallenge.date+challenge.type
         $photo = new Photo();
         $form = $this->createForm(new UploadFormType(), $photo);
 
@@ -185,14 +195,14 @@ class PlayerController extends Controller
             if($form->isValid()) {
 
                 $em = $this->getDoctrine()->getManager();
-                $photo->setUserId($this->container->get('security.context')->getToken()->getUser()->getId());
+                $photo->setUser($this->container->get('security.context')->getToken()->getUser());
                 $em->persist($photo);
                 $em->flush();
 
                 $path = $this->get('kernel')->getRootDir() . '/../web' .'/images/challenge/'.$photo->getImageName();
                 $ext = pathinfo($photo->getImageName(), PATHINFO_EXTENSION);
 
-                if($ext == "JPG") {
+                if(($ext == "JPG")||($ext == "jpg")) {
                     $image = imagecreatefromjpeg($path);
                 } else {
                     $image = imagecreatefrompng($path);
@@ -219,18 +229,17 @@ class PlayerController extends Controller
                     imagepng($new, $path, 9);
                 }
 
-                //TODO: Change PlayetToChallenge status to 1 after photo was uploaded
-                $userId = $this->getUser();
+                $user = $this->container->get('security.context')->getToken()->getUser();
                 $em = $this->getDoctrine()->getManager();
                 $event = $em->getRepository('ChallengeBundle:PlayerToChallenge');
 
-                $eventas = $event->findOneBy(
-                    array('user' => $userId, 'challenge' => $eventId)
+                $pl2ch = $event->findOneBy(
+                    array('user' => $user, 'challenge' => $eventId)
                 );
 
-                $eventas->setStatus('1');
-                $eventas->setImage($photo);
-                $em->persist($eventas);
+                $pl2ch->setStatus('1');
+                $pl2ch->setImage($photo);
+                $em->persist($pl2ch);
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $eventId)));
@@ -241,7 +250,8 @@ class PlayerController extends Controller
         return $this->render('ChallengeBundle:Player:upload.html.twig',
             array(
                 'form' => $form->createView(),
-                'eventId' => $eventId
+                'eventId' => $eventId,
+                'theme' => $theme
             )
         );
     }

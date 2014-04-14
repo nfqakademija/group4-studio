@@ -86,5 +86,8 @@ class Theme
         return $this->approved;
     }
 
-
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

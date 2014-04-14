@@ -99,7 +99,7 @@ class PlayerController extends Controller
 
             case 2:
             //Voting state
-            //TODO: redirect to votingStateAction
+                return $this->votingAction($event);
             case 3:
             //Challenge ended
             //TODO: redirect to challengeEndedStateAction
@@ -109,6 +109,14 @@ class PlayerController extends Controller
         }
 
 
+    }
+
+    private function votingAction($event)
+    {
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:playerToChallenge');
+        $playerToChallenges = array();
+        $playerToChallenges = $repository->findBy(array('challenge' => $event));
+        return $this->render('ChallengeBundle:Player:voting.html.twig', array('players' => $playerToChallenges));
     }
 
     private function waitForVoteAction($eventId, $theme)

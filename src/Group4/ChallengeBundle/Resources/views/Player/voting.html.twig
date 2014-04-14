@@ -1,0 +1,6 @@
+{% extends 'BaseBundle:Default:index.html.twig' %}
+{% block content %}
+    {% for player in players %}
+        <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="" />
+    {% endfor %}
+{% endblock %}

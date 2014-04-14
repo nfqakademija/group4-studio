@@ -45,7 +45,6 @@ class Vote
      */
     private $date;
 
-
     /**
      * Get id
      *

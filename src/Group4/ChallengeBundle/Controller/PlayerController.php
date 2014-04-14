@@ -11,6 +11,8 @@ use Group4\ChallengeBundle\Entity\Challenge;
 use Group4\ChallengeBundle\Form\Type\UploadFormType;
 use Group4\ChallengeBundle\Entity\Photo;
 
+const PHOTO_WIDTH = 500;
+
 class PlayerController extends Controller
 {
     public function joinChallengeFormAction(Request $request)
@@ -64,7 +66,85 @@ class PlayerController extends Controller
         return $this->render('ChallengeBundle:Default:JoinChallengeForm.html.twig', array('form' => $form->createView()));
     }
 
-    public function uploadAction(Request $request) {
+    public function showChallengeAction(Request $request, $eventId)
+    {
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Challenge');
+        $event = $repository->findOneBy(
+            array('id' => $eventId)
+        );
+
+        if(!is_null($event)) {
+            $status = $event->getStatus();
+        } else {
+            return $this->render('BaseBundle:Default:404.html.twig');
+        }
+
+        switch($status) //Switch by Challenge.status
+        {
+            case 0:
+            //Disabled, not started
+                return $this->render('BaseBundle:Default:404.html.twig');
+            case 1:
+            //Enabled, waiting for players
+                $user = $this->container->get('security.context')->getToken()->getUser();
+                $repository = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
+
+                $event = $repository->findOneBy(
+                    array('user' => $user, 'challenge' => $eventId)
+                );
+                if(!is_null($event)) {
+                    $status = $event->getStatus();
+                } else {
+                    //TODO: Redirect to check the challenge for non-participants (show JOIN CHALLENGE button)
+                    return $this->render('BaseBundle:Default:404.html.twig');
+                }
+
+                switch ($status) //Switch by playerToChallenge.status
+                {
+                    case 0:
+                        //Player has not yet uploaded the photo
+                        return $this->uploadAction($request, $eventId);
+                    case 1:
+                        //Player uploaded the photo, waits for voting to start
+                        return $this->waitForVoteAction($eventId);
+                    default:
+                        return $this->render('BaseBundle:Default:404.html.twig');
+                }
+
+            case 2:
+            //Voting state
+            //TODO: redirect to votingStateAction
+            case 3:
+            //Challenge ended
+            //TODO: redirect to challengeEndedStateAction
+            default:
+            //Error handler
+                return $this->render('BaseBundle:Default:404.html.twig');
+        }
+
+
+    }
+
+    private function waitForVoteAction($eventId)
+    {
+        $userId = $this->getUser();
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
+        $event = $repository->findOneBy(
+            array('user' => $userId, 'challenge' => $eventId)
+        );
+        $myphoto = $event->getImage();
+
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Challenge');
+        $event = $repository->findOneBy(
+            array('id' => $eventId)
+        );
+
+        $themeId = $event->getThemeId();
+
+        return $this->render('ChallengeBundle:Player:waitForVote.html.twig', array('eventId' => $eventId, 'myphoto' => $myphoto));
+    }
+
+    private function uploadAction(Request $request, $eventId) {
 
         $photo = new Photo();
         $form = $this->createForm(new UploadFormType(), $photo);
@@ -79,14 +159,59 @@ class PlayerController extends Controller
                 $em->persist($photo);
                 $em->flush();
 
-                return $this->render('ChallengeBundle:Player:successUpload.html.twig', array('photo'=>$photo));
+                $path = $this->get('kernel')->getRootDir() . '/../web' .'/images/challenge/'.$photo->getImageName();
+                $ext = pathinfo($photo->getImageName(), PATHINFO_EXTENSION);
+
+                if($ext == "JPG") {
+                    $image = imagecreatefromjpeg($path);
+                } else {
+                    $image = imagecreatefrompng($path);
+                }
+
+                list($width, $height) = getimagesize($path);
+
+                if($width>$height) {
+                    $resizeRatio = PHOTO_WIDTH/$width;
+                    $newWidth = $width * $resizeRatio;
+                    $newHeight = $height * $resizeRatio;
+                } else {
+                    $resizeRatio = PHOTO_WIDTH/$height;
+                    $newWidth = $width * $resizeRatio;
+                    $newHeight = $height * $resizeRatio;
+                }
+
+                $new = imagecreatetruecolor($newWidth,$newHeight);
+                imagecopyresampled($new,$image,0,0,0,0,$newWidth,$newHeight,$width,$height);
+
+                if($ext == "JPG") {
+                    imagejpeg($new, $path, 75);
+                } else {
+                    imagepng($new, $path, 9);
+                }
+
+                //TODO: Change PlayetToChallenge status to 1 after photo was uploaded
+                $userId = $this->getUser();
+                $em = $this->getDoctrine()->getManager();
+                $event = $em->getRepository('ChallengeBundle:PlayerToChallenge');
+
+                $eventas = $event->findOneBy(
+                    array('user' => $userId, 'challenge' => $eventId)
+                );
+
+                $eventas->setStatus('1');
+                $eventas->setImage($photo);
+                $em->persist($eventas);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $eventId)));
             }
 
         }
 
         return $this->render('ChallengeBundle:Player:upload.html.twig',
             array(
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'eventId' => $eventId
             )
         );
     }

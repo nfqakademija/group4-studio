@@ -29,7 +29,7 @@ class Photo
 
     /**
      * @Assert\File(
-     *     maxSize="1M",
+     *     maxSize="8M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="players_challenge_image", fileNameProperty="imageName")

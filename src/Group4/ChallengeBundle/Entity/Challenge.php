@@ -70,8 +70,8 @@ class Challenge
     /**
      * @var Theme
      *
-     * @ORM\OneToOne(targetEntity="Theme")
-     * @ORM\JoinColumn(name="theme", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Theme", inversedBy="challenges")
+     * @ORM\JoinColumn(name="theme_id", referencedColumnName="id")
      */
     private $theme;
 
@@ -96,7 +96,7 @@ class Challenge
 
         $this->setStartDate($startDate);
         $this->setEndDate($endDate);
-        $this->setThemeId($themeId);
+        $this->setTheme($themeId);
         $this->setType($type);
         $this->setStatus($status);
 

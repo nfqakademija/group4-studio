@@ -35,6 +35,13 @@ class Theme
      */
     private $approved;
 
+    /**
+     * @var ArrayCollection|Challenge[]
+     *
+     * @ORM\OneToMany(targetEntity="Challenge", mappedBy="theme")
+     */
+    private $challenges;
+
 
     /**
      * Get id

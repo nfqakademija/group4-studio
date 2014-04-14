@@ -50,7 +50,7 @@ class PlayerController extends Controller
                 } else {
                     $themes = array();
                     $themes = $repository->findByApproved(true);
-                    $challenge = new Challenge($themes[rand(0,count($themes)-1)]->getId(),$type);
+                    $challenge = new Challenge($themes[rand(0,count($themes)-1)],$type);
                     $playerToChallenge = new PlayerToChallenge();
                     $playerToChallenge->setStatus(0)
                         ->setUser($user)
@@ -60,6 +60,10 @@ class PlayerController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($challenge);
                 $em->flush();
+
+                $eventId = $challenge->getId();
+
+                return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $eventId)));
             }
         }
 
@@ -99,12 +103,6 @@ class PlayerController extends Controller
                     //TODO: Redirect to check the challenge for non-participants (show JOIN CHALLENGE button)
                     return $this->render('BaseBundle:Default:404.html.twig');
                 }
-
-//                $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Theme');
-//                $event = $repository->findOneBy(
-//                    array('id' => $themeId)
-//                );
-//                $theme = $event->getName();
 
                 switch ($status) //Switch by playerToChallenge.status
                 {

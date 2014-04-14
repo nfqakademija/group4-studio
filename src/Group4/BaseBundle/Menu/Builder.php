@@ -16,9 +16,10 @@ class Builder extends ContainerAware
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $menu->addChild('User', array('label' => $user->getUsername()))
                 ->setAttribute('dropdown', true);
-            $menu['User']->addChild('Sign out', array('route' => 'fos_user_security_logout'));
             $menu['User']->addChild('Show Profile', array('route' => 'fos_user_profile_show'));
-            $menu['User']->addChild('Edit Profile', array('route' => 'fos_user_profile_edit'));
+            $menu['User']->addChild('Edit Profile', array('route' => 'fos_user_profile_edit'))
+                ->setAttribute('divider_append',true);
+            $menu['User']->addChild('Sign out', array('route' => 'fos_user_security_logout'));
         } else {
             $menu->addChild('Sign in', array('route' => 'fos_user_security_login'));
             $menu->addChild('Sign up', array('route' => 'fos_user_registration_register'));

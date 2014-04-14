@@ -10,7 +10,12 @@ class BaseController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('BaseBundle:Default:index.html.twig');
+        $securityContext = $this->container->get('security.context');
+        if( $securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED') ){
+            return $this->forward('ChallengeBundle:Player:index');
+        } else {
+            return $this->render('BaseBundle:Default:index.html.twig');
+        }
     }
 
 }

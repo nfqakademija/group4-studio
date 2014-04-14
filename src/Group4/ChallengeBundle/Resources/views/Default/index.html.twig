@@ -1,10 +1,11 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 
-{% block title %}Participate{% endblock %}
-
 {% block content %}
-    <a href="#">Challenge me!</a><br/>
-    <a href="{{ path('theme_admin') }}">Manage themes</a><br/>
-    <a href="{{ path('challenge_admin') }}">Manage challenges</a>
-
+    You are logged in!<br/>
+    Ongoing challenges:<br/>
+    <ul>
+    {% for challenge in challenges %}
+        <li><a href="{{ path('show_challenge', {'eventId': challenge.getId}) }}">{{ challenge.getTheme }}</a></li>
+    {% endfor %}
+    </ul>
 {% endblock %}

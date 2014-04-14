@@ -3,7 +3,12 @@
 {% block navbar %}
     {% embed '@MopaBootstrap/Navbar/navbar.html.twig' %}
         {% block menu %}
-            {{ mopa_bootstrap_menu('BaseBundle:Builder:mainMenu') }}
+            <div class="navbar navbar-default">
+                <div class="navbar-inner">
+                    {{ render(controller('ChallengeBundle:Player:joinChallengeForm')) }}
+                    {{ mopa_bootstrap_menu('BaseBundle:Builder:mainMenu') }}
+                </div>
+            </div>
         {% endblock %}
     {% endembed %}
 {% endblock navbar %}

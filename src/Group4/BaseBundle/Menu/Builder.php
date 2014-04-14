@@ -10,12 +10,14 @@ class Builder extends ContainerAware
     {
         // Menu will be a navbar menu anchored to right
         $menu = $factory->createItem('root');
-        $menu->setChildrenAttribute('class','navbar nav');
+        $menu->setAttribute('class','nav');
+        $menu->setChildrenAttribute('class','nav navbar-nav');
         $securityContext = $this->container->get('security.context');
         $user = $securityContext->getToken()->getUser();
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $menu->addChild($user->getUsername(),array('route' => 'fos_user_profile_show'));
-            $menu->addChild('Sign out', array('route' => 'fos_user_security_logout'));
+            $menu->addChild('User', array('label' => $user->getUsername()))
+                ->setAttribute('dropdown', true);
+            $menu['User']->addChild('Sign out', array('route' => 'fos_user_security_logout'));
         } else {
             $menu->addChild('Sign in', array('route' => 'fos_user_security_login'));
             $menu->addChild('Sign up', array('route' => 'fos_user_registration_register'));

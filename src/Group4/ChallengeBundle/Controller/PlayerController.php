@@ -15,59 +15,40 @@ const PHOTO_WIDTH = 500;
 
 class PlayerController extends Controller
 {
-    public function joinChallengeFormAction(Request $request)
+    public function joinChallengeAction($type)
     {
-        $form = $this->createFormBuilder()
-            ->add('type', 'choice', array(
-                'choices'   => array('1' => '5 minutes', '2' => '15 minutes'),
-                'required'  => true,
-            ))
-            ->add('Start Challenge', 'submit')
-            ->setAction($this->generateUrl("challenge_me"))
-            ->getForm();
+        $repository = $this->getDoctrine()
+            ->getRepository('ChallengeBundle:Challenge');
 
-        $form->handleRequest($request);
+        $challenge = $repository->getActiveChallenge($type);
+        $repository = $this->getDoctrine()
+            ->getRepository('ChallengeBundle:Theme');
 
-        if ('POST' === $request->getMethod()) {
-            if ($form->isValid()) {
-                $type = $form->get('type')->getData();
+        $user = $this->getUser();
 
-                $repository = $this->getDoctrine()
-                    ->getRepository('ChallengeBundle:Challenge');
-
-                $challenge = $repository->getActiveChallenge($type);
-                $repository = $this->getDoctrine()
-                    ->getRepository('ChallengeBundle:Theme');
-
-                $user = $this->getUser();
-
-                if (!empty($challenge) && !$challenge->isInChallenge($user)) {
-                    $playerToChallenge = new PlayerToChallenge();
-                    $playerToChallenge->setStatus(0)
-                        ->setUser($user)
-                        ->setDate(new \DateTime("now"));
-                    $challenge->addPlayerToChallenge($playerToChallenge);
-                } else {
-                    $themes = array();
-                    $themes = $repository->findByApproved(true);
-                    $challenge = new Challenge($themes[rand(0,count($themes)-1)],$type);
-                    $playerToChallenge = new PlayerToChallenge();
-                    $playerToChallenge->setStatus(0)
-                        ->setUser($user)
-                        ->setDate(new \DateTime("now"));
-                    $challenge->addPlayerToChallenge($playerToChallenge);
-                }
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($challenge);
-                $em->flush();
-
-                $eventId = $challenge->getId();
-
-                return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $eventId)));
-            }
+        if (!empty($challenge) && !$challenge->isInChallenge($user)) {
+            $playerToChallenge = new PlayerToChallenge();
+            $playerToChallenge->setStatus(0)
+                ->setUser($user)
+                ->setDate(new \DateTime("now"));
+            $challenge->addPlayerToChallenge($playerToChallenge);
+        } else {
+            $themes = array();
+            $themes = $repository->findByApproved(true);
+            $challenge = new Challenge($themes[rand(0,count($themes)-1)],$type);
+            $playerToChallenge = new PlayerToChallenge();
+            $playerToChallenge->setStatus(0)
+                ->setUser($user)
+                ->setDate(new \DateTime("now"));
+            $challenge->addPlayerToChallenge($playerToChallenge);
         }
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($challenge);
+        $em->flush();
 
-        return $this->render('ChallengeBundle:Default:joinChallengeForm.html.twig', array('form' => $form->createView()));
+        $eventId = $challenge->getId();
+
+        return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $eventId)));
     }
 
     public function showChallengeAction(Request $request, $eventId)

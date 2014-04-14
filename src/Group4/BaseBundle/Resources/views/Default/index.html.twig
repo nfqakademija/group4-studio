@@ -47,7 +47,10 @@
     {% block menu %}
         <div class="navbar navbar-default">
             <div class="navbar-inner">
-                {{ render(controller('ChallengeBundle:Player:joinChallengeForm')) }}
+                <div class="col-md-1" id="participate">
+                    <a class="btn btn-default col-md-6" href="{{ path('participate', {type: 1}) }}">5</a>
+                    <a class="btn btn-default col-md-6" href="{{ path('participate', {type: 2}) }}">15</a>
+                </div>
                 {{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}
             </div>
         </div>

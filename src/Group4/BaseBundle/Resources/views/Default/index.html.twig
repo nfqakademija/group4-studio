@@ -44,18 +44,35 @@
 
 {% block body %}
 {% block navbar %}
-    {% block menu %}
-        <div class="navbar navbar-default">
-            <div class="navbar-inner">
-                <div class="col-md-1" id="participate">
-                    <a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>
-                    <a class="btn btn-default col-md-6" href="{{ path('participate', {type: 1}) }}">5</a>
-                    <a class="btn btn-default col-md-6" href="{{ path('participate', {type: 2}) }}">15</a>
-                </div>
-                {{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse1">
+                <ul class="nav navbar-nav">
+                    <li><a class="btn btn-default navbar-btn" href="{{ path('participate', {type: 1}) }}">5</a></li>
+                    <li><a class="btn btn-default navbar-btn" href="{{ path('participate', {type: 2}) }}">15</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>{{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}</li>
+                </ul>
             </div>
         </div>
-    {% endblock %}
+    </nav>
+        {#<div class="navbar navbar-default">#}
+            {#<div class="navbar-inner">#}
+                {#<div class="col-md-1" id="participate">#}
+                    {#<a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>#}
+                    {#<a class="btn btn-default col-md-6" href="{{ path('participate', {type: 1}) }}">5</a>#}
+                    {#<a class="btn btn-default col-md-6" href="{{ path('participate', {type: 2}) }}">15</a>#}
+                {#</div>#}
+                {#{{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}#}
+            {#</div>#}
+        {#</div>#}
+
 {% endblock navbar %}
 
 
@@ -80,7 +97,7 @@
 
     {% block content_row %}
         {% block content %}
-            <div class="content">Shit</div>
+            Shift happens...
         {% endblock %}
     {% endblock content_row %}
 
@@ -91,7 +108,7 @@
 {% endblock footer_tag_start %}
 
     {% block footer %}
-        <p>&copy; <a href="http://www.mohrenweiserpartner.de" target="_blank">Group4 Studio</a> 2014</p>
+        <p>&copy; <a href="{{ path('base') }}" target="_blank">Group4 Studio</a> 2014</p>
     {% endblock footer %}
 
 {% block footer_tag_end %}

@@ -10,12 +10,13 @@ class Builder extends ContainerAware
     {
         // Menu will be a navbar menu anchored to right
         $menu = $factory->createItem('root');
-        $menu->setChildrenAttribute('class','nav pull-right');
+        $menu->setChildrenAttribute('class','nav');
         $securityContext = $this->container->get('security.context');
         $user = $securityContext->getToken()->getUser();
         if ($securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $menu->addChild('User', array('label' => $user->getUsername()))
-                ->setAttribute('dropdown', true);
+                ->setAttribute('dropdown', true)
+                ->setAttribute('class','dropdown-menu-right');
             $menu['User']->addChild('Show Profile', array('route' => 'fos_user_profile_show'));
             $menu['User']->addChild('Edit Profile', array('route' => 'fos_user_profile_edit'))
                 ->setAttribute('divider_append',true);

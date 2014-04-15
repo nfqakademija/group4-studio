@@ -204,7 +204,11 @@ class PlayerToChallenge
      */
     public function getImage()
     {
-        return $this->image;
+        if(isset($this->image)) {
+            return $this->image;
+        } else {
+            return null;
+        }
     }
 
     /**

@@ -19,7 +19,7 @@ class PlayerController extends Controller
     public function indexAction()
     {
         $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Challenge');
-        $challenges = $repository->findAll();
+        $challenges = $repository->findBy(array('status' => 2));
         return $this->render('ChallengeBundle:Default:index.html.twig', array('challenges' => $challenges));
     }
 

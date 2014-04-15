@@ -76,13 +76,13 @@ class Challenge
     private $theme;
 
     /**
-     * @param int $themeId
+     * @param Theme $theme
      * @param int $type
      * @param \DateTime $startDate
      * @param \DateTime $endDate
      * @param int $status
      */
-    public function __construct($themeId = 0, $type = 1, $startDate = null, $endDate = null, $status = 1)
+    public function __construct($theme, $type = 1, $startDate = null, $endDate = null, $status = 1)
     {
         $this->playerToChallenges = new ArrayCollection();
 
@@ -96,7 +96,7 @@ class Challenge
 
         $this->setStartDate($startDate);
         $this->setEndDate($endDate);
-        $this->setTheme($themeId);
+        $this->setTheme($theme);
         $this->setType($type);
         $this->setStatus($status);
 
@@ -254,6 +254,8 @@ class Challenge
             ->setChallenge($this)
             ->setUser($user)
             ->setStatus(1);
+
+        $this->addPlayerToChallenge($playerToChallenge);
 
         return $this;
     }

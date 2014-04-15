@@ -59,6 +59,17 @@ class ProfileController extends Controller
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:showUser.html.'.$this->container->getParameter('fos_user.template.engine'), array('user' => $user));
     }
 
+    public function showChallengesAction()
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        $playerToChallengeRep = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
+        $playerToChallenges = array();
+        $playerToChallenges = $playerToChallengeRep->findBy(array('user' => $user));
+
+        return $this->render('UserBundle:Profile:showChallenges.html.twig', array('playerToChallenges' => $playerToChallenges));
+    }
+
     public function editPhotoAction(Request $request) {
         $photo = new Photo();
         $form = $this->createForm(new UploadFormType(), $photo);

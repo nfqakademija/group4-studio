@@ -15,6 +15,9 @@
         <requirement key="_method">GET</requirement>
     </route>
 
+    <route id="fos_user_profile_show_challenges" pattern="/challenges">
+        <default key="_controller">FOSUserBundle:Profile:showChallenges</default>
+    </route>
 
     <route id="fos_user_profile_edit" pattern="/edit">
         <default key="_controller">FOSUserBundle:Profile:edit</default>

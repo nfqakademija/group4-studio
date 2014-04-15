@@ -5,6 +5,7 @@ namespace Group4\ChallengeBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Group4\ChallengeBundle\Entity\PlayerToChallenge;
+use Group4\ChallengeBundle\Entity\Vote;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Group4\ChallengeBundle\Entity\Challenge;
@@ -117,6 +118,20 @@ class PlayerController extends Controller
         $playerToChallenges = array();
         $playerToChallenges = $repository->findBy(array('challenge' => $event));
         return $this->render('ChallengeBundle:Player:voting.html.twig', array('players' => $playerToChallenges));
+    }
+
+    public function voteAction($playerToChallengeId)
+    {
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
+        $playerToChallenge = $repository->findOneBy(array('id' => $playerToChallengeId));
+        $vote = new Vote($this->container->get('security.context')->getToken()->getUser(),$playerToChallenge);
+        $playerToChallenge->addVote($vote);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($playerToChallenge);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $playerToChallenge->getChallenge()->getId())));
     }
 
     private function waitForVoteAction($eventId, $theme)

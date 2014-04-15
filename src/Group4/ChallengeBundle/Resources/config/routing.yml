@@ -56,7 +56,11 @@ player_photo_upload:
 
 participate:
     path: /challenge/participate/{type}
-    defaults: { _controller: ChallengeBundle:Player:JoinChallenge, type: 1 }
+    defaults: { _controller: ChallengeBundle:Player:joinChallenge, type: 1 }
+
+vote:
+    defaults: { _controller: ChallengeBundle:Player:vote }
+    pattern: /challenge/vote/{playerToChallengeId}
 
 show_challenge:
     defaults: { _controller: ChallengeBundle:Player:showChallenge }

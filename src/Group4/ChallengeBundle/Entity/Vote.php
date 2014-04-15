@@ -26,7 +26,7 @@ class Vote
      * @var PlayerToChallenge
      *
      * @ORM\ManyToOne(targetEntity="PlayerToChallenge", inversedBy="votes")
-     * @ORM\JoinColumn(name="p2c_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="player_to_challenge_id", referencedColumnName="id")
      */
     private $playerToChallenge;
 
@@ -46,6 +46,20 @@ class Vote
     private $date;
 
     /**
+     * @param User $user
+     * @param PlayerToChallenge $playerToChallenge
+     * @return Vote $this
+     */
+    public function __construct($user, $playerToChallenge)
+    {
+        $this->setUser($user);
+        $this->setPlayerToChallenge($playerToChallenge);
+        $this->setDate(new \DateTime("now"));
+
+        return $this;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -53,52 +67,6 @@ class Vote
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set p2cId
-     *
-     * @param integer $p2cId
-     * @return Vote
-     */
-    public function setP2cId($p2cId)
-    {
-        $this->p2cId = $p2cId;
-
-        return $this;
-    }
-
-    /**
-     * Get p2cId
-     *
-     * @return integer 
-     */
-    public function getP2cId()
-    {
-        return $this->p2cId;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return Vote
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
     }
 
     /**
@@ -130,7 +98,7 @@ class Vote
      * @param \Group4\ChallengeBundle\Entity\PlayerToChallenge $playerToChallenge
      * @return Vote
      */
-    public function setPlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayerToChallenge $playerToChallenge = null)
+    public function setPlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayerToChallenge $playerToChallenge)
     {
         $this->playerToChallenge = $playerToChallenge;
 
@@ -153,7 +121,7 @@ class Vote
      * @param \Group4\UserBundle\Entity\User $user
      * @return Vote
      */
-    public function setUser(\Group4\UserBundle\Entity\User $user = null)
+    public function setUser(\Group4\UserBundle\Entity\User $user)
     {
         $this->user = $user;
 

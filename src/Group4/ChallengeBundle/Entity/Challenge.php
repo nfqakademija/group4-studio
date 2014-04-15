@@ -253,7 +253,7 @@ class Challenge
         $playerToChallenge->setDate(new \DateTime("now"))
             ->setChallenge($this)
             ->setUser($user)
-            ->setStatus(1);
+            ->setStatus(0);
 
         $this->addPlayerToChallenge($playerToChallenge);
 

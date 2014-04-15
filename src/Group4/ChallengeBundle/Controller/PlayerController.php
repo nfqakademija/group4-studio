@@ -168,12 +168,34 @@ class PlayerController extends Controller
         $photo = new Photo();
         $form = $this->createForm(new UploadFormType(), $photo);
 
+        $playerToChallengeRep = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
+        $playerToChallenge = $playerToChallengeRep->findOneBy(array('user' => $this->container->get('security.context')->getToken()->getUser(), 'challenge' => $eventId));
+        $time = $playerToChallenge->getDate();
+
+        if($playerToChallenge->getChallenge()->getType() == 1) {
+            $time = $time->add(new \DateInterval('PT5M'));
+        }
+
+        if($playerToChallenge->getChallenge()->getType() == 2) {
+            $time = $time->add(new \DateInterval('PT15M'));
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        if($time <= new \DateTime("now")) {
+            $em->remove($playerToChallenge);
+            $em->flush();
+            return $this->forward('ChallengeBundle:Player:showChallenge', array('request' => $request, 'eventId' => $eventId));
+        } else {
+            $timeLeft = $time->diff(new \DateTime("now"));
+        }
+
+
         if('POST' === $request->getMethod()) {
             $form->bind($request);
 
             if($form->isValid()) {
 
-                $em = $this->getDoctrine()->getManager();
                 $photo->setUser($this->container->get('security.context')->getToken()->getUser());
                 $em->persist($photo);
                 $em->flush();
@@ -230,7 +252,8 @@ class PlayerController extends Controller
             array(
                 'form' => $form->createView(),
                 'eventId' => $eventId,
-                'theme' => $theme
+                'theme' => $theme,
+                'timeLeft' => $timeLeft->days*86400 + $timeLeft->h*3600 + $timeLeft->i*60 + $timeLeft->s
             )
         );
     }

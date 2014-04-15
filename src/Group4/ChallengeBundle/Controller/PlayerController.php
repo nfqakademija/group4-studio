@@ -124,7 +124,7 @@ class PlayerController extends Controller
         $repository = $this->getDoctrine()->getRepository('ChallengeBundle:playerToChallenge');
         $playerToChallenges = array();
         $playerToChallenges = $repository->findBy(array('challenge' => $event));
-        return $this->render('ChallengeBundle:Player:voting.html.twig', array('players' => $playerToChallenges));
+        return $this->render('ChallengeBundle:Player:voting.html.twig', array('players' => $playerToChallenges, 'challenge' => $event));
     }
 
     public function voteAction($playerToChallengeId)

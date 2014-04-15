@@ -1,5 +1,6 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 {% block content %}
+    {{ challenge.getTheme.getName }}
     {% for player in players %}
         <a href="{{ path('vote', {'playerToChallengeId': player.getId }) }}"><img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="" /></a>
         {{ player.getVoteCount }}

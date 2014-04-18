@@ -19,17 +19,19 @@ class ChallengeController extends Controller
         return $this->render('ChallengeBundle:Default:index.html.twig');
     }
 
-    public function getPlayerAmountAction($challengeId)
+    public function getPlayerAmount($challengeId,$repository)
     {
-        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
-        $playersToChallenge = $repository->findBy(array('challengeId' => $challengeId));
-        return sizeof($playersToChallenge);
+        $playersToChallenge = $repository->findBy(array('challenge' => $challengeId));
+        return count($playersToChallenge);
     }
 
-    public function isMoreOrEqualThanMinimumAmountOfPlayersMinusOneAction($challengeId,$min){
-        return getPlayerAmountAction($challengeId)>=$min-1 ? true : false;
+    public function isAlmostMinPlayers($challengeId,$min,$repository){
+        return $this->getPlayerAmount($challengeId,$repository)==$min-1 ? true : false;
     }
 
+    public function isNotFull($challengeId,$max,$repository){
+        return $this->getPlayerAmount($challengeId,$repository)<$max ? true : false;
+    }
     public function newAction(Request $request)
     {
         $challenge = new Challenge();

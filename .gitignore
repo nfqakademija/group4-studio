@@ -22,3 +22,4 @@ composer.phar
 bin/*
 .idea/*
 composer.lock
+.idea/group4studio.iml

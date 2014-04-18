@@ -7,6 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Group4\UserBundle\Entity\User;
 use Group4\ChallengeBundle\Entity\PlayerToChallenge;
 
+const PLAYERS_MIN = 3;
+const END_DATE_AFTER_DAYS = 2;
+const VOTE_DATE_AFTER_DAYS = 1;
 /**
  * Challenge
  *
@@ -91,7 +94,7 @@ class Challenge
         }
 
         if (!isset($endDate)) {
-            $endDate = new \DateTime("+1 days");
+            $endDate = new \DateTime("+".END_DATE_AFTER_DAYS." days");
         }
 
         $this->setStartDate($startDate);
@@ -245,6 +248,22 @@ class Challenge
     }
 
     /**
+     * @param \DateTime $voteDate
+     */
+    public function setVoteDate($voteDate)
+    {
+        $this->voteDate = $voteDate;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getVoteDate()
+    {
+        return $this->voteDate;
+    }
+
+    /**
      * @param User $user
      */
 
@@ -256,6 +275,11 @@ class Challenge
             ->setStatus(0);
 
         $this->addPlayerToChallenge($playerToChallenge);
+        if($this->getPlayersCount()==PLAYERS_MIN){
+            $voteDate=new \DateTime("+".VOTE_DATE_AFTER_DAYS." days");
+            $this->setVoteDate($voteDate);
+
+        }
 
         return $this;
     }
@@ -297,5 +321,6 @@ class Challenge
     {
         return $this->id;
     }
+
 
 }

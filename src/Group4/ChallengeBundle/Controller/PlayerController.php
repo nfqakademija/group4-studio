@@ -34,21 +34,12 @@ class PlayerController extends Controller
 
         $user = $this->getUser();
 
-        if (!empty($challenge) && !$challenge->isInChallenge($user)) {
-            $playerToChallenge = new PlayerToChallenge();
-            $playerToChallenge->setStatus(0)
-                ->setUser($user)
-                ->setDate(new \DateTime("now"));
-            $challenge->addPlayerToChallenge($playerToChallenge);
+        if (!empty($challenge) && !$challenge->isInChallenge($user) ) {
+            $challenge->join($user);
         } else {
-            $themes = array();
             $themes = $repository->findByApproved(true);
             $challenge = new Challenge($themes[rand(0,count($themes)-1)],$type);
-            $playerToChallenge = new PlayerToChallenge();
-            $playerToChallenge->setStatus(0)
-                ->setUser($user)
-                ->setDate(new \DateTime("now"));
-            $challenge->addPlayerToChallenge($playerToChallenge);
+            $challenge->join($user);
         }
         $em = $this->getDoctrine()->getManager();
         $em->persist($challenge);

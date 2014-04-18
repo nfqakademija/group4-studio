@@ -40,9 +40,9 @@ class PlayerToChallenge
     private $challenge;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|Vote[]
      *
-     * @ORM\OneToMany(targetEntity="Vote", mappedBy="playerToChallenge")
+     * @ORM\OneToMany(targetEntity="Vote", mappedBy="playerToChallenge", cascade={"all"})
      */
     private $votes;
 
@@ -73,6 +73,14 @@ class PlayerToChallenge
      * @ORM\Column(name="place", type="integer", nullable=true)
      */
     private $place;
+
+    /**
+     * @return int
+     */
+    public function getVoteCount()
+    {
+        return count($this->votes);
+    }
 
     /**
      * Get id
@@ -196,7 +204,11 @@ class PlayerToChallenge
      */
     public function getImage()
     {
-        return $this->image;
+        if(isset($this->image)) {
+            return $this->image;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -232,12 +244,12 @@ class PlayerToChallenge
     /**
      * Add votes
      *
-     * @param \Group4\ChallengeBundle\Entity\Votes $votes
+     * @param \Group4\ChallengeBundle\Entity\Vote $votes
      * @return PlayerToChallenge
      */
-    public function addVote(\Group4\ChallengeBundle\Entity\Votes $votes)
+    public function addVote(\Group4\ChallengeBundle\Entity\Vote $vote)
     {
-        $this->votes[] = $votes;
+        $this->votes[] = $vote;
 
         return $this;
     }
@@ -245,11 +257,11 @@ class PlayerToChallenge
     /**
      * Remove votes
      *
-     * @param \Group4\ChallengeBundle\Entity\Votes $votes
+     * @param \Group4\ChallengeBundle\Entity\Vote $votes
      */
-    public function removeVote(\Group4\ChallengeBundle\Entity\Votes $votes)
+    public function removeVote(\Group4\ChallengeBundle\Entity\Vote $vote)
     {
-        $this->votes->removeElement($votes);
+        $this->votes->removeElement($vote);
     }
 
     /**

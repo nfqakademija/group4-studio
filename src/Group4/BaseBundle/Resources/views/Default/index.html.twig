@@ -1,35 +1,155 @@
-{% extends "MopaBootstrapBundle::base_less.html.twig" %}
-{% block title %}Photo Challenge!{% endblock title %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+
+<!DOCTYPE html>
+
+{% block html_tag %}
+<html>
+{% endblock html_tag %}
+
+{% block head %}
+    <head>
+        <meta charset="UTF-8" />
+        {% block head_style %}
+            {% stylesheets
+                '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+                '@BaseBundle/Resources/public/less/style.less'
+                '@BaseBundle/Resources/public/less/TimeCircles.less'
+            %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+            {% endstylesheets %}
+        {% endblock head_style %}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% block head_script %}
+            {% javascripts
+                'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+                '@BaseBundle/Resources/public/js/TimeCircles.js'
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock head_script %}
+
+        <title>{% block title %}Photo Challenge!{% endblock title %}</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        {% block head_bottom %}
+        {% endblock head_bottom %}
+    </head>
+{% endblock head %}
+
+{% block body_tag %}
+<body>
+{% endblock body_tag %}
+
+{% block body_start %}
+{% endblock body_start %}
+
+{% block body %}
 {% block navbar %}
 
-    <nav class="navbar navbar-default">
-        <div class="navbar-header">
-            <ul class="nav navbar-nav">
-                <li><a href="/" class="navbar-brand">Title</a></li>
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <li class="navbar-text" >{{ 'layout.logged_in_as'|trans({}, 'FOSUserBundle') }} <a  href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a> </li>
-                    <li>
-                        <a href="{{ path('fos_user_security_logout') }}">
-                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                        </a>
-                    </li>
-                    <li><a href="#"> Challenge me !</a></li>
-                    <li>{{ render(controller('ChallengeBundle:Player:joinChallengeForm')) }}</li>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>
+            </div>
 
-                {% else %}
-                    <li>
-                        <a href="{{ path('fos_user_registration_register') }}">
-                            {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                    </li>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse1">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <ul class="nav navbar-nav">
+                    <li><a class="btn btn-default navbar-btn" href="{{ path('participate', {type: 1}) }}">5</a></li>
+                    <li><a class="btn btn-default navbar-btn" href="{{ path('participate', {type: 2}) }}">15</a></li>
+                </ul>
                 {% endif %}
-            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>{{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}</li>
+                </ul>
+            </div>
         </div>
     </nav>
+        {#<div class="navbar navbar-default">#}
+            {#<div class="navbar-inner">#}
+                {#<div class="col-md-1" id="participate">#}
+                    {#<a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>#}
+                    {#<a class="btn btn-default col-md-6" href="{{ path('participate', {type: 1}) }}">5</a>#}
+                    {#<a class="btn btn-default col-md-6" href="{{ path('participate', {type: 2}) }}">15</a>#}
+                {#</div>#}
+                {#{{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}#}
+            {#</div>#}
+        {#</div>#}
+
 {% endblock navbar %}
-{% block page_header %}
-    <div></div>
-{% endblock page_header %}
+
+
+{% block container %}
+{% block container_div_start %}<div class="{% block container_class %}container{% endblock container_class %}">{% endblock container_div_start %}
+    {% block header %}
+    {% endblock header %}
+
+{% block content_div_start %}<div class="content">{% endblock content_div_start %}
+    {% block page_header %}
+        <div></div>
+    {% endblock page_header %}
+    {% block flashes %}
+        {% if app.session.flashbag.peekAll|length > 0 %}
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ session_flash() }}
+                </div>
+            </div>
+        {% endif %}
+    {% endblock flashes %}
+
+    {% block content_row %}
+        {% block content %}
+            Shift happens...
+        {% endblock %}
+    {% endblock content_row %}
+
+{% block content_div_end %}</div>{% endblock content_div_end %}
+
+{% block footer_tag_start %}
+    <footer>
+{% endblock footer_tag_start %}
+
+    {% block footer %}
+        <p>&copy; <a href="{{ path('base') }}" target="_blank">Group4 Studio</a> 2014</p>
+    {% endblock footer %}
+
+{% block footer_tag_end %}
+    </footer>
+{% endblock footer_tag_end %}
+{% block container_div_end %}</div><!-- /container -->{% endblock container_div_end %}
+{% endblock container %}
+
+    {% block body_end_before_js %}
+    {% endblock body_end_before_js %}
+
+{% block foot_script %}
+    {# To only use a subset or add more js overwrite and copy paste this block
+    To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
+    Otherwise the regeneration is done on every load in dev more with use_controller: true
+     #}
+    {% block foot_script_assetic %}
+        {% javascripts
+        '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+        '@MopaBootstrapBundle/Resources/public/bootstrap/js/*.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock foot_script_assetic %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+{% endblock foot_script %}
+{% endblock body %}
+
+{% block body_end %}
+{% endblock body_end %}
+</body>
+</html>

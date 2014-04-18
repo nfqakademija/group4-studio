@@ -4,6 +4,7 @@ namespace Group4\ChallengeBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Group4\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -28,7 +29,7 @@ class Photo
 
     /**
      * @Assert\File(
-     *     maxSize="1M",
+     *     maxSize="8M",
      *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}
      * )
      * @Vich\UploadableField(mapping="players_challenge_image", fileNameProperty="imageName")
@@ -52,11 +53,12 @@ class Photo
     protected $imageName;
 
     /**
-     * @var integer
+     * @var User
      *
-     * @ORM\Column(name="userId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Group4\UserBundle\Entity\User", inversedBy="photos")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $userId;
+    private $user;
 
 
     /**
@@ -112,26 +114,26 @@ class Photo
     }
 
     /**
-     * Set userId
+     * Set user
      *
-     * @param integer $userId
+     * @param integer $user
      * @return Photo
      */
-    public function setUserId($userId)
+    public function setUser($user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get user
      *
      * @return integer 
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**

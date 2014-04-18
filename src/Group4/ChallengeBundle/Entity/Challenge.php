@@ -4,6 +4,8 @@ namespace Group4\ChallengeBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Group4\UserBundle\Entity\User;
+use Group4\ChallengeBundle\Entity\PlayerToChallenge;
 
 /**
  * Challenge
@@ -14,9 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Challenge
 {
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|PlayerToChallenge[]
      *
-     * @ORM\OneToMany(targetEntity="PlayerToChallenge", mappedBy="challenge")
+     * @ORM\OneToMany(targetEntity="PlayerToChallenge", mappedBy="challenge", cascade={"all"})
      */
     private $playerToChallenges;
 
@@ -47,6 +49,13 @@ class Challenge
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="voteDate", type="datetime", nullable=true)
+     */
+    private $voteDate;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="endDate", type="datetime")
      */
     private $endDate;
@@ -59,15 +68,62 @@ class Challenge
     private $type;
 
     /**
-     * @var integer
+     * @var Theme
      *
-     * @ORM\Column(name="themeId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Theme", inversedBy="challenges")
+     * @ORM\JoinColumn(name="theme_id", referencedColumnName="id")
      */
-    private $themeId;
+    private $theme;
 
-    public function __construct()
+    /**
+     * @param Theme $theme
+     * @param int $type
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     * @param int $status
+     */
+    public function __construct($theme, $type = 1, $startDate = null, $endDate = null, $status = 1)
     {
         $this->playerToChallenges = new ArrayCollection();
+
+        if (!isset($startDate)) {
+            $startDate = new \DateTime("now");
+        }
+
+        if (!isset($endDate)) {
+            $endDate = new \DateTime("+1 days");
+        }
+
+        $this->setStartDate($startDate);
+        $this->setEndDate($endDate);
+        $this->setTheme($theme);
+        $this->setType($type);
+        $this->setStatus($status);
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPlayersCount()
+    {
+        return count($this->getPlayerToChallenges());
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isInChallenge($user)
+    {
+        foreach($this->getPlayerToChallenges() as $playerToChallenge) {
+            if ($playerToChallenge->getUser() == $user) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -173,49 +229,58 @@ class Challenge
     }
 
     /**
-     * Set themeId
-     *
-     * @param integer $themeId
-     * @return Challenge
+     * @param \Group4\ChallengeBundle\Entity\Theme $theme
      */
-    public function setThemeId($themeId)
+    public function setTheme($theme)
     {
-        $this->themeId = $themeId;
+        $this->theme = $theme;
+    }
+
+    /**
+     * @return \Group4\ChallengeBundle\Entity\Theme
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
+     * @param User $user
+     */
+
+    public function join($user) {
+        $playerToChallenge = new PlayerToChallenge();
+        $playerToChallenge->setDate(new \DateTime("now"))
+            ->setChallenge($this)
+            ->setUser($user)
+            ->setStatus(0);
+
+        $this->addPlayerToChallenge($playerToChallenge);
 
         return $this;
     }
 
     /**
-     * Get themeId
-     *
-     * @return integer 
+     * @param PlayerToChallenge $playerToChallenge
+     * @return $this
      */
-    public function getThemeId()
+    public function removePlayerToChallenge(PlayerToChallenge $playerToChallenge)
     {
-        return $this->themeId;
-    }
-
-    /**
-     * Add playerToChallenges
-     *
-     * @param \Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges
-     * @return Challenge
-     */
-    public function addPlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges)
-    {
-        $this->playerToChallenges[] = $playerToChallenges;
+        $this->playerToChallenges->remove($playerToChallenge);
 
         return $this;
     }
 
     /**
-     * Remove playerToChallenges
-     *
-     * @param \Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges
+     * @param PlayerToChallenge $playerToChallenge
+     * @return $this
      */
-    public function removePlayerToChallenge(\Group4\ChallengeBundle\Entity\PlayersToChallenge $playerToChallenges)
+    public function addPlayerToChallenge(PlayerToChallenge $playerToChallenge)
     {
-        $this->playerToChallenges->removeElement($playerToChallenges);
+        $this->playerToChallenges->add($playerToChallenge);
+        $playerToChallenge->setChallenge($this);
+
+        return $this;
     }
 
     /**
@@ -227,4 +292,10 @@ class Challenge
     {
         return $this->playerToChallenges;
     }
+
+    public function __toString()
+    {
+        return $this->id;
+    }
+
 }

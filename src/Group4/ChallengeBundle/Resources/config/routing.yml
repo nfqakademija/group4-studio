@@ -54,6 +54,14 @@ player_photo_upload:
     pattern: /challenge/upload
     defaults: { _controller: ChallengeBundle:Player:upload }
 
-challenge_me:
-    defaults: { _controller: ChallengeBundle:Player:JoinChallengeForm }
-    pattern: /challenge/participate
+participate:
+    path: /challenge/participate/{type}
+    defaults: { _controller: ChallengeBundle:Player:joinChallenge, type: 1 }
+
+vote:
+    defaults: { _controller: ChallengeBundle:Player:vote }
+    pattern: /challenge/vote/{playerToChallengeId}
+
+show_challenge:
+    defaults: { _controller: ChallengeBundle:Player:showChallenge }
+    pattern: /challenge/show/{eventId}

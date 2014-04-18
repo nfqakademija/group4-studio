@@ -1,5 +1,5 @@
 <?php
-// src/Acme/DemoBundle/Admin/PostAdmin.php
+// src/Acme/DemoBundle/Admin/ThemeAdmin.php
 
 namespace Group4\ChallengeBundle\Admin;
 
@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 
-class PostAdmin extends Admin
+class ThemeAdmin extends Admin
 {
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)

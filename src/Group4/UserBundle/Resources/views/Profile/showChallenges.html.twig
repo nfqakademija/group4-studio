@@ -1,0 +1,15 @@
+{% extends 'BaseBundle:Default:index.html.twig' %}
+{% block content %}
+    {% block table %}
+        <table class="table table-striped" >
+            <tbody>
+                {% for playerToChallenge in playerToChallenges %}
+                    <tr>
+                        <td>{{ playerToChallenge.getChallenge.getTheme.getName }}</td>
+                        <td><a class="btn btn-default" href="{{ path('show_challenge', {eventId : playerToChallenge.getChallenge.getId}) }}">View</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+{% endblock %}

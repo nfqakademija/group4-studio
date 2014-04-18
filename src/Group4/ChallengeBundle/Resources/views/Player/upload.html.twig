@@ -1,6 +1,16 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 {% block content %}
-    <form class="form-horizontal" action="{{ path('player_photo_upload') }}" method="post" {{ form_enctype(form) }}>
+    Challenge theme <strong>"{{ theme }}"</strong>
+    <div class="col-md-6">
+        <div class="stopwatch" data-timer="{{ timeLeft }}"></div>
+        <script>
+            $(".stopwatch").TimeCircles({ time: {
+                Days: { show: false },
+                Hours: { show: false }
+            }});
+        </script>
+    </div>
+    <form class="form-horizontal" action="{{ path('show_challenge',{'eventId': eventId}) }}" method="post" {{ form_enctype(form) }}>
         {{ form_widget(form) }}
         <div class="control-group">
             <div class="controls">

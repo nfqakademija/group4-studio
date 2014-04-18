@@ -1,6 +1,6 @@
 services:
-    sonata.admin.post:
-        class: Group4\ChallengeBundle\Admin\PostAdmin
+    sonata.admin.theme:
+        class: Group4\ChallengeBundle\Admin\ThemeAdmin
         tags:
             - { name: sonata.admin, manager_type: orm, group: "Content", label: "Themes" }
         arguments:
@@ -9,3 +9,36 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [Group4ChallengeBundle]]
+
+    sonata.admin.photo:
+        class: Group4\ChallengeBundle\Admin\PhotoAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Photos" }
+        arguments:
+            - ~
+            - Group4\ChallengeBundle\Entity\Photo
+            - ~
+        calls:
+            - [ setTranslationDomain, [Group4ChallengeBundle]]
+
+    sonata.admin.playertochallenge:
+            class: Group4\ChallengeBundle\Admin\PlayerToChallengeAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: "Table", label: "PlayerToChallenge" }
+            arguments:
+                - ~
+                - Group4\ChallengeBundle\Entity\PlayerToChallenge
+                - ~
+            calls:
+                - [ setTranslationDomain, [Group4ChallengeBundle]]
+
+    sonata.admin.challenge:
+                class: Group4\ChallengeBundle\Admin\ChallengeAdmin
+                tags:
+                    - { name: sonata.admin, manager_type: orm, group: "Table", label: "Challenge" }
+                arguments:
+                    - ~
+                    - Group4\ChallengeBundle\Entity\Challenge
+                    - ~
+                calls:
+                    - [ setTranslationDomain, [Group4ChallengeBundle]]

@@ -1,8 +1,13 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 {% block content %}
-    {{ challenge.getTheme.getName }}
+    <h2>{{ challenge.getTheme.getName }}</h2>
+    Click a photo to upvote it.<br/>
     {% for player in players %}
-        <a href="{{ path('vote', {'playerToChallengeId': player.getId }) }}"><img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="" /></a>
-        {{ player.getVoteCount }}
+        <!--TODO: Stylesheets-->
+        <div class="vote-entry"
+             style="margin-top:10px;margin-right:10px;border:1px solid #DDDDDD;float:left;padding:5px;max-width: 515px;box-shadow: 0px 0px 10px#000000;text-align: center ">
+        Votes: <b>{{ player.getVoteCount }}</b><br/>
+        <a href="{{ path('vote', {'playerToChallengeId': player.getId }) }}"><img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="" style="margin-top:5px" /></a>
+        </div>
     {% endfor %}
 {% endblock %}

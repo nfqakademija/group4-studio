@@ -3,7 +3,7 @@
 {% block content %}
     You are logged in!<br/>
     Ongoing challenges:<br/>
-    <ul>
+    <ul style="list-style-type: none">
     {% for challenge in challenges %}
         <li><a href="{{ path('show_challenge', {'eventId': challenge.getId}) }}">{{ challenge.getTheme }}</a></li>
     {% endfor %}

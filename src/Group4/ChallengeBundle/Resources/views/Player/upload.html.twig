@@ -4,10 +4,23 @@
     <div class="col-md-6">
         <div class="stopwatch" data-timer="{{ timeLeft }}"></div>
         <script>
-            $(".stopwatch").TimeCircles({ time: {
-                Days: { show: false },
-                Hours: { show: false }
-            }});
+            $(".stopwatch")
+                .TimeCircles(
+                    { time: {
+                        Days: { show: false },
+                        Hours: { show: false }
+                    }       })
+
+                .addListener(function(unit,value,total){
+                        if(total == 0){
+                            $( ".controls").find(".btn").attr("disabled", "disabled").html("Time's over!");
+                            console.log("Time's over!");
+                        }else if(total == 10){
+                            $(".stopwatch")
+                                    .TimeCircles({ time: {Seconds: { color: '#ff0000' } } });
+                        }
+                });
+            $(".stopwatch").TimeCircles({ count_past_zero: false})
         </script>
     </div>
     <form class="form-horizontal" action="{{ path('show_challenge',{'eventId': eventId}) }}" method="post" {{ form_enctype(form) }}>

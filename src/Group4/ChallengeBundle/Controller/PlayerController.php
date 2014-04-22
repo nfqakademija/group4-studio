@@ -148,7 +148,12 @@ class PlayerController extends Controller
         $event = $repository->findOneBy(
             array('id' => $eventId)
         );
-        //TODO: get voteDate (if null, then waiting for players)
+        $voteDate = $event->getVoteDate();
+        if(is_null($voteDate)){
+            //TODO: waiting for players
+        }else{
+            //TODO: not waiting for players
+        }
         //Info about challenge END
 
         return $this->render('ChallengeBundle:Player:waitForVote.html.twig', array('eventId' => $eventId, 'myphoto' => $myphoto, 'theme' => $theme));

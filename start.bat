@@ -1,0 +1,1 @@
+cmd /k php app/console server:run

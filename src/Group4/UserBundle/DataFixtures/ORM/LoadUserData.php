@@ -4,6 +4,7 @@ namespace Group4\UserBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Group4\ChallengeBundle\Entity\Challenge;
+use Group4\ChallengeBundle\Entity\Photo;
 use Group4\ChallengeBundle\Entity\Theme;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -53,7 +54,12 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
             $userRep = $manager->getRepository('UserBundle:User');
             $users = $userRep->findAll();
             foreach ($users as $user) {
-                $challenge->join($user);
+                $playerToChallenge = $challenge->join($user);
+                $image = new Photo();
+                $image->setImageName("534bf9856553a.png");
+                $manager->persist($image);
+                $playerToChallenge->setStatus(1);
+                $playerToChallenge->setImage($image);
             }
             $manager->persist($challenge);
         }

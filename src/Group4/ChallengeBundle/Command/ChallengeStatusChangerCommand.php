@@ -21,27 +21,40 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
         $challenges = $challengeRep->findBy(array('status' => 1));
         foreach($challenges as $challenge) {
             $playerToChallenges = $playerToChallengeRep->findBy(array('challenge' => $challenge, 'status' => 1));
-            if($challenge->getVoteDate == null) {
+            if($challenge->getVoteDate() == null) {
                 if(count($playerToChallenges) >= 5) {
                     //TODO: VoteDate setters / getters
                     $challenge->setVoteDate(new \DateTime("+2 hours"));
                 }
-            } else {
-                //TODO: Patikrinti ar paskutinis speja ikelt
+            }
+            //TODO: Patikrinti ar paskutinis speja ikelt
+            $voteDate = new \DateTime("now");
+            $voteDate->add(new \DateInterval("PT1H"));
+            if($challenge->getVoteDate() >= $voteDate ) {
                 $query = $em->createQuery('
                     SELECT p2c
                     FROM ChallengeBundle:PlayerToChallenge p2c
                     WHERE p2c.status = 0
                     ORDER BY p2c.date DESC
-                    LIMIT 1
                 ');
-                $playerToChallenge = $query->getResult();
-                $date = $playerToChallenge->getDate();
-                $date->add(new \DateInterval(""))
-                if()
+                $playerToChallenges = $query->getResult();
+                if (empty($playerToChallenges)) {
+                    $challenge->setStatus(2);
+                    $em->persist($challenge);
+                } else {
+                    $date = $playerToChallenges[0]->getDate();
+                    $date->add(new \DateInterval("PT15M"));
+                    $challengeVoteDate = $challenge->getVoteDate();
+                    $challengeVoteDate->add(new \DateInterval("PT1H"));
+                    if($date > $challengeVoteDate) {
+                        $newDate = new \DateTime("now");
+                        $newDate->add(new \DateInterval("PT15M"));
+                        $challenge->setVoteDate($newDate);
+                        $em->persist($challenge);
+                    }
+                }
+                $em->flush();
             }
         }
-
-
     }
 }

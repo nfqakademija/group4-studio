@@ -281,7 +281,7 @@ class Challenge
 
         }
 
-        return $this;
+        return $playerToChallenge;
     }
 
     /**

@@ -249,7 +249,12 @@ class PlayerToChallenge
      */
     public function addVote(\Group4\ChallengeBundle\Entity\Vote $vote)
     {
-        $this->votes[] = $vote;
+        foreach($this->votes as $voteCurrent) {
+            if($voteCurrent->getUser() == $vote->getUser()) {
+                $this->votes->remove($voteCurrent);
+            }
+        }
+        $this->votes->add($vote);
 
         return $this;
     }

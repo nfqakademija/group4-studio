@@ -249,9 +249,9 @@ class PlayerToChallenge
      */
     public function addVote(\Group4\ChallengeBundle\Entity\Vote $vote)
     {
-        foreach($this->votes as $voteCurrent) {
-            if($voteCurrent->getUser() == $vote->getUser()) {
-                $this->votes->remove($voteCurrent);
+        foreach ($this->votes as $voteCurrent) {
+            if ($voteCurrent->getUser() == $vote->getUser()) {
+                return $this;
             }
         }
         $this->votes->add($vote);

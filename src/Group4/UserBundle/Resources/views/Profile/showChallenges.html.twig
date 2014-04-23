@@ -2,10 +2,19 @@
 {% block content %}
     {% block table %}
         <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <td>Challenge ID</td>
+                    <td>Theme</td>
+                    <td>Date joined</td>
+                </tr>
+            </thead>
             <tbody>
                 {% for playerToChallenge in playerToChallenges %}
                     <tr>
+                        <td>{{ playerToChallenge.getChallenge.getId }}</td>
                         <td>{{ playerToChallenge.getChallenge.getTheme.getName }}</td>
+                        <td>{{ playerToChallenge.getDate|date('Y-m-d H:i:s') }}</td>
                         <td><a class="btn btn-default" href="{{ path('show_challenge', {eventId : playerToChallenge.getChallenge.getId}) }}">View</a></td>
                     </tr>
                 {% endfor %}

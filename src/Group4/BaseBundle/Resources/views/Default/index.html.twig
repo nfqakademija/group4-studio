@@ -53,13 +53,15 @@
                 <a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>
             </div>
 
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"></button>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <ul class="nav navbar-nav">
                     <li><a class="btn btn-default navbar-btn" href="{{ path('participate', {type: 1}) }}">5</a></li>
                     <li><a class="btn btn-default navbar-btn" href="{{ path('participate', {type: 2}) }}">15</a></li>
                 </ul>
                 {% endif %}
+
                 <ul class="nav navbar-nav navbar-right">
                     <li>{{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}</li>
                 </ul>

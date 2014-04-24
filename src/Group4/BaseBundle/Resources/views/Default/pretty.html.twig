@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photo Challenge!</title>
+    <link href='http://fonts.googleapis.com/css?family=Ruluko' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+        #wrap {
+            position: relative;
+            height: 100px;
+            max-height: 900px;
+            align-content: center;
+            overflow: hidden;
+        }
+
+        #wrap img {
+            position: absolute;
+            height: 100%;
+            margin: auto;
+            left: 0;
+            right: 0;
+        }
+
+        #menu {
+            color: #555555;
+            position: absolute;
+            top: 52%;
+            text-align: center;
+            font-size: 1em;
+            width: 100%;
+            font-family: 'Ruluko', sans-serif;
+        }
+
+        #menu a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        #menu a:hover {
+            color: #00fff0;
+        }
+
+        .highlight {
+            color: #00fff0;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var looper;
+        var degrees = 0;
+        var degrees1 = 0;
+
+        function rotateAnimation(el,el2,speed){
+
+            var elem = document.getElementById(el);
+            if(navigator.userAgent.match("Chrome")){
+                elem.style.WebkitTransform = "rotate("+degrees+"deg)";
+            } else if(navigator.userAgent.match("Firefox")){
+                elem.style.MozTransform = "rotate("+degrees+"deg)";
+            } else if(navigator.userAgent.match("MSIE")){
+                elem.style.msTransform = "rotate("+degrees+"deg)";
+            } else if(navigator.userAgent.match("Opera")){
+                elem.style.OTransform = "rotate("+degrees+"deg)";
+            } else {
+                elem.style.transform = "rotate("+degrees+"deg)";
+            }
+            var elem1 = document.getElementById(el2);
+            if(navigator.userAgent.match("Chrome")){
+                elem1.style.WebkitTransform = "rotate("+degrees1+"deg)";
+            } else if(navigator.userAgent.match("Firefox")){
+                elem1.style.MozTransform = "rotate("+degrees1+"deg)";
+            } else if(navigator.userAgent.match("MSIE")){
+                elem1.style.msTransform = "rotate("+degrees1+"deg)";
+            } else if(navigator.userAgent.match("Opera")){
+                elem1.style.OTransform = "rotate("+degrees1+"deg)";
+            } else {
+                elem1.style.transform = "rotate("+degrees1+"deg)";
+            }
+            //looper = setTimeout('rotateAnimation(\''+el+'\',\''+el2+'\','+speed+')',speed);
+            looper = setTimeout(function() {rotateAnimation(el,el2,speed)}, speed);
+            degrees+=0.05;
+            degrees1-=0.05;
+            if(degrees > 359.95){
+                degrees = 1;
+            }
+            if(degrees1 > 359.95){
+                degrees1 = 1;
+            }
+        }
+    </script>
+</head>
+<body bgcolor="#">
+<div id="wrap">
+    <img id="img1" style="z-index:-15" src="../images/back.png">
+    <img id="img2" style="z-index:-10" src="../images/front.png">
+    <div id="menu">
+        <a href="{{ path('fos_user_security_login') }}">Sign <span class="highlight">In</span></a> | <a href="{{ path('fos_user_registration_register') }}">Sign <span class="highlight">Up</span></a>
+    </div>
+    <script type="text/javascript">
+        var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
+        document.getElementById("wrap").style.height=y+"px";
+        document.getElementById("menu").style.fontSize = y/20+"px";
+    </script>
+    <script type="text/javascript">rotateAnimation("img1", "img2", 30);</script>
+    <img style="z-index:-5" src="../images/logo.png">
+</div>
+</body>
+</html>

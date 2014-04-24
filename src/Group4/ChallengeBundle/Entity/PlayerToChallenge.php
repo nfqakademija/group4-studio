@@ -67,12 +67,30 @@ class PlayerToChallenge
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
      */
     private $image;
+
     /**
-     * @var Integer
+     * @var Reward
      *
-     * @ORM\Column(name="place", type="integer", nullable=true)
+     * @ORM\OneToOne(targetEntity="Reward", inversedBy="playerToChallenge")
+     * @ORM\JoinColumn(name="reward_id", referencedColumnName="id", nullable=true)
      */
-    private $place;
+    private $reward;
+
+    /**
+     * @param \Group4\ChallengeBundle\Entity\Reward $reward
+     */
+    public function setReward($reward)
+    {
+        $this->reward = $reward;
+    }
+
+    /**
+     * @return \Group4\ChallengeBundle\Entity\Reward
+     */
+    public function getReward()
+    {
+        return $this->reward;
+    }
 
     /**
      * @return int

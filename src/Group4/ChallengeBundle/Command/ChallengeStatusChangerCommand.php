@@ -1,8 +1,12 @@
 <?php
 namespace Group4\ChallengeBundle\Command;
 
+use Group4\ChallengeBundle\Entity\Reward;
+use Group4\ChallengeBundle\Entity\Vote;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputInterface;
 
 class ChallengeStatusChangerCommand extends ContainerAwareCommand
 {
@@ -13,12 +17,13 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
             ->setDescription('Changes challenges\'s status');
     }
 
-    protected function execute()
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine')->getEntityManager('default');
         $challengeRep = $em->getRepository('ChallengeBundle:Challenge');
         $playerToChallengeRep = $em->getRepository('ChallengeBundle:PlayerToChallenge');
         $challenges = $challengeRep->findBy(array('status' => 1));
+
         foreach($challenges as $challenge) {
             $playerToChallenges = $playerToChallengeRep->findBy(array('challenge' => $challenge, 'status' => 1));
             if($challenge->getVoteDate() == null) {
@@ -55,6 +60,45 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
                 }
                 $em->flush();
             }
+        }
+
+            //TODO: Patikrinti ar challenge laikas pasibaiges, jei taip challenge.status = 3, isdalinti rewards
+            //TODO: Nepamirsti apie atveji, kai nesusirenka penki zaidejai
+            //TODO: Patikrinti ir su challenge.status = 2
+        $challenges = $challengeRep->findBy(array('status' => 1, 'status' => 2));
+
+        foreach($challenges as $challenge) {
+            $playerToChallenges = $playerToChallengeRep->findBy(array('challenge' => $challenge, 'status' => 1));
+            if ($challenge->getEndDate() <= new \DateTime("now")) {
+                $challenge->setStatus(3);
+                $em->persist($challenge);
+
+                if($challenge->getPlayersCount() >= 5) {
+                    //TODO: Isdalinti taskus pagal vietas
+                    foreach($playerToChallenges as $playerToChallenge) {
+                        $points = $playerToChallenge->getVoteCount();
+
+                        $reward = new Reward($playerToChallenge, $points);
+                        $em->persist($reward);
+
+                        $playerToChallenge->setReward($reward);
+                        $em->persist($playerToChallenge);
+                    }
+                } else {
+                    //TODO: Isdalinti dalyvavusiems po 10 tasku
+                    if(!$playerToChallenges) {
+                        foreach($playerToChallenges as $playerToChallenge) {
+                            $reward = new Reward($playerToChallenge, 10);
+                            $em->persist($reward);
+
+                            $playerToChallenge->setReward($reward);
+                            $em->persist($playerToChallenge);
+                        }
+                    }
+                }
+            $em->flush();
+            }
+
         }
     }
 }

@@ -122,10 +122,30 @@ class PlayerController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
         $playerToChallenge = $repository->findOneBy(array('id' => $playerToChallengeId));
+        $voteRep = $this->getDoctrine()->getRepository('ChallengeBundle:Vote');
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery('
+            SELECT v
+            FROM Group4\ChallengeBundle\Entity\Vote v
+            LEFT JOIN v.playerToChallenge p2c
+            LEFT JOIN p2c.challenge c
+            WHERE v.user = :user
+                AND c = :challenge
+        ')
+            ->setParameter('user', $this->container->get('security.context')->getToken()->getUser())
+            ->setParameter('challenge', $playerToChallenge->getChallenge());
+        $vote = $query->getResult();
+        if (is_array($vote)) {
+            foreach ($vote as $voteTmp) {
+                $em->remove($voteTmp);
+            }
+        } else {
+            $em->remove($vote);
+        }
         $vote = new Vote($this->container->get('security.context')->getToken()->getUser(),$playerToChallenge);
         $playerToChallenge->addVote($vote);
 
-        $em = $this->getDoctrine()->getManager();
         $em->persist($playerToChallenge);
         $em->flush();
 
@@ -229,13 +249,16 @@ class PlayerController extends Controller
                 $user = $this->container->get('security.context')->getToken()->getUser();
                 $em = $this->getDoctrine()->getManager();
                 $event = $em->getRepository('ChallengeBundle:PlayerToChallenge');
+                $challenge = $em->getRepository('ChallengeBundle:Challenge');
 
                 $pl2ch = $event->findOneBy(
                     array('user' => $user, 'challenge' => $eventId)
                 );
+                $ch = $challenge->findOneBy(array('id' => $eventId));
 
                 $pl2ch->setStatus('1');
                 $pl2ch->setImage($photo);
+                $ch->doVoteDateStuff();
                 $em->persist($pl2ch);
                 $em->flush();
 

@@ -25,7 +25,7 @@ class ChallengeRepository extends EntityRepository
         $query = $this->getEntityManager()->createQuery('
             SELECT c FROM Group4\ChallengeBundle\Entity\Challenge AS c
             JOIN c.playerToChallenges AS p2c
-             WHERE c.status = 1 AND c.type ='.$type.' AND :now BETWEEN c.startDate AND c.endDate
+             WHERE c.status = 1 AND c.type ='.$type.' AND :now BETWEEN c.startDate AND c.voteDate
             ORDER BY c.startDate DESC
          ')->setParameter('now',new \DateTime('now'));
 

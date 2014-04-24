@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Group4\UserBundle\Entity\User;
 use Group4\ChallengeBundle\Entity\PlayerToChallenge;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 const PLAYERS_MIN = 3;
 const END_DATE_AFTER_DAYS = 2;
@@ -112,6 +113,17 @@ class Challenge
     public function getPlayersCount()
     {
         return count($this->getPlayerToChallenges());
+    }
+
+    public function getPlayersUploadedCount()
+    {
+        $count = 0;
+        foreach($this->getPlayerToChallenges() as $ptc){
+            if(!is_null($ptc->getImage())){
+                $count++;
+            }
+        }
+        return $count;
     }
 
     /**
@@ -264,9 +276,21 @@ class Challenge
     }
 
     /**
+     * @return \DateTime
+     */
+    public function doVoteDateStuff(){
+        if(is_null($this->getVoteDate()) && $this->getPlayersUploadedCount()>=PLAYERS_MIN){
+            $voteDate=new \DateTime("+".VOTE_DATE_AFTER_DAYS." days");
+            $this->setVoteDate($voteDate);
+        }
+
+        return $voteDate;
+    }
+
+
+    /**
      * @param User $user
      */
-
     public function join($user) {
         $playerToChallenge = new PlayerToChallenge();
         $playerToChallenge->setDate(new \DateTime("now"))
@@ -275,10 +299,11 @@ class Challenge
             ->setStatus(0);
 
         $this->addPlayerToChallenge($playerToChallenge);
-        if($this->getPlayersCount()==PLAYERS_MIN){
-            $voteDate=new \DateTime("+".VOTE_DATE_AFTER_DAYS." days");
-            $this->setVoteDate($voteDate);
 
+        $now = new \DateTime("now");
+        $interval = new \DateInterval("PT5M"); // TODO: Date interval according to status
+        if(!is_null($this->getVoteDate()) && $now->add($interval) > $this->getVoteDate()){
+            $this->setVoteDate($now->add($interval));
         }
 
         return $playerToChallenge;
@@ -317,10 +342,7 @@ class Challenge
         return $this->playerToChallenges;
     }
 
-    public function __toString()
-    {
-        return $this->id;
-    }
+
 
 
 }

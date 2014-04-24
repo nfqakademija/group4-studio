@@ -3,9 +3,22 @@
 {% block content %}
     You are logged in!<br/>
     Ongoing challenges:<br/>
-    <ul style="list-style-type: none">
+    <div>
     {% for challenge in challenges %}
-        <li><a href="{{ path('show_challenge', {'eventId': challenge.getId}) }}">{{ challenge.getTheme }}</a></li>
+        <div class="carousel">
+            {% for playerToChallenge in challenge.getPlayerToChallenges %}
+            <div><a href=""><img width="200px" src="{{ vich_uploader_asset(playerToChallenge.getImage, 'image') }}" /></a></div>
+            {% endfor %}
+        </div>
     {% endfor %}
-    </ul>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('.carousel').slick({
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 3
+            })
+        });
+    </script>
 {% endblock %}

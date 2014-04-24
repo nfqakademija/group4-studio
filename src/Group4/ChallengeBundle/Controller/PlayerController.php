@@ -249,13 +249,16 @@ class PlayerController extends Controller
                 $user = $this->container->get('security.context')->getToken()->getUser();
                 $em = $this->getDoctrine()->getManager();
                 $event = $em->getRepository('ChallengeBundle:PlayerToChallenge');
+                $challenge = $em->getRepository('ChallengeBundle:Challenge');
 
                 $pl2ch = $event->findOneBy(
                     array('user' => $user, 'challenge' => $eventId)
                 );
+                $ch = $challenge->findOneBy(array('id' => $eventId));
 
                 $pl2ch->setStatus('1');
                 $pl2ch->setImage($photo);
+                $ch->doVoteDateStuff();
                 $em->persist($pl2ch);
                 $em->flush();
 

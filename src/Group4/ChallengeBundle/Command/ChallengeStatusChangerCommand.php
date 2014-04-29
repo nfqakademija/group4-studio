@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class ChallengeStatusChangerCommand extends ContainerAwareCommand
 {
@@ -68,15 +69,30 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
         $challenges = $challengeRep->findBy(array('status' => 1, 'status' => 2));
 
         foreach($challenges as $challenge) {
-            $playerToChallenges = $playerToChallengeRep->findBy(array('challenge' => $challenge, 'status' => 1));
+            $playerToChallenges = $challenge->getPlayerToChallenges();
             if ($challenge->getEndDate() <= new \DateTime("now")) {
                 $challenge->setStatus(3);
                 $em->persist($challenge);
 
+                $iterator = $playerToChallenges->getIterator();
+                $iterator->uasort(function ($a, $b) {
+                    return ($a->getVoteCount() > $b->getVoteCount()) ? -1 : 1;
+                });
+
+                $playerToChallenges = new ArrayCollection(iterator_to_array($iterator));
+
                 if($challenge->getPlayersCount() >= 5) {
                     //TODO: Isdalinti taskus pagal vietas
+                    $bonus = 10*$challenge->getPlayersCount();
+                    $win = 3;
                     foreach($playerToChallenges as $playerToChallenge) {
-                        $points = $playerToChallenge->getVoteCount();
+                        $points = $playerToChallenge->getVoteCount() + $bonus;
+                        $bonus = $bonus * 0.5;
+                        $win -= 1;
+
+                        if($win == 0) {
+                            $bonus = 0;
+                        }
 
                         $reward = new Reward($playerToChallenge, $points);
                         $em->persist($reward);
@@ -84,16 +100,15 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
                         $playerToChallenge->setReward($reward);
                         $em->persist($playerToChallenge);
                     }
+
                 } else {
                     //TODO: Isdalinti dalyvavusiems po 10 tasku
-                    if(!$playerToChallenges) {
-                        foreach($playerToChallenges as $playerToChallenge) {
-                            $reward = new Reward($playerToChallenge, 10);
-                            $em->persist($reward);
+                    foreach($playerToChallenges as $playerToChallenge) {
+                        $reward = new Reward($playerToChallenge, 10);
+                        $em->persist($reward);
 
-                            $playerToChallenge->setReward($reward);
-                            $em->persist($playerToChallenge);
-                        }
+                        $playerToChallenge->setReward($reward);
+                        $em->persist($playerToChallenge);
                     }
                 }
             $em->flush();

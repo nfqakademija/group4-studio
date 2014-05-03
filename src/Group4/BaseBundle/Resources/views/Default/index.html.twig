@@ -15,6 +15,7 @@
                 '@BaseBundle/Resources/public/less/style.less'
                 '@BaseBundle/Resources/public/less/TimeCircles.less'
                 '@BaseBundle/Resources/public/css/slick.css'
+                '@BaseBundle/Resources/public/css/jquery.fancybox.css'
             %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
             {% endstylesheets %}
@@ -25,9 +26,25 @@
         {% block head_script %}
             {% javascripts
                 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+                '@BaseBundle/Resources/public/js/jquery-1.10.1.min.js'
                 '@BaseBundle/Resources/public/js/TimeCircles.js'
                 '@BaseBundle/Resources/public/js/slick.js'
+                '@BaseBundle/Resources/public/js/jquery.fancybox.pack.js'
             %}
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.0";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+            <script  type="text/javascript">
+                $(document).ready(function() {
+                    console.log($(".fancybox"));
+                    $(".fancybox").fancybox();
+                });
+            </script>
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock head_script %}

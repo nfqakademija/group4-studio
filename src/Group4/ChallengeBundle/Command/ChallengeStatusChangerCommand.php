@@ -29,11 +29,9 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
             $playerToChallenges = $playerToChallengeRep->findBy(array('challenge' => $challenge, 'status' => 1));
             if($challenge->getVoteDate() == null) {
                 if(count($playerToChallenges) >= 5) {
-                    //TODO: VoteDate setters / getters
                     $challenge->setVoteDate(new \DateTime("+2 hours"));
                 }
             }
-            //TODO: Patikrinti ar paskutinis speja ikelt
             $voteDate = new \DateTime("now");
             $voteDate->add(new \DateInterval("PT1H"));
             if($challenge->getVoteDate() >= $voteDate ) {
@@ -64,7 +62,7 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
         }
 
             //TODO: Patikrinti ar challenge laikas pasibaiges, jei taip challenge.status = 3, isdalinti rewards
-            //TODO: Nepamirsti apie atveji, kai nesusirenka penki zaidejai
+            //TODO: Nepamarsti apie atveji, kai nesusirenka penki zaidejai
             //TODO: Patikrinti ir su challenge.status = 2
         $challenges = $challengeRep->findBy(array('status' => 1, 'status' => 2));
 

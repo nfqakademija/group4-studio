@@ -97,4 +97,44 @@ class Theme
     {
         return $this->getName();
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->challenges = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add challenges
+     *
+     * @param \Group4\ChallengeBundle\Entity\Challenge $challenges
+     * @return Theme
+     */
+    public function addChallenge(\Group4\ChallengeBundle\Entity\Challenge $challenges)
+    {
+        $this->challenges[] = $challenges;
+
+        return $this;
+    }
+
+    /**
+     * Remove challenges
+     *
+     * @param \Group4\ChallengeBundle\Entity\Challenge $challenges
+     */
+    public function removeChallenge(\Group4\ChallengeBundle\Entity\Challenge $challenges)
+    {
+        $this->challenges->removeElement($challenges);
+    }
+
+    /**
+     * Get challenges
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChallenges()
+    {
+        return $this->challenges;
+    }
 }

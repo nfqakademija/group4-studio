@@ -41,7 +41,6 @@
                 }(document, 'script', 'facebook-jssdk'));</script>
             <script  type="text/javascript">
                 $(document).ready(function() {
-                    console.log($(".fancybox"));
                     $(".fancybox").fancybox();
                 });
             </script>
@@ -75,7 +74,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"></button>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav"> <!--TODO get from database-->
                     <li><a class="btn btn-default navbar-btn" href="{{ path('participate', {type: 1}) }}">5</a></li>
                     <li><a class="btn btn-default navbar-btn" href="{{ path('participate', {type: 2}) }}">15</a></li>
                 </ul>

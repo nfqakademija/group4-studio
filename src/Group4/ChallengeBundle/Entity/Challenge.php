@@ -5,8 +5,7 @@ namespace Group4\ChallengeBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Group4\UserBundle\Entity\User;
-use Group4\ChallengeBundle\Entity\PlayerToChallenge;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Group4\ChallengeBundle\Entity\Type;
 
 const PLAYERS_MIN = 3;
 const END_DATE_AFTER_DAYS = 2;
@@ -65,9 +64,10 @@ class Challenge
     private $endDate;
 
     /**
-     * @var integer
+     * @var Type
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\ManyToOne(targetEntity="Type", inversedBy="challenges")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
     private $type;
 
@@ -81,12 +81,12 @@ class Challenge
 
     /**
      * @param Theme $theme
-     * @param int $type
+     * @param Type $type
      * @param \DateTime $startDate
      * @param \DateTime $endDate
      * @param int $status
      */
-    public function __construct($theme, $type = 1, $startDate = null, $endDate = null, $status = 1)
+    public function __construct($theme, $type, $startDate = null, $endDate = null, $status = 1)
     {
         $this->playerToChallenges = new ArrayCollection();
 
@@ -95,7 +95,11 @@ class Challenge
         }
 
         if (!isset($endDate)) {
-            $endDate = new \DateTime("+".END_DATE_AFTER_DAYS." days");
+            $endDate = new \DateTime('now');
+
+
+            $endDate=$endDate->add($type->getVoteDurationInterval());
+            $endDate=$endDate->add($type->getWaitDurationInterval());
         }
 
         $this->setStartDate($startDate);
@@ -221,22 +225,18 @@ class Challenge
     }
 
     /**
-     * Set type
-     *
-     * @param integer $type
-     * @return Challenge
+
+
+    /**
+     * @param \Group4\ChallengeBundle\Entity\Type $type
      */
     public function setType($type)
     {
         $this->type = $type;
-
-        return $this;
     }
 
     /**
-     * Get type
-     *
-     * @return integer 
+     * @return \Group4\ChallengeBundle\Entity\Type
      */
     public function getType()
     {
@@ -282,6 +282,8 @@ class Challenge
         if(is_null($this->getVoteDate()) && $this->getPlayersUploadedCount()>=PLAYERS_MIN){
             $voteDate=new \DateTime("+".VOTE_DATE_AFTER_DAYS." days");
             $this->setVoteDate($voteDate);
+        }else{
+            $voteDate=null;
         }
 
         return $voteDate;

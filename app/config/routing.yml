@@ -33,6 +33,14 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
+fos_user_gallery_show:
+    pattern: gallery/show
+    defaults: { _controller: UserBundle:Gallery:index }
+
+update_photo:
+    pattern: /profile/photo/update
+    defaults: { _controller: UserBundle:Profile:updatePhoto }
+
 admin:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin

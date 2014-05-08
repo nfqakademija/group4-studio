@@ -1,0 +1,31 @@
+{% extends 'BaseBundle:Default:index.html.twig' %}
+{% block content %}
+    {% for photo in photos %}
+        <a class="fancybox" href="#{{ app.user }}" >
+            <img width="200px" src="{{ vich_uploader_asset(photo, 'image') }}" alt="{{ app.user }}" style="margin-top:5px" /></a>
+
+        <div id="{{ app.user }}" style="display: none">
+            <img src="{{ vich_uploader_asset(photo, 'image') }}" alt="{{ app.user }}" style="margin-top:5px" />
+            <legend><a href="{{ photo.getId }}">Make your profile picture</a></legend>
+            <div class="fb-comments" data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(photo, 'image') }}" data-numposts="5" data-colorscheme="light"></div>
+        </div>
+    {% endfor %}
+    <script>
+        $('#{{ app.user }} legend a').click( function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: '{{ path('update_photo') }}',
+                dataType: 'json',
+                data: { photo: $(this).attr('href') },
+                success: function(response) {
+                    if(response.success) {
+                        $('#{{ app.user }} legend').prepend("<div class='alert alert-dismissable alert-success'><button class='close' data-dismiss='alert' type='button'>×</button>Your profile photo successfully updated!</div>");
+                    } else {
+                        $('#{{ app.user }} legend').prepend("<div class='alert alert-dismissable alert-danger'><button class='close' data-dismiss='alert' type='button'>×</button>Oops! Something must have went wrong.</div>");
+                    }
+                }
+            },"json");
+        });
+    </script>
+
+{% endblock %}

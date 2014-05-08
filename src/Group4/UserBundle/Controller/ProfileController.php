@@ -21,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Group4\ChallengeBundle\Form\Type\UploadFormType;
@@ -149,5 +150,25 @@ class ProfileController extends Controller
             'FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'),
             array('form' => $form->createView())
         );
+    }
+
+    function updatePhotoAction()
+    {
+        $request = $this->container->get('request');
+
+        $imageRep = $this->getDoctrine()->getRepository('ChallengeBundle:Photo');
+        $image = $imageRep->findOneBy(array('id' => $request->query->get('photo')));
+
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
+        if($image->getUser() == $user) {
+            $em = $this->getDoctrine()->getEntityManager();
+            $user->setImage($image);
+            $em->persist($user);
+            $em->flush();
+            return new Response(json_encode(array('success' => true)));
+        } else {
+            return new Response(json_encode(array('success' => false)));
+        }
     }
 }

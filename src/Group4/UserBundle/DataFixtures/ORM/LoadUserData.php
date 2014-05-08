@@ -57,6 +57,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
                 $playerToChallenge = $challenge->join($user);
                 $image = new Photo();
                 $image->setImageName("534bf9856553a.png");
+                $image->setUser($user);
                 $manager->persist($image);
                 $playerToChallenge->setStatus(1);
                 $playerToChallenge->setImage($image);

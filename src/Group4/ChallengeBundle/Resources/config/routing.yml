@@ -64,4 +64,8 @@ vote:
 
 show_challenge:
     defaults: { _controller: ChallengeBundle:Player:showChallenge }
-    pattern: /challenge/show/{eventId}
+    pattern: /show/{eventId}
+
+show_challenge_with_focus:
+    defaults: { _controller: ChallengeBundle:Player:showChallenge }
+    pattern: /show/{eventId}/{userId}

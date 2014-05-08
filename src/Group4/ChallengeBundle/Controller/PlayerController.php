@@ -56,8 +56,9 @@ class PlayerController extends Controller
         return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $eventId)));
     }
 
-    public function showChallengeAction(Request $request, $eventId)
+    public function showChallengeAction(Request $request, $eventId, $userId=null)
     {
+
         $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Challenge');
         $event = $repository->findOneBy(
             array('id' => $eventId)
@@ -105,7 +106,7 @@ class PlayerController extends Controller
 
             case 2:
             //Voting state
-                return $this->votingAction($event);
+                return $this->votingAction($event, $userId);
             case 3:
             //Challenge ended
             //TODO: redirect to challengeEndedStateAction
@@ -117,12 +118,11 @@ class PlayerController extends Controller
 
     }
 
-    private function votingAction($event)
+    private function votingAction($event, $user)
     {
         $repository = $this->getDoctrine()->getRepository('ChallengeBundle:playerToChallenge');
-        $playerToChallenges = array();
         $playerToChallenges = $repository->findBy(array('challenge' => $event));
-        return $this->render('ChallengeBundle:Player:voting.html.twig', array('players' => $playerToChallenges, 'challenge' => $event));
+        return $this->render('ChallengeBundle:Player:voting.html.twig', array('players' => $playerToChallenges, 'challenge' => $event, 'user' => $user) );
     }
 
     public function voteAction($playerToChallengeId)

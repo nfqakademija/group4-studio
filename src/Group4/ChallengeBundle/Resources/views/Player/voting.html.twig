@@ -1,18 +1,17 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 {% block content %}
     <h2>{{ challenge.getTheme.getName }}</h2>
-    Click a photo to upvote it.<br/>
     {% for player in players %}
         <!--TODO: Stylesheets-->
         <div class="vote-entry"
              style="margin-top:10px;margin-right:10px;border:1px solid #DDDDDD;float:left;padding:5px;max-width: 515px;box-shadow: 0px 0px 10px#000000;text-align: center ">
         Votes: <b>{{ player.getVoteCount }}</b><br/>
-        <a class="fancybox" href="#{{ player.getUser }}" >
+            <a href="{{ path('vote', {'playerToChallengeId': player.getId }) }}" style="font-size:15pt"><img src=""/>todo: upvote.png</a>
+            <a class="fancybox" href="#{{ player.getUser }}" >
             <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px" /></a>
-
             <div id="{{ player.getUser }}" style="display: none">
                 <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px" />
-                <div class="fb-comments" data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(player.getImage, 'image') }}" data-numposts="5" data-colorscheme="light"></div>
+                <div class="fb-comments" data-href="http://group4-studio.projektai.nfqakademija.lt/challenge/show/{{ challenge.getId }}#{{ player.getUser }}" data-numposts="5" data-colorscheme="light"></div>
             </div>
 
         </div>

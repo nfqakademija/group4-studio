@@ -12,4 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class ThemeRepository extends EntityRepository
 {
+
+    /**
+     * @return ArrayCollection|Theme[]
+     */
+    public function getApprovedThemes()
+    {
+        $query = $this->getEntityManager()->createQuery('
+            SELECT t FROM Group4\ChallengeBundle\Entity\Theme AS t
+             WHERE t.approved = 1
+             ORDER BY t.name ASC
+         ');
+
+        $themes = $query->getResult();
+
+        return $themes;
+    }
+
 }

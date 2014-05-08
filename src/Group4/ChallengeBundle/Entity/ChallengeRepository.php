@@ -47,14 +47,14 @@ class ChallengeRepository extends EntityRepository
      * @param bool $full
      * @return Challenge
      */
-    public function getActiveChallenge($type = 1, $full = false)
+    public function getActiveChallenge($typeId = 1, $full = false)
     {
         $now = date("Y-m-d-H:i:s");
 
         $query = $this->getEntityManager()->createQuery('
             SELECT c FROM Group4\ChallengeBundle\Entity\Challenge AS c
             JOIN c.playerToChallenges AS p2c
-            WHERE c.status = 1 AND c.type ='.$type.' AND :now BETWEEN c.startDate AND c.endDate
+            WHERE c.status = 1 AND c.type ='.$typeId.' AND :now BETWEEN c.startDate AND c.endDate
             ORDER BY c.startDate DESC
          ')->setParameter('now',new \DateTime('now'));
 

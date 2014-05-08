@@ -29,12 +29,12 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
             $playerToChallenges = $playerToChallengeRep->findBy(array('challenge' => $challenge, 'status' => 1));
             if($challenge->getVoteDate() == null) {
                 if(count($playerToChallenges) >= 5) {
-                    $challenge->setVoteDate(new \DateTime("+2 hours"));
+                    $challenge->setVoteDate(new \DateTime("+1 hours"));
                 }
             }
-            $voteDate = new \DateTime("now");
-            $voteDate->add(new \DateInterval("PT1H"));
-            if($challenge->getVoteDate() >= $voteDate ) {
+//            $voteDate = new \DateTime("now");
+//            $voteDate->add(new \DateInterval("PT1H"));
+            if(($challenge->getVoteDate() <= new \DateTime("now")) && ($challenge->getVoteDate() != null) ) {
                 $query = $em->createQuery('
                     SELECT p2c
                     FROM ChallengeBundle:PlayerToChallenge p2c
@@ -57,8 +57,8 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
                         $em->persist($challenge);
                     }
                 }
-                $em->flush();
             }
+            $em->flush();
         }
 
             //TODO: Patikrinti ar challenge laikas pasibaiges, jei taip challenge.status = 3, isdalinti rewards

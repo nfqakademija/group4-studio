@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Group4\UserBundle\Entity\User;
 use Group4\ChallengeBundle\Entity\PlayerToChallenge;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\Null;
 
 const PLAYERS_MIN = 3;
 const END_DATE_AFTER_DAYS = 2;
@@ -282,7 +283,7 @@ class Challenge
         if(is_null($this->getVoteDate()) && $this->getPlayersUploadedCount()>=PLAYERS_MIN){
             $voteDate=new \DateTime("+".VOTE_DATE_AFTER_DAYS." days");
             $this->setVoteDate($voteDate);
-        }
+        } else {$voteDate = null;}
 
         return $voteDate;
     }

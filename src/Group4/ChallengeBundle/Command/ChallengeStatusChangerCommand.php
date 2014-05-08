@@ -34,7 +34,7 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
             }
             $voteDate = new \DateTime("now");
             $voteDate->add(new \DateInterval("PT1H"));
-            if($challenge->getVoteDate() >= $voteDate ) {
+            if(($challenge->getVoteDate() <= $voteDate) && ($challenge->getVoteDate() != null) ) {
                 $query = $em->createQuery('
                     SELECT p2c
                     FROM ChallengeBundle:PlayerToChallenge p2c

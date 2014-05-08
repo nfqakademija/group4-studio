@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Group4\ChallengeBundle\Entity\Challenge;
 use Group4\ChallengeBundle\Form\Type\UploadFormType;
 use Group4\ChallengeBundle\Entity\Photo;
+use Group4\ChallengeBundle\Entity\Type;
 
 const PHOTO_WIDTH = 500;
 
@@ -23,21 +24,26 @@ class PlayerController extends Controller
         return $this->render('ChallengeBundle:Default:index.html.twig', array('challenges' => $challenges));
     }
 
-    public function joinChallengeAction($type)
+    public function joinChallengeAction($typeId = 1)
     {
-        $repository = $this->getDoctrine()
+        $challengeRepository = $this->getDoctrine()
             ->getRepository('ChallengeBundle:Challenge');
 
-        $challenge = $repository->getActiveChallenge($type);
-        $repository = $this->getDoctrine()
+        $challenge = $challengeRepository->getActiveChallenge($typeId);
+        $themeRepository = $this->getDoctrine()
             ->getRepository('ChallengeBundle:Theme');
+
+        $typeRepository = $this->getDoctrine()
+            ->getRepository('ChallengeBundle:Type');
 
         $user = $this->getUser();
 
         if (!empty($challenge) && !$challenge->isInChallenge($user) ) {
             $challenge->join($user);
         } else {
-            $themes = $repository->findByApproved(true);
+            $themes = $themeRepository->getApprovedThemes();
+            $type = $typeRepository->findOneBy(array('id' => $typeId));
+
             $challenge = new Challenge($themes[rand(0,count($themes)-1)],$type);
             $challenge->join($user);
         }
@@ -60,6 +66,7 @@ class PlayerController extends Controller
         if(!is_null($event)) {
             $status = $event->getStatus();
             $theme = $event->getTheme();
+            $type = $event->getType();
         } else {
             return $this->render('BaseBundle:Default:404.html.twig');
         }
@@ -188,13 +195,8 @@ class PlayerController extends Controller
         $playerToChallenge = $playerToChallengeRep->findOneBy(array('user' => $this->container->get('security.context')->getToken()->getUser(), 'challenge' => $eventId));
         $time = $playerToChallenge->getDate();
 
-        if($playerToChallenge->getChallenge()->getType() == 1) {
-            $time = $time->add(new \DateInterval('PT5M'));
-        }
+        $time = $time->add($playerToChallenge->getChallenge()->getType()->getUploadDurationInterval());
 
-        if($playerToChallenge->getChallenge()->getType() == 2) {
-            $time = $time->add(new \DateInterval('PT15M'));
-        }
 
         $em = $this->getDoctrine()->getManager();
 

@@ -13,15 +13,16 @@
     <script>
         $('#{{ app.user }} legend a').click( function(event) {
             event.preventDefault();
+            var currentItem = this;
             $.ajax({
                 url: '{{ path('update_photo') }}',
                 dataType: 'json',
                 data: { photo: $(this).attr('href') },
                 success: function(response) {
                     if(response.success) {
-                        $('#{{ app.user }} legend').prepend("<div class='alert alert-dismissable alert-success'><button class='close' data-dismiss='alert' type='button'>×</button>Your profile photo successfully updated!</div>");
+                        $(currentItem).parent().prepend("<div class='alert alert-dismissable alert-success'><button class='close' data-dismiss='alert' type='button'>×</button>Your profile photo successfully updated!</div>");
                     } else {
-                        $('#{{ app.user }} legend').prepend("<div class='alert alert-dismissable alert-danger'><button class='close' data-dismiss='alert' type='button'>×</button>Oops! Something must have went wrong.</div>");
+                        $(currentItem).parent().prepend("<div class='alert alert-dismissable alert-danger'><button class='close' data-dismiss='alert' type='button'>×</button>Oops! Something must have went wrong.</div>");
                     }
                 }
             },"json");

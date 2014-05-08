@@ -43,6 +43,12 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Group4\ChallengeBundle\Entity\Photo", mappedBy="user")
      */
     private $photos;
+    /**
+     * @var Int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $score;
 
     /**
      * @var Photo

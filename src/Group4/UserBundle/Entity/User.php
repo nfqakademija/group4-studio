@@ -47,7 +47,8 @@ class User extends BaseUser
     /**
      * @var Photo
      *
-     * @ORM\Column(name="image_id", type="integer", nullable=true)
+     * @ORM\OneToOne(targetEntity="Group4\ChallengeBundle\Entity\Photo", inversedBy="users")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
      */
     protected $image;
 
@@ -73,6 +74,17 @@ class User extends BaseUser
 
         return $this;
     }
+
+    /**
+     * @param Photo $image
+     * @return $this
+     */
+    public function setImage(Photo $image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
     public function __construct()
     {
         parent::__construct();

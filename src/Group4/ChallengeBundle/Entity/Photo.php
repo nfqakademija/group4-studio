@@ -46,6 +46,13 @@ class Photo
     private $playerToChallenges;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToOne(targetEntity="Group4\UserBundle\Entity\User", mappedBy="image")
+     */
+    private $users;
+
+    /**
      * @ORM\Column(type="string", length=255, name="image_name")
      *
      * @var string $imageName

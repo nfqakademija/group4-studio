@@ -2,27 +2,31 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% block navbar %}
+{% endblock %}
+
 {% block fos_user_content %}
     {% if error %}
         <div>{{ error|trans }}</div>
     {% endif %}
 
-    <form role="form" class="form-signin col-md-4 col-xs-10" action="{{ path("fos_user_security_check") }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
-
-        <div>
-            <label for="username">{{ 'security.login.username'|trans }}</label>
-            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
+    <div class="col-sm-6 col-md-4 col-md-offset-4">
+        <div class="account-wall">
+            <form role="form" class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                <input placeholder="{{ 'security.login.username'|trans }}" class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
+                <input placeholder="{{ 'security.login.password'|trans }}" class="form-control" type="password" id="password" name="_password" required="required"/>
+                <input class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
+                <label class="checkbox pull-left">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                    {{ 'security.login.remember_me'|trans }}
+                </label>
+                <span class="clearfix"></span>
+            </form>
         </div>
-        <div>
-            <label for="password">{{ 'security.login.password'|trans }}</label>
-            <input class="form-control" type="password" id="password" name="_password" required="required"/>
-        </div>
-        <div>
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
-            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-        </div>
-        <input class="btn btn-lg btn-primary btn-block" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
-    </form>
+    </div>
 
 {% endblock fos_user_content %}
+
+{% block footer %}
+{% endblock %}

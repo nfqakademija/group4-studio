@@ -98,11 +98,7 @@ class Challenge
         }
 
         if (!isset($endDate)) {
-            $endDate = new \DateTime('now');
-
-
-            $endDate=$endDate->add($type->getVoteDurationInterval());
-            $endDate=$endDate->add($type->getWaitDurationInterval());
+            $endDate = new \DateTime('+2 days');
         }
 
         $this->setStartDate($startDate);

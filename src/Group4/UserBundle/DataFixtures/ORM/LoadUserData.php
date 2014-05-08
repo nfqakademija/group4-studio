@@ -6,6 +6,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Group4\ChallengeBundle\Entity\Challenge;
 use Group4\ChallengeBundle\Entity\Photo;
 use Group4\ChallengeBundle\Entity\Theme;
+use Group4\ChallengeBundle\Entity\Type;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Group4\UserBundle\Entity\User;
@@ -49,8 +50,17 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
 
         $manager->persist($theme);
 
+        $type = new Type();
+        $type->setDefault(true);
+        $type->setName('5');
+        $type->setUploadDuration('PT5M');
+        $type->setVoteDuration('P1D');
+        $type->setWaitDuration('PT1H');
+
+        $manager->persist($type);
+
         for($i = 1; $i <= 10; $i++) {
-            $challenge = new Challenge($theme,1);
+            $challenge = new Challenge($theme, $type);
             $userRep = $manager->getRepository('UserBundle:User');
             $users = $userRep->findAll();
             foreach ($users as $user) {

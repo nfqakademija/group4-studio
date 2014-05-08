@@ -1,107 +1,177 @@
+{% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+
 <!DOCTYPE html>
+
+{% block html_tag %}
 <html>
-<head>
-    <title>Photo Challenge!</title>
-    <link href='http://fonts.googleapis.com/css?family=Ruluko' rel='stylesheet' type='text/css'>
-    <style type="text/css">
-        #wrap {
-            position: relative;
-            height: 100px;
-            max-height: 900px;
-            align-content: center;
-            overflow: hidden;
-        }
+{% endblock html_tag %}
 
-        #wrap img {
-            position: absolute;
-            height: 100%;
-            margin: auto;
-            left: 0;
-            right: 0;
-        }
+{% block head %}
+    <head>
+        <meta charset="UTF-8" />
+        {% block head_style %}
+            {% stylesheets
+            '@BaseBundle/Resources/public/css/bootstrap.css'
+            '@BaseBundle/Resources/public/less/style.less'
+            '@BaseBundle/Resources/public/less/TimeCircles.less'
+            '@BaseBundle/Resources/public/css/slick.css'
+            '@BaseBundle/Resources/public/css/jquery.fancybox.css'
+            %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+            {% endstylesheets %}
+        {% endblock head_style %}
 
-        #menu {
-            color: #555555;
-            position: absolute;
-            top: 52%;
-            text-align: center;
-            font-size: 1em;
-            width: 100%;
-            font-family: 'Ruluko', sans-serif;
-        }
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        #menu a {
-            color: #ffffff;
-            text-decoration: none;
-        }
+        {% block head_script %}
+            {% javascripts
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'
+            '@BaseBundle/Resources/public/js/jquery-1.10.1.min.js'
+            '@BaseBundle/Resources/public/js/TimeCircles.js'
+            '@BaseBundle/Resources/public/js/slick.js'
+            '@BaseBundle/Resources/public/js/jquery.fancybox.pack.js'
+            %}
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.0";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));</script>
+            <script  type="text/javascript">
+                $(document).ready(function() {
+                    $(".fancybox").fancybox();
+                });
+            </script>
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock head_script %}
 
-        #menu a:hover {
-            color: #00fff0;
-        }
+        <title>{% block title %}Photo Challenge!{% endblock title %}</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        {% block head_bottom %}
+        {% endblock head_bottom %}
+    </head>
+{% endblock head %}
 
-        .highlight {
-            color: #00fff0;
-        }
-    </style>
+{% block body_tag %}
+<body>
+{% endblock body_tag %}
+
+{% block body_start %}
+{% endblock body_start %}
+
+{% block body %}
+{% block navbar %}
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>
+            </div>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div class="nav navbar-nav">
+                    <a type="button" class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 1}) }}">5</a>
+                    <a class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 2}) }}">15</a>
+                </div>
+            {% endif %}
+            <div class="navbar-collapse navbar-responsive-collapse collapse" style="height: 1px;">
+                {#<ul class="nav navbar-nav navbar-right">#}
+                {{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}
+                {#</ul>#}
+            </div>
+        </div>
+    </nav>
+    {#<div class="navbar navbar-default">#}
+    {#<div class="navbar-inner">#}
+    {#<div class="col-md-1" id="participate">#}
+    {#<a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>#}
+    {#<a class="btn btn-default col-md-6" href="{{ path('participate', {type: 1}) }}">5</a>#}
+    {#<a class="btn btn-default col-md-6" href="{{ path('participate', {type: 2}) }}">15</a>#}
+    {#</div>#}
+    {#{{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}#}
+    {#</div>#}
+    {#</div>#}
+
+{% endblock navbar %}
+
+
+{% block container %}
+{% block container_div_start %}<div class="{% block container_class %}container{% endblock container_class %}">{% endblock container_div_start %}
+    {% block header %}
+    {% endblock header %}
+
+{% block content_div_start %}<div class="content">{% endblock content_div_start %}
+    {% block page_header %}
+        <div></div>
+    {% endblock page_header %}
+    {% block flashes %}
+        {% if app.session.flashbag.peekAll|length > 0 %}
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ session_flash() }}
+                </div>
+            </div>
+        {% endif %}
+    {% endblock flashes %}
+
+    {% block content_row %}
+        {% block content %}
+            Shift happens...
+        {% endblock %}
+    {% endblock content_row %}
+
+{% block content_div_end %}</div>{% endblock content_div_end %}
+
+{% block footer_tag_start %}
+    <footer>
+{% endblock footer_tag_start %}
+
+    {% block footer %}
+        <p>&copy; <a href="{{ path('base') }}" target="_blank">Group4 Studio</a> 2014</p>
+    {% endblock footer %}
+
+{% block footer_tag_end %}
+    </footer>
+{% endblock footer_tag_end %}
+{% block container_div_end %}</div><!-- /container -->{% endblock container_div_end %}
+{% endblock container %}
+
+    {% block body_end_before_js %}
+    {% endblock body_end_before_js %}
+
+{% block foot_script %}
+    {# To only use a subset or add more js overwrite and copy paste this block
+    To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
+    Otherwise the regeneration is done on every load in dev more with use_controller: true
+     #}
+{% block foot_script_assetic %}
+    {% javascripts
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+    '@MopaBootstrapBundle/Resources/public/bootstrap/js/*.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+    '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock foot_script_assetic %}
 
     <script type="text/javascript">
-        var looper;
-        var degrees = 0;
-        var degrees1 = 0;
-
-        function rotateAnimation(el,el2,speed){
-
-            var elem = document.getElementById(el);
-            if(navigator.userAgent.match("Chrome")){
-                elem.style.WebkitTransform = "rotate("+degrees+"deg)";
-            } else if(navigator.userAgent.match("Firefox")){
-                elem.style.MozTransform = "rotate("+degrees+"deg)";
-            } else if(navigator.userAgent.match("MSIE")){
-                elem.style.msTransform = "rotate("+degrees+"deg)";
-            } else if(navigator.userAgent.match("Opera")){
-                elem.style.OTransform = "rotate("+degrees+"deg)";
-            } else {
-                elem.style.transform = "rotate("+degrees+"deg)";
-            }
-            var elem1 = document.getElementById(el2);
-            if(navigator.userAgent.match("Chrome")){
-                elem1.style.WebkitTransform = "rotate("+degrees1+"deg)";
-            } else if(navigator.userAgent.match("Firefox")){
-                elem1.style.MozTransform = "rotate("+degrees1+"deg)";
-            } else if(navigator.userAgent.match("MSIE")){
-                elem1.style.msTransform = "rotate("+degrees1+"deg)";
-            } else if(navigator.userAgent.match("Opera")){
-                elem1.style.OTransform = "rotate("+degrees1+"deg)";
-            } else {
-                elem1.style.transform = "rotate("+degrees1+"deg)";
-            }
-            //looper = setTimeout('rotateAnimation(\''+el+'\',\''+el2+'\','+speed+')',speed);
-            looper = setTimeout(function() {rotateAnimation(el,el2,speed)}, speed);
-            degrees+=0.05;
-            degrees1-=0.05;
-            if(degrees > 359.95){
-                degrees = 1;
-            }
-            if(degrees1 > 359.95){
-                degrees1 = 1;
-            }
-        }
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
+        });
     </script>
-</head>
-<body bgcolor="#">
-<div id="wrap">
-    <img id="img1" style="z-index:-15" src="../images/back.png">
-    <img id="img2" style="z-index:-10" src="../images/front.png">
-    <div id="menu">
-        <a href="{{ path('fos_user_security_login') }}">Sign <span class="highlight">In</span></a> | <a href="{{ path('fos_user_registration_register') }}">Sign <span class="highlight">Up</span></a>
-    </div>
-    <script type="text/javascript">
-        var w=window,d=document,e=d.documentElement,g=d.getElementsByTagName('body')[0],x=w.innerWidth||e.clientWidth||g.clientWidth,y=w.innerHeight||e.clientHeight||g.clientHeight;
-        document.getElementById("wrap").style.height=y+"px";
-        document.getElementById("menu").style.fontSize = y/20+"px";
-    </script>
-    <script type="text/javascript">rotateAnimation("img1", "img2", 30);</script>
-    <img style="z-index:-5" src="../images/logo.png">
-</div>
+{% endblock foot_script %}
+{% endblock body %}
+
+{% block body_end %}
+{% endblock body_end %}
 </body>
 </html>

@@ -53,7 +53,7 @@ class Type
     /**
      * @var boolean
      *
-     * @ORM\Column(name="default", type="boolean")
+     * @ORM\Column(name="is_default", type="boolean")
      */
     private $default;
 

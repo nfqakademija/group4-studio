@@ -35,7 +35,7 @@ fos_user_change_password:
 
 fos_user_gallery_show:
     pattern: gallery/show
-    defaults: { _controller: UserBundle:Gallery:index }
+    defaults: { _controller: UserBundle:Gallery:index } 
 
 update_photo:
     pattern: /profile/photo/update

@@ -98,7 +98,9 @@ class Challenge
         }
 
         if (!isset($endDate)) {
-            $endDate = new \DateTime('+2 days');
+            $endDate = new \DateTime('+1 days'); // 1 day for at least 5 people to join in
+            $endDate=$endDate->add($type->getVoteDurationInterval());
+            $endDate=$endDate->add($type->getWaitDurationInterval());
         }
 
         $this->setStartDate($startDate);

@@ -173,7 +173,7 @@ class Type
      */
     public function setDefault($default)
     {
-        $this->$default = $default;
+        $this->default = $default;
     }
 
     /**
@@ -181,7 +181,7 @@ class Type
      */
     public function getDefault()
     {
-        return $this->$default;
+        return $this->default;
     }
 
     /**

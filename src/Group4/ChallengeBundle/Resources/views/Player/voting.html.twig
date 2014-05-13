@@ -27,7 +27,8 @@
             <a class="fancybox" href="#{{ player.getUser }}" >
             <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px" /></a>
             <div id="{{ player.getUser }}" style="display: none">
-                <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px" />
+                <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px;" />
+                <a href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">VOTE UP</a>
                 <div class="fb-comments" data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId }}/{{ player.getUser }}" data-numposts="5" data-colorscheme="light"></div>
             </div>
 

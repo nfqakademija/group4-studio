@@ -74,30 +74,26 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <div class="nav navbar-nav">
+                        <a type="button" class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 1}) }}">5</a>
+                        <a class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 2}) }}">15</a>
+                    </div>
+                {% endif %}
             </div>
-            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <div class="nav navbar-nav">
-                    <a type="button" class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 1}) }}">5</a>
-                    <a class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 2}) }}">15</a>
-                </div>
-            {% endif %}
+
             <div class="navbar-collapse navbar-responsive-collapse collapse" style="height: 1px;">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#">Stats</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Pointless button</a></li>
+                </ul>
                 {#<ul class="nav navbar-nav navbar-right">#}
                     {{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}
                 {#</ul>#}
             </div>
         </div>
     </nav>
-        {#<div class="navbar navbar-default">#}
-            {#<div class="navbar-inner">#}
-                {#<div class="col-md-1" id="participate">#}
-                    {#<a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>#}
-                    {#<a class="btn btn-default col-md-6" href="{{ path('participate', {type: 1}) }}">5</a>#}
-                    {#<a class="btn btn-default col-md-6" href="{{ path('participate', {type: 2}) }}">15</a>#}
-                {#</div>#}
-                {#{{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}#}
-            {#</div>#}
-        {#</div>#}
 
 {% endblock navbar %}
 
@@ -131,6 +127,7 @@
 
 {% block footer_tag_start %}
     <footer>
+    <hr>
 {% endblock footer_tag_start %}
 
     {% block footer %}

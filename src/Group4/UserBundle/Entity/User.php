@@ -46,7 +46,7 @@ class User extends BaseUser
     /**
      * @var Int
      *
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
      */
     private $score;
 
@@ -78,6 +78,31 @@ class User extends BaseUser
         $playerToChallenge->setUser($this);
 
         return $this;
+    }
+
+    /**
+     * @param $points
+     * @return Int
+     */
+    public function addScore($points)
+    {
+        //TODO: add points to current score
+        if($this->score == null) {
+            $this->score = 0;
+            $this->score += $points;
+        } else {
+            $this->score += $points;
+        }
+
+        return $this->score;
+    }
+
+    /**
+     * @return Int
+     */
+    public function getScore()
+    {
+        return $this->score;
     }
 
     /**

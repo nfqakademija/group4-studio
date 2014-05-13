@@ -35,13 +35,21 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
 //            $voteDate = new \DateTime("now");
 //            $voteDate->add(new \DateInterval("PT1H"));
             if(($challenge->getVoteDate() <= new \DateTime("now")) && ($challenge->getVoteDate() != null) ) {
-                $query = $em->createQuery('
-                    SELECT p2c
-                    FROM ChallengeBundle:PlayerToChallenge p2c
-                    WHERE p2c.status = 0
-                    ORDER BY p2c.date DESC
-                ');
-                $playerToChallenges = $query->getResult();
+//                $query = $em->createQuery('
+//                    SELECT p2c
+//                    FROM ChallengeBundle:PlayerToChallenge p2c
+//                    WHERE p2c.status = 0
+//                    ORDER BY p2c.date DESC
+//                ');
+//                $playerToChallenges = $query->getResult();
+
+                $playerToChallenges = $playerToChallengeRep->findBy(
+                    array('status' => 0, 'challenge' => $challenge->getId()),
+                    array('date' => 'DESC')
+                );
+
+                echo count($playerToChallenges);
+
                 if (empty($playerToChallenges)) {
                     $challenge->setStatus(2);
                     $em->persist($challenge);
@@ -64,8 +72,7 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
             //TODO: Patikrinti ar challenge laikas pasibaiges, jei taip challenge.status = 3, isdalinti rewards
             //TODO: Nepamarsti apie atveji, kai nesusirenka penki zaidejai
             //TODO: Patikrinti ir su challenge.status = 2
-        $challenges = $challengeRep->findBy(array('status' => 1, 'status' => 2));
-
+        $challenges = $challengeRep->findBy(array('status' => array(1, 2)));
         foreach($challenges as $challenge) {
             $playerToChallenges = $challenge->getPlayerToChallenges();
             if ($challenge->getEndDate() <= new \DateTime("now")) {
@@ -97,6 +104,8 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
 
                         $playerToChallenge->setReward($reward);
                         $em->persist($playerToChallenge);
+
+                        $playerToChallenge->getUser()->addScore($points);
                     }
 
                 } else {
@@ -107,6 +116,8 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
 
                         $playerToChallenge->setReward($reward);
                         $em->persist($playerToChallenge);
+                        $points = 10;
+                        $playerToChallenge->getUser()->addScore($points);
                     }
                 }
             $em->flush();

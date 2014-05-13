@@ -39,6 +39,16 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
             $user->setPlainPassword('asdasd');
             $user->setEnabled(true);
 
+            $user->setUsername('Justas'.$i);
+            $user->setEmail('asdasd@asdasd.asdasd'.$i);
+            $user->setPlainPassword('asdasd');
+            $user->setEnabled(true);
+
+            $user->setUsername('Marijus'.$i);
+            $user->setEmail('asdasd@asdasd.asdasd'.$i);
+            $user->setPlainPassword('asdasd');
+            $user->setEnabled(true);
+
             $manager->persist($user);
         }
 
@@ -52,15 +62,24 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
 
         $type = new Type();
         $type->setDefault(true);
-        $type->setName('5');
+        $type->setName('5 min');
         $type->setUploadDuration('PT5M');
         $type->setVoteDuration('P1D');
         $type->setWaitDuration('PT1H');
 
         $manager->persist($type);
+        
+        $type = new Type();
+        $type->setDefault(true);
+        $type->setName('15 min');
+        $type->setUploadDuration('PT15M');
+        $type->setVoteDuration('P1D');
+        $type->setWaitDuration('PT2H');
+
+        $manager->persist($type);
 
         for($i = 1; $i <= 10; $i++) {
-            $challenge = new Challenge($theme, $type);
+            $challenge = new Challenge($theme, $type, null, null, $i%4);
             $userRep = $manager->getRepository('UserBundle:User');
             $users = $userRep->findAll();
             foreach ($users as $user) {

@@ -1,0 +1,6 @@
+{% block content %}
+    {% for type2 in types %}
+        <a type="button" class="btn btn-warning navbar-btn"
+           href="{{ path('participate', {type : type2.getId() } ) }}">{{ type2.getName() }}</a>
+    {% endfor %}
+{% endblock %}

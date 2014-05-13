@@ -24,12 +24,12 @@ class PlayerController extends Controller
         return $this->render('ChallengeBundle:Default:index.html.twig', array('challenges' => $challenges));
     }
 
-    public function joinChallengeAction($typeId = 1)
+    public function joinChallengeAction($type = 0)
     {
         $challengeRepository = $this->getDoctrine()
             ->getRepository('ChallengeBundle:Challenge');
 
-        $challenge = $challengeRepository->getActiveChallenge($typeId);
+        $challenge = $challengeRepository->getActiveChallenge($type);
         $themeRepository = $this->getDoctrine()
             ->getRepository('ChallengeBundle:Theme');
 
@@ -42,9 +42,8 @@ class PlayerController extends Controller
             $challenge->join($user);
         } else {
             $themes = $themeRepository->getApprovedThemes();
-            $type = $typeRepository->findOneBy(array('id' => $typeId));
-
-            $challenge = new Challenge($themes[rand(0,count($themes)-1)],$type);
+            $typeObj = $typeRepository->find($type);
+            $challenge = new Challenge($themes[rand(0,count($themes)-1)],$typeObj);
             $challenge->join($user);
         }
         $em = $this->getDoctrine()->getManager();

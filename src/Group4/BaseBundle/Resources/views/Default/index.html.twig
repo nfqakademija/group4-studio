@@ -77,8 +77,7 @@
             </div>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class="nav navbar-nav">
-                    <a type="button" class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 1}) }}">5</a>
-                    <a class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 2}) }}">15</a>
+                    {{ render(controller('ChallengeBundle:Challenge:loadButtons')) }}
                 </div>
             {% endif %}
             <div class="navbar-collapse navbar-responsive-collapse collapse" style="height: 1px;">

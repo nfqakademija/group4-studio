@@ -35,17 +35,23 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
             $user = new User();
 
             $user->setUsername('Andrew'.$i);
-            $user->setEmail('asdasd@asdasd.asdasd'.$i);
+            $user->setEmail('andrew@photochallenge.com'.$i);
             $user->setPlainPassword('asdasd');
             $user->setEnabled(true);
 
+            $manager->persist($user);
+
+            $user = new User();
             $user->setUsername('Justas'.$i);
-            $user->setEmail('asdasd@asdasd.asdasd'.$i);
+            $user->setEmail('justas@photochallenge.com'.$i);
             $user->setPlainPassword('asdasd');
             $user->setEnabled(true);
 
+            $manager->persist($user);
+
+            $user = new User();
             $user->setUsername('Marijus'.$i);
-            $user->setEmail('asdasd@asdasd.asdasd'.$i);
+            $user->setEmail('marijus@photochallenge.com'.$i);
             $user->setPlainPassword('asdasd');
             $user->setEnabled(true);
 
@@ -68,7 +74,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $type->setWaitDuration('PT1H');
 
         $manager->persist($type);
-        
+
         $type = new Type();
         $type->setDefault(true);
         $type->setName('15 min');

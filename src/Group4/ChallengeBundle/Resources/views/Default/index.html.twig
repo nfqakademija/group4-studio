@@ -1,16 +1,30 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 
 {% block content %}
-    You are logged in!<br/>
-    Ongoing challenges:<br/>
-    <div>
+    <div class="row">
+    {% if challenges is empty %}
+        <div class="well col-md-8" style="margin: 0 auto; text-align: center;">Looks like there is nothing going on in here...
+        <h1><a href="{{ path('participate') }}" class="btn btn-success btn-lg">Start new challenge?</a></h1></div>
+    {% endif %}
     {% for challenge in challenges %}
-        <div class="carousel">
-            {% for playerToChallenge in challenge.getPlayerToChallenges %}
-            <div><a href=""><img width="200px" src="{{ vich_uploader_asset(playerToChallenge.getImage, 'image') }}" /></a></div>
-            {% endfor %}
+    <div class="panel panel-warning col-md-8">
+        <div class="panel-heading">
+            <h2 class="panel-title">{{ challenge.getTheme.getName }} | <a href="{{ path('show_challenge', {'eventId': challenge.getId}) }}"><span style="font-family: sans-serif; font-size: 80%;">view challenge</span></a></h2>
         </div>
+        <div class="panel-body">
+            <div class="carousel">
+                {% for playerToChallenge in challenge.getPlayerToChallenges %}
+                <div><a href=""><img width="200px" src="{{ vich_uploader_asset(playerToChallenge.getImage, 'image') }}" /></a></div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     {% endfor %}
+        <div class="well col-md-3 col-md-offset-1">
+
+                <h2 class="panel-title">My recent challenges</h2>
+
+        </div>
     </div>
     <script>
         $(document).ready(function(){

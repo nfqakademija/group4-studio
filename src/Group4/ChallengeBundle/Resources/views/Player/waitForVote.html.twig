@@ -1,5 +1,7 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 {% block content %}
-<strong>Theme "{{ theme }}"</strong><br/>
-<img src="{{ vich_uploader_asset(myphoto, 'image') }}" alt="" />
+<div class="jumbotron" style="text-align: center; margin: 0 auto;">
+    <h2>Theme "{{ theme }}"</h2>
+    <img src="{{ vich_uploader_asset(myphoto, 'image') }}" alt="" />
+</div>
 {% endblock %}

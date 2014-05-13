@@ -109,6 +109,7 @@ class PlayerController extends Controller
             case 3:
             //Challenge ended
             //TODO: redirect to challengeEndedStateAction
+                return $this->challengeOverviewAction($event, $userId);
             default:
             //Error handler
                 return $this->render('BaseBundle:Default:404.html.twig');
@@ -122,6 +123,13 @@ class PlayerController extends Controller
         $repository = $this->getDoctrine()->getRepository('ChallengeBundle:playerToChallenge');
         $playerToChallenges = $repository->findBy(array('challenge' => $event));
         return $this->render('ChallengeBundle:Player:voting.html.twig', array('players' => $playerToChallenges, 'challenge' => $event, 'user' => $user) );
+    }
+
+    private function challengeOverviewAction($event, $user)
+    {
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:playerToChallenge');
+        $playerToChallenges = $repository->findBy(array('challenge' => $event));
+        return $this->render('ChallengeBundle:Player:challengeOverview.html.twig', array('players' => $playerToChallenges, 'challenge' => $event, 'user' => $user) );
     }
 
     public function voteAction($playerToChallengeId)

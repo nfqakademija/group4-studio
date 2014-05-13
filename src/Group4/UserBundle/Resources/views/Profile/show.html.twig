@@ -5,6 +5,8 @@
         <a href="{{ path("fos_user_profile_edit") }}">{{ 'profile.show.edit'|trans({},'FOSUserBundle') }}</a>
         <hr />
     {% endif %}
-    <img src="{{ vich_uploader_asset(app.user.getImage, 'image') }}" alt="{{ app.user }}" />
+    {% if app.user.getImage is not null %}
+        <img src="{{ vich_uploader_asset(app.user.getImage, 'image') }}" alt="{{ app.user }}" />
+    {% endif %}
 {% include "FOSUserBundle:Profile:show_content.html.twig" %}
 {% endblock fos_user_content %}

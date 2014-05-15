@@ -1,13 +1,4 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
-<script>
-    if('{{ user }}'.length>1){
-        $.fancybox.open(
-                {
-                    href : '#{{ user }}'
-                }
-        );
-    }
-</script>
 {% block content %}
     <div class="row">
     {% if challenges is empty %}

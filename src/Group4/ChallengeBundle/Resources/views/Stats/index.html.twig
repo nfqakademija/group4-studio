@@ -1,0 +1,32 @@
+{% extends 'BaseBundle:Default:index.html.twig' %}
+
+{% block content %}
+    <h2>Challenge stats</h2>
+   <table>
+       <tr><td>Challenges created:</td><td>{{ stat[0] }}</td></tr>
+       <tr><td>Banned:</td><td>{{ stat[1] }}</td></tr>
+       <tr><td>Uploading stage:</td><td>{{ stat[2] }}</td></tr>
+       <tr><td>Voting stage:</td><td>{{ stat[3] }}</td></tr>
+       <tr><td>Finished:</td><td>{{ stat[4] }}</td>
+   </table>
+    <h2>Participation stats</h2>
+   <table>
+       <tr><td>Participations:</td><td>{{ stat[6] }}</td></tr>
+       <tr><td>Uploaded:</td><td>{{ stat[7] }}</td></tr>
+       <tr><td>Not uploaded:</td><td>{{ stat[8] }}</td></tr>
+   </table>
+   <h2>Vote stats</h2>
+   <table>
+       <tr><td>Amount:</td><td>{{ stat[12] }}</td></tr>
+   </table>
+   <h2>Theme stats:</h2>
+   <table>
+       <tr><td>Amount:</td><td>{{ stat[9] }}</td></tr>
+       <tr><td>Unapproved:</td><td>{{ stat[10] }}</td></tr>
+       <tr><td>Approved:</td><td>{{ stat[11] }}</td></tr>
+   </table>
+    <h2>User stats</h2>
+    <table>
+    <tr><td>Amount:</td><td>{{ stat[13] }}</td></tr>
+    </table>
+{% endblock %}

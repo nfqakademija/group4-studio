@@ -184,7 +184,9 @@ table {
 }
 td,
 th {
-  padding: 0;
+  padding: 0px;
+  padding-right:5px;
+
 }
 @media print {
   * {
@@ -241,6 +243,7 @@ th {
   .table td,
   .table th {
     background-color: #fff !important;
+
   }
   .btn > .caret,
   .dropup > .btn > .caret {

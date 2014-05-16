@@ -6,6 +6,23 @@
         Time until vote stage starts:
         <div class="stopwatch" data-timer="{{ timeLeft }}"></div>
         <script>
+            var timeLeft = {{ timeLeft }}-1;
+            if(timeLeft<86400){
+                $(".stopwatch")
+                        .TimeCircles(
+                        { time: {
+                            Days: { show: false }
+                        }       });
+            }
+
+            if(timeLeft<3600){
+                $(".stopwatch")
+                        .TimeCircles(
+                        { time: {
+                            Hours: { show: false }
+                        }       });
+            }
+            $(".stopwatch").TimeCircles().rebuild();
             $(".stopwatch")
                     .TimeCircles()
                     .addListener(function(unit,value,total){

@@ -122,7 +122,7 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $type->setName('1 day');
         $type->setUploadDuration('P1D');
         $type->setVoteDuration('P7D');
-        $type->setWaitDuration('P6H');
+        $type->setWaitDuration('PT6H');
 
         $manager->persist($type);
 

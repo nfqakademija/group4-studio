@@ -182,15 +182,18 @@ class PlayerController extends Controller
         $event = $repository->findOneBy(
             array('id' => $eventId)
         );
+        $players = $event->getPlayersUploadedCount();
+
         $voteDate = $event->getVoteDate();
-        if(is_null($voteDate)){
-            //TODO: waiting for players
+        if(!is_null($voteDate)){
+            $timeLeft = $voteDate->diff(new \DateTime("now"));
         }else{
-            //TODO: not waiting for players
+            $timeLeft = new \DateInterval("P10Y");
         }
         //Info about challenge END
 
-        return $this->render('ChallengeBundle:Player:waitForVote.html.twig', array('eventId' => $eventId, 'myphoto' => $myphoto, 'theme' => $theme));
+        return $this->render('ChallengeBundle:Player:waitForVote.html.twig', array('eventId' => $eventId, 'myphoto' => $myphoto,
+            'theme' => $theme, 'players' => $players, 'timeLeft' => $timeLeft->y*31556926 + $timeLeft->m*2629743 + $timeLeft->d*86400 + $timeLeft->h*3600 + $timeLeft->i*60 + $timeLeft->s));
     }
 
     private function uploadAction(Request $request, $eventId, $theme) {
@@ -202,7 +205,7 @@ class PlayerController extends Controller
         $playerToChallenge = $playerToChallengeRep->findOneBy(array('user' => $this->container->get('security.context')->getToken()->getUser(), 'challenge' => $eventId));
         $time = $playerToChallenge->getDate();
 
-        $time = $time->add($playerToChallenge->getChallenge()->getType()->getUploadDurationInterval());
+        $time->add($playerToChallenge->getChallenge()->getType()->getUploadDurationInterval());
 
 
         $em = $this->getDoctrine()->getManager();
@@ -281,7 +284,7 @@ class PlayerController extends Controller
                 'form' => $form->createView(),
                 'eventId' => $eventId,
                 'theme' => $theme,
-                'timeLeft' => $timeLeft->days*86400 + $timeLeft->h*3600 + $timeLeft->i*60 + $timeLeft->s
+                'timeLeft' => $timeLeft->y*31556926 + $timeLeft->m*2629743 + $timeLeft->d*86400 + $timeLeft->h*3600 + $timeLeft->i*60 + $timeLeft->s
             )
         );
     }

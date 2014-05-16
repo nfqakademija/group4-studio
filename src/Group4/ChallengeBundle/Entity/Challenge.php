@@ -10,9 +10,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Null;
 use Group4\ChallengeBundle\Entity\Type;
 
-const PLAYERS_MIN = 3;
-const END_DATE_AFTER_DAYS = 2;
-const VOTE_DATE_AFTER_DAYS = 1;
+const PLAYERS_MIN = 5;
 /**
  * Challenge
  *
@@ -98,9 +96,10 @@ class Challenge
         }
 
         if (!isset($endDate)) {
-            $endDate = new \DateTime('+1 days'); // 1 day for at least 5 people to join in
+            $endDate = new \DateTime('now');
+            $endDate=$endDate->add($type->getWaitDurationInterval()); //  for first 5 people to join in
+            $endDate=$endDate->add($type->getWaitDurationInterval()); //  for last 5 people to join in
             $endDate=$endDate->add($type->getVoteDurationInterval());
-            $endDate=$endDate->add($type->getWaitDurationInterval());
         }
 
         $this->setStartDate($startDate);
@@ -283,7 +282,8 @@ class Challenge
      */
     public function doVoteDateStuff(){
         if(is_null($this->getVoteDate()) && $this->getPlayersUploadedCount()>=PLAYERS_MIN){
-            $voteDate=new \DateTime("+".VOTE_DATE_AFTER_DAYS." days");
+            $voteDate=new \DateTime;
+            $voteDate->add($this->getType()->getWaitDurationInterval());
             $this->setVoteDate($voteDate);
         }else{
             $voteDate=null;

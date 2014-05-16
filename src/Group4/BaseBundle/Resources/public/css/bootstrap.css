@@ -3939,9 +3939,20 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
+  position:fixed;
+  z-index:100;
+  width: 100%;
   background-color: #ad1d28;
   border-color: #911821;
 }
+
+.navbar-space {
+    width:100%;
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+}
+
 .navbar-default .navbar-brand {
   color: #ffffff;
 }
@@ -5036,6 +5047,7 @@ a.list-group-item-danger.active:focus {
   border-bottom-color: #d2491c;
 }
 .well {
+  width:255px;
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
@@ -5884,4 +5896,10 @@ legend {
 }
 .popover {
   color: #444444;
+}
+
+.right-sidebar{
+    position: relative;
+    float:right;
+    width: 266px;
 }

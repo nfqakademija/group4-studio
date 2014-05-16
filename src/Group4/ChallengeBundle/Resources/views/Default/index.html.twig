@@ -1,8 +1,13 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 {% block content %}
+    <div class="right-sidebar">
+        <div class="well col-md-3 col-md-offset-1">
+            <h2 class="panel-title">My recent challenges</h2>
+        </div>
+    </div>
     <div class="row">
     {% if challenges is empty %}
-        <div class="well col-md-8" style="margin: 0 auto; text-align: center;">Looks like there is nothing going on in here...
+        <div class="well col-md-8" style="margin: 0 auto; text-align: center;">Looks like there is nothing going on here...
         <h1><a href="{{ path('participate') }}" class="btn btn-success btn-lg">Start a new challenge?</a></h1></div>
     {% endif %}
     {% for challenge in challenges %}
@@ -19,11 +24,6 @@
         </div>
     </div>
     {% endfor %}
-        <div class="well col-md-3 col-md-offset-1">
-
-                <h2 class="panel-title">My recent challenges</h2>
-
-        </div>
     </div>
     <script>
         $(document).ready(function(){

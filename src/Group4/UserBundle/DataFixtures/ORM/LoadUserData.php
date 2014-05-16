@@ -66,6 +66,30 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
 
         $manager->persist($theme);
 
+        $theme = new Theme();
+        $theme->setApproved(true);
+        $theme->setName('Relativity');
+
+        $manager->persist($theme);
+
+        $theme = new Theme();
+        $theme->setApproved(true);
+        $theme->setName('Eye');
+
+        $manager->persist($theme);
+
+        $theme = new Theme();
+        $theme->setApproved(true);
+        $theme->setName('Space');
+
+        $manager->persist($theme);
+
+        $theme = new Theme();
+        $theme->setApproved(false);
+        $theme->setName('NFQ');
+
+        $manager->persist($theme);
+
         $type = new Type();
         $type->setDefault(true);
         $type->setName('5 min');
@@ -81,6 +105,33 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $type->setUploadDuration('PT15M');
         $type->setVoteDuration('P1D');
         $type->setWaitDuration('PT2H');
+
+        $manager->persist($type);
+
+        $type = new Type();
+        $type->setDefault(true);
+        $type->setName('1 hour');
+        $type->setUploadDuration('PT1H');
+        $type->setVoteDuration('P2D');
+        $type->setWaitDuration('PT12H');
+
+        $manager->persist($type);
+
+        $type = new Type();
+        $type->setDefault(true);
+        $type->setName('1 day');
+        $type->setUploadDuration('P1D');
+        $type->setVoteDuration('P7D');
+        $type->setWaitDuration('P6H');
+
+        $manager->persist($type);
+
+        $type = new Type();
+        $type->setDefault(false);
+        $type->setName('1 year');
+        $type->setUploadDuration('P1Y');
+        $type->setVoteDuration('P3M');
+        $type->setWaitDuration('P3M');
 
         $manager->persist($type);
 

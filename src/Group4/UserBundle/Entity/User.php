@@ -88,8 +88,7 @@ class User extends BaseUser
     {
         //TODO: add points to current score
         if($this->score == null) {
-            $this->score = 0;
-            $this->score += $points;
+            $this->score = $points;
         } else {
             $this->score += $points;
         }
@@ -125,6 +124,9 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        if($this->score == null) {
+            $this->score = 0;
+        }
         $this->playerToChallenges = new ArrayCollection();
     }
 }

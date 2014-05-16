@@ -31,7 +31,7 @@
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <a href="{{ path('vote', {'playerToChallengeId': player.getId }) }}" style="font-size:15pt"><img src=""/>todo: upvote.png</a>
                 {% endif %}
-                <div class="fb-comments" data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId }}/{{ player.getUser }}" data-numposts="5" data-colorscheme="light"></div>
+                <div class="fb-comments"  data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(player.getImage, 'image') }}" data-numposts="5" data-colorscheme="light"></div>
             </div>
 
         </div>

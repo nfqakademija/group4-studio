@@ -306,7 +306,7 @@ class Challenge
         $this->addPlayerToChallenge($playerToChallenge);
 
         $now = new \DateTime("now");
-        $interval = new \DateInterval("PT5M"); // TODO: Date interval according to status
+        $interval = $this->getType()->getUploadDurationInterval();
         if(!is_null($this->getVoteDate()) && $now->add($interval) > $this->getVoteDate()){
             $this->setVoteDate($now->add($interval));
         }

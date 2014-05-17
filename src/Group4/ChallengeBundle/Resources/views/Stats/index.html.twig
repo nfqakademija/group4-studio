@@ -18,14 +18,14 @@
     <h2>Participation stats</h2>
    <table>
        <tr><td>Participations:</td><td>{{ stat[5] }}</td></tr>
-       <tr><td>Uploaded:</td><td>{{ stat[7] }} ({{ 100*stat[7]/stat[5] }}%)</td></tr>
-       <tr><td>Not uploaded:</td><td>{{ stat[6] }} ({{ 100*stat[6]/stat[5] }}%)</td></tr>
+       <tr><td>Uploaded:</td><td>{{ stat[7] }} ({{ (100*stat[7]/stat[5])|number_format(2) }}%)</td></tr>
+       <tr><td>Not uploaded:</td><td>{{ stat[6] }} ({{ (100*stat[6]/stat[5])|number_format(2) }}%)</td></tr>
    </table>
    <h2>Theme stats:</h2>
    <table>
        <tr><td>Amount:</td><td>{{ stat[8] }}</td></tr>
-       <tr><td>Approved:</td><td>{{ stat[10] }} ({{ 100*stat[10]/stat[8] }}%)</td></tr>
-       <tr><td>Unapproved:</td><td>{{ stat[9] }} ({{ 100*stat[9]/stat[8] }}%)</td></tr>
+       <tr><td>Approved:</td><td>{{ stat[10] }} ({{ (100*stat[10]/stat[8])|number_format(2)}}%)</td></tr>
+       <tr><td>Unapproved:</td><td>{{ stat[9] }} ({{ (100*stat[9]/stat[8])|number_format(2) }}%)</td></tr>
     </table>
     <h2>Vote stats</h2>
     <table>

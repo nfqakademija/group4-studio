@@ -8,7 +8,7 @@
     <div class="row">
     {% if challenges is empty %}
         <div class="well col-md-8" style="margin: 0 auto; text-align: center;">Looks like there is nothing going on here...
-        <h1><a href="{{ path('participate') }}" class="btn btn-success btn-lg">Start a new challenge?</a></h1></div>
+        <h1><a href="{{ path('participate',{'type' :1}) }}" class="btn btn-success btn-lg">Start a new challenge?</a></h1></div>
     {% endif %}
     {% for challenge in challenges %}
     <div class="panel panel-warning col-md-8">

@@ -93,7 +93,7 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
 
                 if($challenge->getPlayersCount() >= 5) {
                     //TODO: Isdalinti taskus pagal vietas
-                    $bonus = 10*$challenge->getPlayersCount();
+                    $bonus = 10*$challenge->getPlayersUploadedCount();
                     $win = 3;
                     foreach($playerToChallenges as $playerToChallenge) {
                         $points = $playerToChallenge->getVoteCount() + $bonus;

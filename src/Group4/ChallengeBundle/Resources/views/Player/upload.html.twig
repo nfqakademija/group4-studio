@@ -21,20 +21,17 @@
                             Hours: { show: false }
                         }       });
             }
-            $(".stopwatch").TimeCircles().rebuild();
-            $(".stopwatch")
-                .addListener(function(unit,value,total){
+            $(".stopwatch").TimeCircles().addListener(function(unit,value,total){
                         if(total == 0){
                             $( ".controls").find(".btn").attr("disabled", "disabled").html("Time's over!");
-                            console.log("Time's over!");
                         }else if(total == 10){
                             $(".stopwatch")
                                     .TimeCircles({ time: {Seconds: { color: '#ff0000' } } });
                         }
-                        $(".stopwatch").TimeCircles({circle_bg_color: "#000000"});
                 });
+            $(".stopwatch").TimeCircles({ circle_bg_color: "#000000" });
             $(".stopwatch").TimeCircles({ count_past_zero: false});
-            console.log("endstartstop");
+            $(".stopwatch").TimeCircles().rebuild();
         </script>
     </div>
     <form class="form-horizontal" action="{{ path('show_challenge',{'eventId': eventId}) }}" method="post" {{ form_enctype(form) }}>

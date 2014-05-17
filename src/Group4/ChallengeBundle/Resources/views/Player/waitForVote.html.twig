@@ -22,21 +22,17 @@
                             Hours: { show: false }
                         }       });
             }
+            $(".stopwatch").TimeCircles().addListener(function(unit,value,total){
+                if(total == 0){
+                    $( ".controls").find(".btn").attr("disabled", "disabled").html("Time's over!");
+                }else if(total == 10){
+                    $(".stopwatch")
+                            .TimeCircles({ time: {Seconds: { color: '#ff0000' } } });
+                }
+            });
+            $(".stopwatch").TimeCircles({ circle_bg_color: "#000000" });
+            $(".stopwatch").TimeCircles({ count_past_zero: false});
             $(".stopwatch").TimeCircles().rebuild();
-            $(".stopwatch")
-                    .TimeCircles()
-                    .addListener(function(unit,value,total){
-                        if(total == 0){
-                            location.reload(true);
-                            console.log("Vote's starting!");
-                        }else if(total == 10){
-                            $(".stopwatch")
-                                    .TimeCircles({ time: {Seconds: { color: '#ff0000' } } });
-
-                        }
-                        $(".stopwatch").TimeCircles({circle_bg_color: "#000000"});
-                    });
-            $(".stopwatch").TimeCircles({ count_past_zero: false})
         </script>
     {% else %}
        {{ 5-players }} more player{% if 5-players>1 %}s{% endif %} needed to start countdown to vote stage.<br/><br/>

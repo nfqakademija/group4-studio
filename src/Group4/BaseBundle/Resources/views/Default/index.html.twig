@@ -10,7 +10,7 @@
     <head>
         <meta charset="UTF-8" />
         {% block head_style %}
-            {% stylesheets
+            {% stylesheets filter='lessphp,cssrewrite'
                 '@BaseBundle/Resources/public/css/bootstrap.css'
                 '@BaseBundle/Resources/public/less/style.less'
                 '@BaseBundle/Resources/public/less/TimeCircles.less'
@@ -127,18 +127,18 @@
 
 {% block content_div_end %}</div>{% endblock content_div_end %}
 
-{% block footer_tag_start %}
-    <footer>
-    <hr>
-{% endblock footer_tag_start %}
+{#{% block footer_tag_start %}#}
+    {#<footer>#}
+    {#<hr>#}
+{#{% endblock footer_tag_start %}#}
 
-    {% block footer %}
-        <p>&copy; <a href="{{ path('base') }}" target="_blank">Group4 Studio</a> 2014</p>
-    {% endblock footer %}
+    {#{% block footer %}#}
+        {#<p>&copy; <a href="{{ path('base') }}" target="_blank">Group4 Studio</a> 2014</p>#}
+    {#{% endblock footer %}#}
 
-{% block footer_tag_end %}
-    </footer>
-{% endblock footer_tag_end %}
+{#{% block footer_tag_end %}#}
+    {#</footer>#}
+{#{% endblock footer_tag_end %}#}
 {% block container_div_end %}</div><!-- /container -->{% endblock container_div_end %}
 {% endblock container %}
 

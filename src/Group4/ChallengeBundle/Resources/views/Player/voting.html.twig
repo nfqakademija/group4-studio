@@ -17,23 +17,26 @@
         {% endblock %}
     {% endif %}
     {% for player in players %}
-        <!--TODO: Stylesheets-->
         <div class="vote-entry"
-             style="background-color:#911821;margin-top:10px;margin-right:10px;border:1px solid #DDDDDD;float:left;padding:5px;max-width: 515px;box-shadow: 0px 0px 10px#000000;text-align: center ">
+             style="">
         Votes: <b>{{ player.getVoteCount }}</b><br/>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <a href="{{ path('vote', {'playerToChallengeId': player.getId }) }}" style="font-size:15pt"><img src=""/>todo: upvote.png</a>
+            <a type="button" class="btn btn-warning navbar-btn" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">Vote!</a>
         {% endif %}
             <a class="fancybox" href="#{{ player.getUser }}" >
-            <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px" /></a>
+                <div class="crop" style="background-image: url('{{ vich_uploader_asset(player.getImage, 'image') }}')">
+                </div>
+            </a>
             <div id="{{ player.getUser }}" style="display: none">
-                <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px;" />
+                <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px;width:100%" /><br/>
+                <div style="text-align: center;width:100%">Votes: <b>{{ player.getVoteCount }}</b><br/>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <a href="{{ path('vote', {'playerToChallengeId': player.getId }) }}" style="font-size:15pt"><img src=""/>todo: upvote.png</a>
+                        <a type="button" class="btn btn-warning navbar-btn" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">Vote!</a><br/></div>
                 {% endif %}
                 <div class="fb-comments"  data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(player.getImage, 'image') }}" data-numposts="5" data-colorscheme="light"></div>
             </div>
 
         </div>
     {% endfor %}
+    <div style="clear:both"></div>
 {% endblock %}

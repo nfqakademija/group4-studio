@@ -15,10 +15,10 @@
         </div>
     </div>
     <div class="row">
-        <h1>Play: </h1>{{ render(controller('ChallengeBundle:Challenge:loadButtons')) }}
+        <h1 style="margin-top: 0px;">Play: </h1>{{ render(controller('ChallengeBundle:Challenge:loadButtons')) }}
         {% if allRecentChallenges is empty %}
             <div class="well col-md-8" style="margin: 0 auto; text-align: center;">Looks like there is nothing going on here...</div>
-        {% endif %}
+        {% else %}
         <h2 style="margin:top:0px">Recent challenges:</h2>
         {% for challenge in allRecentChallenges %}
             <div class="panel panel-warning col-md-8">
@@ -34,6 +34,7 @@
                 </div>
             </div>
         {% endfor %}
+        {% endif %}
     </div>
     <script>
         $(document).ready(function(){

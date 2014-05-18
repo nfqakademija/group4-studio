@@ -90,6 +90,16 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
 
         $manager->persist($theme);
 
+
+        $type = new Type();
+        $type->setDefault(false);
+        $type->setName('1 year');
+        $type->setUploadDuration('P1Y');
+        $type->setVoteDuration('P3M');
+        $type->setWaitDuration('P3M');
+
+        $manager->persist($type);
+
         $type = new Type();
         $type->setDefault(true);
         $type->setName('5 min');
@@ -123,15 +133,6 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $type->setUploadDuration('P1D');
         $type->setVoteDuration('P7D');
         $type->setWaitDuration('PT6H');
-
-        $manager->persist($type);
-
-        $type = new Type();
-        $type->setDefault(false);
-        $type->setName('1 year');
-        $type->setUploadDuration('P1Y');
-        $type->setVoteDuration('P3M');
-        $type->setWaitDuration('P3M');
 
         $manager->persist($type);
 

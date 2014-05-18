@@ -19,9 +19,43 @@ class PlayerController extends Controller
 {
     public function indexAction()
     {
-        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Challenge');
-        $challenges = $repository->findBy(array('status' => 2));
-        return $this->render('ChallengeBundle:Default:index.html.twig', array('challenges' => $challenges));
+        $user = $this->getUser();
+        $challengeRepository = $this->getDoctrine()
+            ->getRepository('ChallengeBundle:Challenge');
+        $allRecentChallenges = $challengeRepository->findBy(array('status' => 2));
+        $allOngoingChallenges = $challengeRepository->findBy(array('status' => 1));
+        $myRecentChallenges = array();
+        $myOngoingChallenges = array();
+        foreach($allOngoingChallenges as $chal){
+            if($chal->isInChallenge($user)){
+                foreach($chal->getPlayerToChallenges() as $ptc){
+                    if($ptc->getUser() == $user){
+                        if($ptc->getStatus()==0){
+                            $time = $ptc->getDate();
+                            $time->add($chal->getType()->getUploadDurationInterval());
+                            if($time >= new \DateTime("now")) {
+                                $timeLeft = $time->diff(new \DateTime("now"));
+                                //TODO: show timeleft
+                                $myOngoingChallenges[]=$chal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach($allRecentChallenges as $chal){
+            if($chal->isInChallenge($user)){
+                foreach($chal->getPlayerToChallenges() as $ptc){
+                    if($ptc->getUser() == $user){
+                        if($ptc->getStatus()==1){
+                            $myRecentChallenges[]=$chal;
+                        }
+                    }
+                }
+            }
+        }
+        return $this->render('ChallengeBundle:Default:index.html.twig', array('allRecentChallenges' => $allRecentChallenges, 'myOngoingChallenges' => $myOngoingChallenges, 'myRecentChallenges' => $myRecentChallenges));
     }
 
     public function joinChallengeAction($type = 0)

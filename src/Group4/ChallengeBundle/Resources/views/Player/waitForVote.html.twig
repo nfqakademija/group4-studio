@@ -2,6 +2,44 @@
 {% block content %}
 <div class="jumbotron" style="text-align: center; margin: 0 auto;">
     <h2>Theme "{{ theme }}"</h2>
+    {% if players > 4 %}
+        Time until vote stage starts:
+        <div class="stopwatch" data-timer="{{ timeLeft }}"></div>
+        <script>
+            var timeLeft = {{ timeLeft }}-1;
+            if(timeLeft<86400){
+                $(".stopwatch")
+                        .TimeCircles(
+                        { time: {
+                            Days: { show: false }
+                        }       });
+            }
+
+            if(timeLeft<3600){
+                $(".stopwatch")
+                        .TimeCircles(
+                        { time: {
+                            Hours: { show: false }
+                        }       });
+            }
+            $(".stopwatch").TimeCircles().addListener(function(unit,value,total){
+                if(total == 0){
+                    $( ".controls").find(".btn").attr("disabled", "disabled").html("Time's over!");
+                }else if(total == 10){
+                    $(".stopwatch")
+                            .TimeCircles({ time: {Seconds: { color: '#ff0000' } } });
+                }
+            });
+            $(".stopwatch").TimeCircles({ circle_bg_color: "#000000" });
+            $(".stopwatch").TimeCircles({ count_past_zero: false});
+            $(".stopwatch").TimeCircles().rebuild();
+        </script>
+    {% else %}
+       {{ 5-players }} more player{% if 5-players>1 %}s{% endif %} needed to start countdown to vote stage.<br/><br/>
+    {% endif %}
+
+
+    Your photo for this challenge:<br/><br/>
     <img src="{{ vich_uploader_asset(myphoto, 'image') }}" alt="" />
 </div>
 {% endblock %}

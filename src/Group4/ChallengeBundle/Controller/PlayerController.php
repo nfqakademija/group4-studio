@@ -19,17 +19,51 @@ class PlayerController extends Controller
 {
     public function indexAction()
     {
-        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Challenge');
-        $challenges = $repository->findBy(array('status' => 2));
-        return $this->render('ChallengeBundle:Default:index.html.twig', array('challenges' => $challenges));
+        $user = $this->getUser();
+        $challengeRepository = $this->getDoctrine()
+            ->getRepository('ChallengeBundle:Challenge');
+        $allRecentChallenges = $challengeRepository->findBy(array('status' => 2));
+        $allOngoingChallenges = $challengeRepository->findBy(array('status' => 1));
+        $myRecentChallenges = array();
+        $myOngoingChallenges = array();
+        foreach($allOngoingChallenges as $chal){
+            if($chal->isInChallenge($user)){
+                foreach($chal->getPlayerToChallenges() as $ptc){
+                    if($ptc->getUser() == $user){
+                        if($ptc->getStatus()==0){
+                            $time = $ptc->getDate();
+                            $time->add($chal->getType()->getUploadDurationInterval());
+                            if($time >= new \DateTime("now")) {
+                                $timeLeft = $time->diff(new \DateTime("now"));
+                                //TODO: show timeleft
+                                $myOngoingChallenges[]=$chal;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach($allRecentChallenges as $chal){
+            if($chal->isInChallenge($user)){
+                foreach($chal->getPlayerToChallenges() as $ptc){
+                    if($ptc->getUser() == $user){
+                        if($ptc->getStatus()==1){
+                            $myRecentChallenges[]=$chal;
+                        }
+                    }
+                }
+            }
+        }
+        return $this->render('ChallengeBundle:Default:index.html.twig', array('allRecentChallenges' => $allRecentChallenges, 'myOngoingChallenges' => $myOngoingChallenges, 'myRecentChallenges' => $myRecentChallenges));
     }
 
-    public function joinChallengeAction($typeId = 1)
+    public function joinChallengeAction($type = 0)
     {
         $challengeRepository = $this->getDoctrine()
             ->getRepository('ChallengeBundle:Challenge');
 
-        $challenge = $challengeRepository->getActiveChallenge($typeId);
+        $challenge = $challengeRepository->getActiveChallenge($type);
         $themeRepository = $this->getDoctrine()
             ->getRepository('ChallengeBundle:Theme');
 
@@ -42,9 +76,8 @@ class PlayerController extends Controller
             $challenge->join($user);
         } else {
             $themes = $themeRepository->getApprovedThemes();
-            $type = $typeRepository->findOneBy(array('id' => $typeId));
-
-            $challenge = new Challenge($themes[rand(0,count($themes)-1)],$type);
+            $typeObj = $typeRepository->find($type);
+            $challenge = new Challenge($themes[rand(0,count($themes)-1)],$typeObj);
             $challenge->join($user);
         }
         $em = $this->getDoctrine()->getManager();
@@ -183,15 +216,18 @@ class PlayerController extends Controller
         $event = $repository->findOneBy(
             array('id' => $eventId)
         );
+        $players = $event->getPlayersUploadedCount();
+
         $voteDate = $event->getVoteDate();
-        if(is_null($voteDate)){
-            //TODO: waiting for players
+        if(!is_null($voteDate)){
+            $timeLeft = $voteDate->diff(new \DateTime("now"));
         }else{
-            //TODO: not waiting for players
+            $timeLeft = new \DateInterval("P10Y");
         }
         //Info about challenge END
 
-        return $this->render('ChallengeBundle:Player:waitForVote.html.twig', array('eventId' => $eventId, 'myphoto' => $myphoto, 'theme' => $theme));
+        return $this->render('ChallengeBundle:Player:waitForVote.html.twig', array('eventId' => $eventId, 'myphoto' => $myphoto,
+            'theme' => $theme, 'players' => $players, 'timeLeft' => $timeLeft->y*31556926 + $timeLeft->m*2629743 + $timeLeft->d*86400 + $timeLeft->h*3600 + $timeLeft->i*60 + $timeLeft->s));
     }
 
     private function uploadAction(Request $request, $eventId, $theme) {
@@ -203,7 +239,7 @@ class PlayerController extends Controller
         $playerToChallenge = $playerToChallengeRep->findOneBy(array('user' => $this->container->get('security.context')->getToken()->getUser(), 'challenge' => $eventId));
         $time = $playerToChallenge->getDate();
 
-        $time = $time->add($playerToChallenge->getChallenge()->getType()->getUploadDurationInterval());
+        $time->add($playerToChallenge->getChallenge()->getType()->getUploadDurationInterval());
 
 
         $em = $this->getDoctrine()->getManager();
@@ -282,7 +318,7 @@ class PlayerController extends Controller
                 'form' => $form->createView(),
                 'eventId' => $eventId,
                 'theme' => $theme,
-                'timeLeft' => $timeLeft->days*86400 + $timeLeft->h*3600 + $timeLeft->i*60 + $timeLeft->s
+                'timeLeft' => $timeLeft->y*31556926 + $timeLeft->m*2629743 + $timeLeft->d*86400 + $timeLeft->h*3600 + $timeLeft->i*60 + $timeLeft->s
             )
         );
     }

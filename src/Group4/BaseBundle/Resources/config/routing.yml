@@ -1,0 +1,3 @@
+stats:
+    defaults: { _controller: ChallengeBundle:Stats:index }
+    pattern: /stats

@@ -16,6 +16,7 @@
                 '@BaseBundle/Resources/public/less/TimeCircles.less'
                 '@BaseBundle/Resources/public/css/slick.css'
                 '@BaseBundle/Resources/public/css/jquery.fancybox.css'
+                '@BaseBundle/Resources/public/css/basic.css'
             %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
             {% endstylesheets %}
@@ -30,6 +31,7 @@
                 '@BaseBundle/Resources/public/js/TimeCircles.js'
                 '@BaseBundle/Resources/public/js/slick.js'
                 '@BaseBundle/Resources/public/js/jquery.fancybox.pack.js'
+                '@BaseBundle/Resources/public/js/dropzone.js'
             %}
             <div id="fb-root"></div>
             <script>(function(d, s, id) {
@@ -64,7 +66,6 @@
 
 {% block body %}
 {% block navbar %}
-
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -74,19 +75,16 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ path('base') }}">Photo Challenge</a>
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <div class="nav navbar-nav">
-                        <a type="button" class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 1}) }}">5</a>
-                        <a class="btn btn-warning navbar-btn" href="{{ path('participate', {type: 2}) }}">15</a>
-                    </div>
-                {% endif %}
             </div>
-
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div class="nav navbar-nav">
+                    {{ render(controller('ChallengeBundle:Challenge:loadButtons')) }}
+                </div>
+            {% endif %}
             <div class="navbar-collapse navbar-responsive-collapse collapse" style="height: 1px;">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="#">Stats</a></li>
+                    <li><a href="stats">Stats</a></li>
                     <li><a href="#">Gallery</a></li>
-                    <li><a href="#">Pointless button</a></li>
                 </ul>
                 {#<ul class="nav navbar-nav navbar-right">#}
                     {{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}
@@ -94,6 +92,7 @@
             </div>
         </div>
     </nav>
+    <div class="navbar-space"></div>
 
 {% endblock navbar %}
 

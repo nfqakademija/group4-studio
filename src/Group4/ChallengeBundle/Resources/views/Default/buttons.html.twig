@@ -1,0 +1,8 @@
+{% block content %}
+    <div id="challengeButtons" style="margin-right: 5px;">
+    {% for type2 in types %}
+        <a type="button" class="btn btn-warning navbar-btn"
+           href="{{ path('participate', {type : type2.getId() } ) }}">{{ type2.getName() }}</a>
+    {% endfor %}
+    </div>
+{% endblock %}

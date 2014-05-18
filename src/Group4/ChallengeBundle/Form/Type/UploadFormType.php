@@ -13,7 +13,8 @@ class UploadFormType extends AbstractType {
         $builder
             ->add('image', 'file',
                 array(
-                    'label' => 'Select the photo you want to upload'
+                    'label' => 'Select the photo you want to upload or drop her below',
+                    'attr' => array('class' => 'dropzone')
                 )
             )
         ;

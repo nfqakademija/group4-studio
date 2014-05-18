@@ -184,7 +184,9 @@ table {
 }
 td,
 th {
-  padding: 0;
+  padding: 0px;
+  padding-right:5px;
+
 }
 @media print {
   * {
@@ -241,6 +243,7 @@ th {
   .table td,
   .table th {
     background-color: #fff !important;
+
   }
   .btn > .caret,
   .dropup > .btn > .caret {
@@ -1689,7 +1692,7 @@ output {
   color: #444444;
 }
 .form-control {
-  display: block;
+  /*display: block;
   width: 100%;
   height: 38px;
   padding: 8px 12px;
@@ -1703,7 +1706,7 @@ output {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;*/
 }
 .form-control:focus {
   border-color: #66afe9;
@@ -1742,6 +1745,7 @@ input[type="date"] {
 }
 .radio,
 .checkbox {
+  color:#000;
   display: block;
   min-height: 20px;
   margin-top: 10px;
@@ -3936,9 +3940,20 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
+  position:fixed;
+  z-index:100;
+  width: 100%;
   background-color: #ad1d28;
   border-color: #911821;
 }
+
+.navbar-space {
+    width:100%;
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+}
+
 .navbar-default .navbar-brand {
   color: #ffffff;
 }
@@ -5033,6 +5048,7 @@ a.list-group-item-danger.active:focus {
   border-bottom-color: #d2491c;
 }
 .well {
+  width:255px;
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
@@ -5881,4 +5897,10 @@ legend {
 }
 .popover {
   color: #444444;
+}
+
+.right-sidebar{
+    position: relative;
+    float:right;
+    width: 266px;
 }

@@ -202,4 +202,12 @@ class ChallengeController extends Controller
         return $this->render('ChallengeBundle:Default:challengeAdmin.html.twig');
     }
 
+    public function loadButtonsAction()
+    {
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Type');
+        $types = $repository->getDefaultTypes();
+
+        return $this->render('ChallengeBundle:Default:buttons.html.twig', array('types' => $types));
+    }
+
 }

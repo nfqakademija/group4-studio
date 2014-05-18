@@ -25,7 +25,7 @@
             <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px" /></a>
             <div id="{{ player.getUser }}" style="display: none">
                 <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px;" />
-                <div class="fb-comments" data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId }}/{{ player.getUser }}" data-numposts="5" data-colorscheme="light"></div>
+                <div class="fb-comments" data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(player.getImage, 'image') }}" data-numposts="5" data-colorscheme="light"></div>
             </div>
 
         </div>

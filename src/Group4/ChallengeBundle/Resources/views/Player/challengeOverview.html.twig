@@ -28,6 +28,7 @@
                 <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px;width:100%" /><br/>
                 <div style="text-align: center;width:100%">
                     Votes: <b>{{ player.getVoteCount }}</b><br/>
+                    <div class="fb-like" data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(player.getImage, 'image') }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                     <div class="fb-comments"  data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(player.getImage, 'image') }}" data-numposts="5" data-colorscheme="light"></div>
                 </div>
 

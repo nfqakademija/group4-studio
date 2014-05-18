@@ -33,6 +33,7 @@
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <a type="button" class="btn btn-warning navbar-btn" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">Vote!</a><br/></div>
                 {% endif %}
+                <div class="fb-like" data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(player.getImage, 'image') }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div><br/>
                 <div class="fb-comments"  data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(player.getImage, 'image') }}" data-numposts="5" data-colorscheme="light"></div>
             </div>
 

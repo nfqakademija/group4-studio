@@ -78,7 +78,7 @@
             </div>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class="nav navbar-nav">
-                    {{ render(controller('ChallengeBundle:Challenge:loadButtons')) }}
+                    {#{{ render(controller('ChallengeBundle:Challenge:loadButtons')) }}#}
                 </div>
             {% endif %}
             <div class="navbar-collapse navbar-responsive-collapse collapse" style="height: 1px;">

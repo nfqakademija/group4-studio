@@ -15,7 +15,7 @@ class TypeRepository extends EntityRepository
         $query = $this->getEntityManager()->createQuery('
             SELECT t FROM Group4\ChallengeBundle\Entity\Type AS t
              WHERE t.default = 1
-             ORDER BY t.name ASC
+             ORDER BY t.id ASC
          ');
 
         $types = $query->getResult();

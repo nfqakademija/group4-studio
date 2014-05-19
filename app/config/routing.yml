@@ -4,7 +4,7 @@ challenge:
 
 base:
     pattern: /
-    defaults: { _controller: FOSUserBundle:Security:login }
+    defaults: { _controller: BaseBundle:Base:index }
 
 baseRoutes:
     prefix: /

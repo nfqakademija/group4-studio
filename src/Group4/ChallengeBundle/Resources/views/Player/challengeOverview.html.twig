@@ -24,14 +24,19 @@
                 <div class="crop" style="background-image: url('{{ vich_uploader_asset(player.getImage, 'image') }}')">
                 </div>
             </a>
-            <div id="{{ player.getUser }}" style="display: none">
-                <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px;width:100%" /><br/>
-                <div style="text-align: center;width:100%">
-                    Votes: <b>{{ player.getVoteCount }}</b><br/>
-                    <div class="fb-like" data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId  }}/{{ player.getUser.getUsername }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                    <div class="fb-comments"  data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId  }}/{{ player.getUser.getUsername }}" data-numposts="5" data-colorscheme="light"></div>
+            <div id="{{ player.getUser }}" style="padding:5px;display: none">
+                <div style="width:auto;float:left">
+                    <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="" />
                 </div>
-
+                <div style="padding:10px;overflow:hidden">
+                    <div style="margin-bottom:10px">
+                        Votes: <b>{{ player.getVoteCount }}</b>
+                    </div>
+                    <div id="fb-things" style="width:555px">
+                        <div class="fb-like" data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId  }}/{{ player.getUser.getUsername }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                        <div class="fb-comments"  data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId  }}/{{ player.getUser.getUsername }}" data-numposts="5" data-colorscheme="light"></div>
+                    </div>
+                </div>
             </div>
         </div>
     {% endfor %}

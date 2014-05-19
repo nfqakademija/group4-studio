@@ -65,8 +65,8 @@ class ProfileController extends Controller
         $user = $this->container->get('security.context')->getToken()->getUser();
 
         $playerToChallengeRep = $this->getDoctrine()->getRepository('ChallengeBundle:PlayerToChallenge');
-        $playerToChallenges = array();
         $playerToChallenges = $playerToChallengeRep->findBy(array('user' => $user));
+
 
         return $this->render('UserBundle:Profile:showChallenges.html.twig', array('playerToChallenges' => $playerToChallenges));
     }

@@ -22,7 +22,7 @@ class PlayerController extends Controller
         $user = $this->getUser();
         $challengeRepository = $this->getDoctrine()
             ->getRepository('ChallengeBundle:Challenge');
-        $allRecentChallenges = $challengeRepository->findBy(array('status' => 2));
+        $allRecentChallenges = $challengeRepository->findBy(array('status' => 2), array('startDate' => 'DESC'));
         $allOngoingChallenges = $challengeRepository->findBy(array('status' => 1));
         $myRecentChallenges = array();
         $myOngoingChallenges = array();

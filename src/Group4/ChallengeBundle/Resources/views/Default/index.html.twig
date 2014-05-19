@@ -1,13 +1,13 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 {% block content %}
     <div class="right-sidebar">
-        <div class="well col-md-3 col-md-offset-1" style="margin-bottom:10px">
+        <div class="well col-md-3 col-md-offset- nophones" style="margin-bottom:10px">
             <h2 class="panel-title" style="margin-bottom: 10px;">My ongoing challenges:</h2>
             {% for challenge in myOngoingChallenges %}
             <a href="{{ path('show_challenge', {'eventId': challenge.getId}) }}">{{ challenge.getTheme }} ({{ challenge.getType.getName }})</a><br/>
             {% endfor %}
         </div>
-        <div class="well col-md-3 col-md-offset-1">
+        <div class="well col-md-3 col-md-offset-1 nophones">
             <h2 class="panel-title" style="margin-bottom: 10px;">My recent challenges:</h2>
             {% for challenge in myRecentChallenges %}
                 <a href="{{ path('show_challenge', {'eventId': challenge.getId}) }}">{{ challenge.getTheme }} ({{ challenge.getType.getName }})</a><br/>

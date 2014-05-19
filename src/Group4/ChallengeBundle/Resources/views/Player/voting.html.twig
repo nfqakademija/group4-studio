@@ -17,26 +17,38 @@
         {% endblock %}
     {% endif %}
     {% for player in players %}
-        <div class="vote-entry"
-             style="">
-        Votes: <b>{{ player.getVoteCount }}</b><br/>
-        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <a type="button" class="btn btn-warning navbar-btn" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">Vote!</a>
-        {% endif %}
+        <div class="vote-entry col-md-3 well"
+             style="padding:10px">
+            {% if is_granted('ROLE_ADMIN') %}
+                Votes: <b>{{ player.getVoteCount }}</b><br/>
+            {% endif %}
+
             <a class="fancybox" href="#{{ player.getUser }}" >
                 <div class="crop" style="background-image: url('{{ vich_uploader_asset(player.getImage, 'image') }}')">
                 </div>
-            </a>
-            <div id="{{ player.getUser }}" style="display: none">
-                <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="margin-top:5px;width:100%" /><br/>
-                <div style="text-align: center;width:100%">Votes: <b>{{ player.getVoteCount }}</b><br/>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <a type="button" class="btn btn-warning navbar-btn" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">Vote!</a><br/></div>
+                    <a type="button" class="btn btn-warning" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">Vote!</a>
                 {% endif %}
-                <div class="fb-like" data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId  }}/{{ player.getUser.getUsername }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div><br/>
-                <div class="fb-comments"  data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId  }}/{{ player.getUser.getUsername }}" data-numposts="5" data-colorscheme="light"></div>
+            </a>
+            <div id="{{ player.getUser }}" style="padding:5px;display: none">
+                <div style="width:auto;float:left">
+                    <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="" />
+                </div>
+                <div style="padding:10px;overflow:hidden">
+                    <div style="margin-bottom:10px">
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <a type="button"  style="" class="btn btn-warning" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">Vote!</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            Votes: <b>{{ player.getVoteCount }}</b><br/>
+                        {% endif %}
+                    </div>
+                    <div id="fb-things" style="width:555px">
+                        <div class="fb-like" data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId  }}/{{ player.getUser.getUsername }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                        <div class="fb-comments"  data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId  }}/{{ player.getUser.getUsername }}" data-numposts="5" data-colorscheme="light"></div>
+                    </div>
+                </div>
             </div>
-
         </div>
     {% endfor %}
     <div style="clear:both"></div>

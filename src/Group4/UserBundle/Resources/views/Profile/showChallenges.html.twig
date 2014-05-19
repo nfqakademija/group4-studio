@@ -6,6 +6,8 @@
                 <tr>
                     <td>Challenge ID</td>
                     <td>Theme</td>
+                    <td>Type</td>
+                    <td>Status</td>
                     <td>Date joined</td>
                 </tr>
             </thead>
@@ -14,6 +16,12 @@
                     <tr>
                         <td>{{ playerToChallenge.getChallenge.getId }}</td>
                         <td>{{ playerToChallenge.getChallenge.getTheme.getName }}</td>
+                        <td>{{ playerToChallenge.getChallenge.getType.getName }}</td>
+                        <td>
+                            {% if playerToChallenge.getStatus == 0 %}Not uploaded yet
+                            {% elseif playerToChallenge.getChallenge.getStatus == 2  %}Voting
+                            {% else %}Ended{% endif %}
+                        </td>
                         <td>{{ playerToChallenge.getDate|date('Y-m-d H:i:s') }}</td>
                         <td><a class="btn btn-primary" href="{{ path('show_challenge', {eventId : playerToChallenge.getChallenge.getId}) }}">View</a></td>
                     </tr>

@@ -4,22 +4,23 @@
 
     {% if user is not null %}
 
-        {% block foot_script %}
-        <script>
+        {% block foot_script_extend %}
+            <script>
                 if('{{ user }}'.length>1){
                     $.fancybox.open(
-                        {
-                            href : '#{{ user }}'
-                        }
+                            {
+                                href : '#{{ user }}'
+                            }
                     );
                 }
-        </script>
+            </script>
         {% endblock %}
     {% endif %}
     {% for player in players %}
-        <div class="vote-entry"
-             style="">
-            Votes: <b>{{ player.getVoteCount }}</b><br/>
+        <div class="vote-entry col-md-3 well"
+             style="padding:10px">
+                Votes: <b>{{ player.getVoteCount }}</b><br/>
+
             <a class="fancybox" href="#{{ player.getUser }}" >
                 <div class="crop" style="background-image: url('{{ vich_uploader_asset(player.getImage, 'image') }}')">
                 </div>
@@ -30,7 +31,7 @@
                 </div>
                 <div style="padding:10px;overflow:hidden">
                     <div style="margin-bottom:10px">
-                        Votes: <b>{{ player.getVoteCount }}</b>
+                            Votes: <b>{{ player.getVoteCount }}</b><br/>
                     </div>
                     <div id="fb-things" style="width:555px">
                         <div class="fb-like" data-href="http://group4-studio.projektai.nfqakademija.lt/show/{{ challenge.getId  }}/{{ player.getUser.getUsername }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>

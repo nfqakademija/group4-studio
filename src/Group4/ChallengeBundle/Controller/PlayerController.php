@@ -173,30 +173,33 @@ class PlayerController extends Controller
         $playerToChallenge = $repository->findOneBy(array('id' => $playerToChallengeId));
         $voteRep = $this->getDoctrine()->getRepository('ChallengeBundle:Vote');
         $em = $this->getDoctrine()->getManager();
-
-        $query = $em->createQuery('
-            SELECT v
-            FROM Group4\ChallengeBundle\Entity\Vote v
-            LEFT JOIN v.playerToChallenge p2c
-            LEFT JOIN p2c.challenge c
-            WHERE v.user = :user
-                AND c = :challenge
-        ')
+        if($playerToChallenge->getChallenge()->getStatus()==2){
+            $query = $em->createQuery('
+                SELECT v
+                FROM Group4\ChallengeBundle\Entity\Vote v
+                LEFT JOIN v.playerToChallenge p2c
+                LEFT JOIN p2c.challenge c
+                WHERE v.user = :user
+                    AND c = :challenge
+            ')
             ->setParameter('user', $this->container->get('security.context')->getToken()->getUser())
             ->setParameter('challenge', $playerToChallenge->getChallenge());
-        $vote = $query->getResult();
-        if (is_array($vote)) {
-            foreach ($vote as $voteTmp) {
-                $em->remove($voteTmp);
+            $vote = $query->getResult();
+            if (is_array($vote)) {
+                foreach ($vote as $voteTmp) {
+                    $em->remove($voteTmp);
+                }
+            } else {
+                $em->remove($vote);
             }
-        } else {
-            $em->remove($vote);
-        }
-        $vote = new Vote($this->container->get('security.context')->getToken()->getUser(),$playerToChallenge);
-        $playerToChallenge->addVote($vote);
+            $vote = new Vote($this->container->get('security.context')->getToken()->getUser(),$playerToChallenge);
+            $playerToChallenge->addVote($vote);
 
-        $em->persist($playerToChallenge);
-        $em->flush();
+            $em->persist($playerToChallenge);
+            $em->flush();}else{
+            $this->createNotFoundException("gtfo, cheaters");
+            return null;
+        }
 
         return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $playerToChallenge->getChallenge()->getId())));
     }

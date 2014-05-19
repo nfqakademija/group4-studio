@@ -21,7 +21,7 @@ class BaseController extends Controller
         if( $securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED') ){
             return $this->forward('ChallengeBundle:Player:index' , array('types' => $types));
         } else {
-            return $this->render('BaseBundle:Default:pretty.html.twig');
+            return $this->forward('FOSUserBundle:Security:login');
         }
     }
 

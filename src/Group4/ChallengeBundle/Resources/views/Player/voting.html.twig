@@ -4,7 +4,7 @@
 
     {% if user is not null %}
 
-        {% block foot_script %}
+        {% block foot_script_extend %}
         <script>
                 if('{{ user }}'.length>1){
                     $.fancybox.open(

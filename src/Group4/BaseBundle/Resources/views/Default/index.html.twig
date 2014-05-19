@@ -71,6 +71,7 @@
 {% block navbar %}
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
+            {% block navbar_container %}
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse">
                     <span class="icon-bar"></span>
@@ -93,6 +94,7 @@
                     {{ knp_menu_render('BaseBundle:Builder:mainMenu', {'currentClass': 'active', 'template': 'BaseBundle:Menu:knp_menu.html.twig'}) }}
                 {#</ul>#}
             </div>
+            {% endblock %}
         </div>
     </nav>
     <div class="navbar-space"></div>

@@ -6,6 +6,7 @@ namespace Group4\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Group4\ChallengeBundle\Entity\Photo;
 use Group4\ChallengeBundle\Entity\Vote;
 use Group4\ChallengeBundle\Entity\PlayerToChallenge;

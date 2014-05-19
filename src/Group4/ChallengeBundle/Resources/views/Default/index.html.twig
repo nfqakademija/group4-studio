@@ -28,7 +28,7 @@
                 <div class="panel-body">
                     <div class="carousel">
                         {% for playerToChallenge in challenge.getPlayerToChallenges %}
-                            <div><a href=""><img class="img-circle" width="200px" src="{{ vich_uploader_asset(playerToChallenge.getImage, 'image') }}" /></a></div>
+                            <div><a href=""><img class="img-circle img-responsive" width="200px" src="{{ vich_uploader_asset(playerToChallenge.getImage, 'image') }}" /></a></div>
                         {% endfor %}
                     </div>
                 </div>

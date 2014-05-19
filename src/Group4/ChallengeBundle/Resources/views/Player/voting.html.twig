@@ -18,11 +18,18 @@
     {% endif %}
     {% for player in players %}
         <div class="vote-entry col-md-3 well"
-             style="padding:10px">
+             style="padding:10px;
+             {% for vote in player.getVotes %}
+                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                     {% if vote.getUser.getId == usr.getId %}
+                             background: rgba(0,255,0,0.4);
+                     {% endif %}
+                 {% endif %}
+             {% endfor %}
+             ">
             {% if is_granted('ROLE_ADMIN') %}
                 Votes: <b>{{ player.getVoteCount }}</b><br/>
             {% endif %}
-
             <a class="fancybox" href="#{{ player.getUser }}" >
                 <div class="crop" style="background-image: url('{{ vich_uploader_asset(player.getImage, 'image') }}')">
                 </div>

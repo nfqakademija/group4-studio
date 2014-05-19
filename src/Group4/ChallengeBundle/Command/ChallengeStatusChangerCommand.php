@@ -27,49 +27,49 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
 
       foreach($challenges as $challenge) {
            $playerToChallenges = $playerToChallengeRep->findBy(array('challenge' => $challenge, 'status' => 1));
-//           this is already implemented using much less system resources and giving voteDate depending on type
-//           if($challenge->getVoteDate() == null) {
-//               if(count($playerToChallenges) >= 5) {
-//                  $challenge->setVoteDate(new \DateTime("+1 hours"));
-//               }
-//           }
-//            $voteDate = new \DateTime("now");
-//            $voteDate->add(new \DateInterval("PT1H"));
+//           this is already implemented using much less system resources and giving voteDate depending on type FUK U
+           if($challenge->getVoteDate() == null) {
+               if(count($playerToChallenges) >= 5) {
+                  $challenge->setVoteDate(new \DateTime("+1 hours"));
+               }
+           }
+            $voteDate = new \DateTime("now");
+            $voteDate->add(new \DateInterval("PT1H"));
         if(($challenge->getVoteDate() <= new \DateTime("now")) && ($challenge->getVoteDate() != null) ) {
-//                $query = $em->createQuery('
-//                    SELECT p2c
-//                    FROM ChallengeBundle:PlayerToChallenge p2c
-//                    WHERE p2c.status = 0
-//                    ORDER BY p2c.date DESC
-//                ');
-//                $playerToChallenges = $query->getResult();
+                $query = $em->createQuery('
+                    SELECT p2c
+                    FROM ChallengeBundle:PlayerToChallenge p2c
+                    WHERE p2c.status = 0
+                    ORDER BY p2c.date DESC
+                ');
+                $playerToChallenges = $query->getResult();
 //already done...
-               //$playerToChallenges = $playerToChallengeRep->findBy(
-               //    array('status' => 0, 'challenge' => $challenge->getId()),
-               //    array('date' => 'DESC')
-               //);
+               $playerToChallenges = $playerToChallengeRep->findBy(
+                   array('status' => 0, 'challenge' => $challenge->getId()),
+                   array('date' => 'DESC')
+               );
 
-               //echo count($playerToChallenges);
+               echo count($playerToChallenges);
 
-               //if (empty($playerToChallenges)) {
+               if (empty($playerToChallenges)) {
 
                // we need only this for voteDate
                $challenge->setStatus(2);
                $em->persist($challenge);
 
-               //} else {
-               //    $date = $playerToChallenges[0]->getDate();
-               //    $date->add(new \DateInterval("PT15M"));
-               //    $challengeVoteDate = $challenge->getVoteDate();
-                //   $challengeVoteDate->add(new \DateInterval("PT1H"));
+               } else {
+                   $date = $playerToChallenges[0]->getDate();
+                   $date->add(new \DateInterval("PT15M"));
+                   $challengeVoteDate = $challenge->getVoteDate();
+                   $challengeVoteDate->add(new \DateInterval("PT1H"));
 
-                   //if($date > $challengeVoteDate) {
-                       //$newDate = new \DateTime("now");
-                       //$newDate->add(new \DateInterval("PT15M"));
-                       //$challenge->setVoteDate($newDate);
-                       //$em->persist($challenge);
-                   //}
-               //}
+                   if($date > $challengeVoteDate) {
+                       $newDate = new \DateTime("now");
+                       $newDate->add(new \DateInterval("PT15M"));
+                       $challenge->setVoteDate($newDate);
+                       $em->persist($challenge);
+                   }
+               }
            }
            $em->flush();
        }

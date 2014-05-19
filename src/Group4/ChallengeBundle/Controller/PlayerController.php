@@ -139,6 +139,7 @@ class PlayerController extends Controller
 
             case 2:
             //Voting state
+                $userId = $this->container->get('security.context')->getToken()->getUser();
                 return $this->votingAction($event, $userId);
             case 3:
             //Challenge ended
@@ -156,7 +157,7 @@ class PlayerController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository('ChallengeBundle:playerToChallenge');
         $playerToChallenges = $repository->findBy(array('challenge' => $event));
-        return $this->render('ChallengeBundle:Player:voting.html.twig', array('players' => $playerToChallenges, 'challenge' => $event, 'user' => $user) );
+        return $this->render('ChallengeBundle:Player:voting.html.twig', array('players' => $playerToChallenges, 'challenge' => $event, 'user' => null, 'usr' => $user) );
     }
 
     private function challengeOverviewAction($event, $user)

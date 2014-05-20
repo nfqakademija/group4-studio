@@ -269,7 +269,7 @@ class PlayerController extends Controller
                 $path = $this->get('kernel')->getRootDir() . '/../web' .'/images/challenge/'.$photo->getImageName();
                 $ext = pathinfo($photo->getImageName(), PATHINFO_EXTENSION);
 
-                if(($ext == "JPG")||($ext == "jpg")) {
+                if(($ext == "JPG")||($ext == "jpg")||($ext == "jpeg")||($ext == "JPEG")) {
                     $image = imagecreatefromjpeg($path);
                 } else {
                     $image = imagecreatefrompng($path);

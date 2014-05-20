@@ -343,8 +343,9 @@ class PlayerController extends Controller
                 $pl2ch->setImage($photo);
 
                 $em->persist($pl2ch);
-                $em->flush();
                 $ch->doVoteDateStuff();
+                $em->persist($ch);
+                $em->flush();
                 return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $eventId)));
             }
 

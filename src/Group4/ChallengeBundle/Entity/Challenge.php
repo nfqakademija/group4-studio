@@ -281,6 +281,7 @@ class Challenge
      * @return \DateTime
      */
     public function doVoteDateStuff(){
+
         if(is_null($this->getVoteDate()) && $this->getPlayersUploadedCount()>=PLAYERS_MIN){
             $voteDate=new \DateTime;
             $voteDate->add($this->getType()->getWaitDurationInterval());

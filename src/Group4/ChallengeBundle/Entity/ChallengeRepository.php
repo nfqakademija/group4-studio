@@ -55,7 +55,7 @@ class ChallengeRepository extends EntityRepository
             SELECT c FROM Group4\ChallengeBundle\Entity\Challenge AS c
             JOIN c.playerToChallenges AS p2c
             WHERE c.status = 1 AND c.type ='.$typeId.' AND :now BETWEEN c.startDate AND c.endDate
-            ORDER BY c.startDate DESC
+            ORDER BY c.startDate ASC
          ')->setParameter('now',new \DateTime('now'));
 
         if(!$full) {

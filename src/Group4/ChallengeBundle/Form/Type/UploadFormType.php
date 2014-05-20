@@ -14,7 +14,7 @@ class UploadFormType extends AbstractType {
             ->add('image', 'file',
                 array(
                     'label' => 'Select the photo you want to upload or drop her below',
-                    'attr' => array('class' => 'dropzone')
+                    'attr' => array('class' => 'dropzone','style' => "  padding-bottom:35px;")
                 )
             )
         ;

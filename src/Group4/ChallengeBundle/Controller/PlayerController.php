@@ -277,18 +277,51 @@ class PlayerController extends Controller
 
                 list($width, $height) = getimagesize($path);
 
-                if($width>$height) {
-                    $resizeRatio = PHOTO_WIDTH/$width;
-                    $newWidth = $width * $resizeRatio;
-                    $newHeight = $height * $resizeRatio;
-                } else {
-                    $resizeRatio = PHOTO_WIDTH/$height;
-                    $newWidth = $width * $resizeRatio;
-                    $newHeight = $height * $resizeRatio;
+//                if($width>$height) {
+//                    $resizeRatio = PHOTO_WIDTH/$width;
+//                    $newWidth = $width * $resizeRatio;
+//                    $newHeight = $height * $resizeRatio;
+//                } else {
+//                    $resizeRatio = PHOTO_WIDTH/$height;
+//                    $newWidth = $width * $resizeRatio;
+//                    $newHeight = $height * $resizeRatio;
+//                }
+//
+//                $new = imagecreatetruecolor(PHOTO_WIDTH,PHOTO_WIDTH);
+//                imagecopyresampled($new,$image,
+//                    0 - ($newWidth - PHOTO_WIDTH),
+//                    0 - ($newHeight - PHOTO_WIDTH),
+//                    0, 0, PHOTO_WIDTH,PHOTO_WIDTH,$width,$height);
+
+                $thumb_width = 500;
+                $thumb_height = 500;
+
+                $original_aspect = $width / $height;
+                $thumb_aspect = $thumb_width / $thumb_height;
+
+                if ( $original_aspect >= $thumb_aspect )
+                {
+                    // If image is wider than thumbnail (in aspect ratio sense)
+                    $new_height = $thumb_height;
+                    $new_width = $width / ($height / $thumb_height);
+                }
+                else
+                {
+                    // If the thumbnail is wider than the image
+                    $new_width = $thumb_width;
+                    $new_height = $height / ($width / $thumb_width);
                 }
 
-                $new = imagecreatetruecolor($newWidth,$newHeight);
-                imagecopyresampled($new,$image,0,0,0,0,$newWidth,$newHeight,$width,$height);
+                $new = imagecreatetruecolor( $thumb_width, $thumb_height );
+
+                // Resize and crop
+                imagecopyresampled($new,
+                    $image,
+                    0 - ($new_width - $thumb_width) / 2, // Center the image horizontally
+                    0 - ($new_height - $thumb_height) / 2, // Center the image vertically
+                    0, 0,
+                    $new_width, $new_height,
+                    $width, $height);
 
                 if($ext == "JPG") {
                     imagejpeg($new, $path, 75);

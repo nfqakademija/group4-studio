@@ -2,53 +2,9 @@ challenge_homepage:
     pattern:  /challenge
     defaults: { _controller: ChallengeBundle:Challenge:index }
 
-theme_add_new:
-    pattern: /challenge/themes/new
-    defaults: { _controller: ChallengeBundle:Theme:new }
-
-theme_insert_success:
-    pattern: /challenge/themes/new/success
-    defaults: { _controller: ChallengeBundle:Theme:newSuccess }
-
-theme_list_all:
-    pattern: /challenge/themes/listAll
-    defaults: { _controller: ChallengeBundle:Theme:listAll }
-
-theme_admin:
-    pattern: /challenge/themes
-    defaults: { _controller: ChallengeBundle:Theme:themeAdmin }
-
-theme_edit:
-    pattern: /challenge/themes/edit/{id}
-    defaults: { _controller: ChallengeBundle:Theme:edit }
-
-theme_delete:
-    pattern: /challenge/themes/delete/{id}
-    defaults: { _controller: ChallengeBundle:Theme:delete }
-
-challenge_add_new:
-    pattern: /challenge/new
-    defaults: { _controller: ChallengeBundle:Challenge:new }
-
-challenge_insert_success:
-    pattern: /challenge/new/success
-    defaults: { _controller: ChallengeBundle:Challenge:newSuccess }
-
-challenge_list_all:
-    pattern: /challenges
-    defaults: { _controller: ChallengeBundle:Challenge:listAll }
-
 challenge_admin:
     pattern: /challenge/admin
     defaults: { _controller: ChallengeBundle:Challenge:admin }
-
-challenge_edit:
-    pattern: /challenge/edit/{id}
-    defaults: { _controller: ChallengeBundle:Challenge:edit }
-
-challenge_delete:
-    pattern: /challenge/delete/{id}
-    defaults: { _controller: ChallengeBundle:Challenge:delete }
 
 player_photo_upload:
     pattern: /challenge/upload

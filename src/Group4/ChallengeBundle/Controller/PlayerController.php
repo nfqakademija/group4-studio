@@ -269,7 +269,7 @@ class PlayerController extends Controller
                 $path = $this->get('kernel')->getRootDir() . '/../web' .'/images/challenge/'.$photo->getImageName();
                 $ext = pathinfo($photo->getImageName(), PATHINFO_EXTENSION);
 
-                if(($ext == "JPG")||($ext == "jpg")) {
+                if(($ext == "JPG")||($ext == "jpg")||($ext == "jpeg")||($ext == "JPEG")) {
                     $image = imagecreatefromjpeg($path);
                 } else {
                     $image = imagecreatefrompng($path);
@@ -343,8 +343,9 @@ class PlayerController extends Controller
                 $pl2ch->setImage($photo);
 
                 $em->persist($pl2ch);
-                $em->flush();
                 $ch->doVoteDateStuff();
+                $em->persist($ch);
+                $em->flush();
                 return $this->redirect($this->generateUrl('show_challenge', array('eventId' => $eventId)));
             }
 

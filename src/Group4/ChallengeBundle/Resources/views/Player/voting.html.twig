@@ -34,7 +34,28 @@
                 <div class="crop" style="background-image: url('{{ vich_uploader_asset(player.getImage, 'image') }}')">
                 </div>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <a type="button" class="btn btn-warning" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">Vote!</a>
+                    <a type="button" class="btn btn-warning" style="
+                    {% for vote in player.getVotes %}
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            {% if vote.getUser.getId == usr.getId %}
+                                    opacity: 0.5;
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">
+                        {% set unvote = false %}
+                        {% for vote in player.getVotes %}
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                {% if vote.getUser.getId == usr.getId %}
+                                    {% set unvote = true  %}
+                                    Unvote!
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if unvote == false %}Vote!{% endif %}
+
+
+
+                    </a>
                 {% endif %}
             </a>
             <div id="{{ player.getUser }}" style="padding:5px;display: none">

@@ -41,7 +41,7 @@
                 <div style="width:auto;float:left">
                     <img src="{{ vich_uploader_asset(player.getImage, 'image') }}" alt="{{ player.getUser }}" style="" />
                 </div>
-                <div style="padding:10px;overflow:hidden">
+                <div style="padding:10px;">
                     <div style="margin-bottom:10px">
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <a type="button"  style="" class="btn btn-warning" href="{{ path('vote', {'playerToChallengeId': player.getId }) }}">Vote!</a>

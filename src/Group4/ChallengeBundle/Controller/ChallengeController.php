@@ -32,4 +32,11 @@ class ChallengeController extends Controller
         return $this->render('ChallengeBundle:Default:buttons.html.twig', array('types' => $types));
     }
 
+    public function galleryShowAction() {
+        $repository = $this->getDoctrine()->getRepository('ChallengeBundle:Photo');
+        $photos = $repository->findBy(array(), array(), 10);
+
+        return $this->render('ChallengeBundle:Gallery:show.html.twig', array('photos' => $photos));
+    }
+
 }

@@ -1,0 +1,13 @@
+{% extends 'BaseBundle:Default:index.html.twig' %}
+
+{% block content %}
+    {% for photo in photos %}
+        <a class="fancybox" href="#{{ app.user }}" >
+            <img width="200px" src="{{ vich_uploader_asset(photo, 'image') }}" alt="{{ app.user }}" style="margin-top:5px" /></a>
+
+        <div id="{{ app.user }}" style="display: none">
+            <img src="{{ vich_uploader_asset(photo, 'image') }}" alt="{{ app.user }}" style="margin-top:5px" />
+            <div class="fb-comments" data-href="http://group4-studio.projektai.nfqakademija.lt{{ vich_uploader_asset(photo, 'image') }}" data-numposts="5" data-colorscheme="light"></div>
+        </div>
+    {% endfor %}
+{% endblock %}

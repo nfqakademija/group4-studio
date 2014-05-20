@@ -1,6 +1,7 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 
 {% block content %}
+    <h1>Gallery</h1><br/>
     {% for photo in photos %}
         <a class="fancybox" href="#{{ app.user }}" >
             <img width="200px" src="{{ vich_uploader_asset(photo, 'image') }}" alt="{{ app.user }}" style="margin-top:5px" /></a>

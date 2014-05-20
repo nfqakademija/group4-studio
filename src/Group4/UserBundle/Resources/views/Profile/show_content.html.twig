@@ -1,7 +1,10 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div class="fos_user_user_show">
+<div class="fos_user_user_show col-md-12 jumbotron">
+    {% if app.user.getImage is not null %}
+        <div class="col-md-3"><img class="img-responsive col-md-12" src="{{ vich_uploader_asset(app.user.getImage, 'image') }}" alt="{{ app.user }}" /></div>
+    {% endif %}
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-    <p>Score: {{ user.getScore }}</p>
+    <h3>Score: {{ user.getScore }}</h3>
 </div>

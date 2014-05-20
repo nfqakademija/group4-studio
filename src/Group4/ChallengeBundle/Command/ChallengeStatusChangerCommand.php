@@ -49,7 +49,7 @@ class ChallengeStatusChangerCommand extends ContainerAwareCommand
                    array('date' => 'DESC')
                );
 
-               echo count($playerToChallenges);
+//               echo count($playerToChallenges);
 
                if (empty($playerToChallenges)) {
 

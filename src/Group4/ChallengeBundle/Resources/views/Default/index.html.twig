@@ -1,7 +1,7 @@
 {% extends 'BaseBundle:Default:index.html.twig' %}
 {% block content %}
     <div class="right-sidebar">
-        <div class="well col-md-3 col-md-offset- nophones" style="margin-bottom:10px">
+        <div class="well col-md-3 col-md-offset-1 nophones" style="margin-bottom:10px">
             <h2 class="panel-title" style="margin-bottom: 10px;">My ongoing challenges:</h2>
             {% for challenge in myOngoingChallenges %}
             <a href="{{ path('show_challenge', {'eventId': challenge.getId}) }}">{{ challenge.getTheme }} ({{ challenge.getType.getName }})</a><br/>
@@ -28,7 +28,7 @@
                 <div class="panel-body">
                     <div class="carousel">
                         {% for playerToChallenge in challenge.getPlayerToChallenges %}
-                            <div><a href=""><img class="img-circle img-responsive" width="200px" src="{{ vich_uploader_asset(playerToChallenge.getImage, 'image') }}" /></a></div>
+                            <div><a href="{{ path('show_challenge', {'eventId': challenge.getId}) }}"><img class="img-circle img-responsive imageClip" src="{{ vich_uploader_asset(playerToChallenge.getImage, 'image') }}" /></a></div>
                         {% endfor %}
                     </div>
                 </div>

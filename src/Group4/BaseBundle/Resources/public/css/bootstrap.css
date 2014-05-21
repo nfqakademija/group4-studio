@@ -184,9 +184,7 @@ table {
 }
 td,
 th {
-  padding: 0px;
-  padding-right:5px;
-
+  padding: 0;
 }
 @media print {
   * {
@@ -243,7 +241,6 @@ th {
   .table td,
   .table th {
     background-color: #fff !important;
-
   }
   .btn > .caret,
   .dropup > .btn > .caret {
@@ -1691,25 +1688,6 @@ output {
   line-height: 1.42857143;
   color: #444444;
 }
-
-.vote-entry{
-margin-top:10px;
-margin-right:10px;
-float:left;
-padding:5px;
-max-width: 515px;
-text-align: center
-}
-
-.crop {
-    width: 100%;
-    margin-top:5px;
-    margin-bottom:10px;
-    height: 200px;
-	background-position:center;
-	background-size:cover;
-	}
-
 .form-control {
   display: block;
   width: 100%;
@@ -1764,7 +1742,6 @@ input[type="date"] {
 }
 .radio,
 .checkbox {
-  color:#000;
   display: block;
   min-height: 20px;
   margin-top: 10px;
@@ -3804,7 +3781,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-nav {
- /* margin: 7.5px -15px; TODO: less*/
+  margin: 7.5px -15px;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
@@ -3959,20 +3936,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  position:fixed;
-  z-index:100;
-  width: 100%;
   background-color: #ad1d28;
   border-color: #911821;
 }
-
-.navbar-space {
-    width:100%;
-    position: relative;
-    min-height: 50px;
-    margin-bottom: 20px;
-}
-
 .navbar-default .navbar-brand {
   color: #ffffff;
 }
@@ -5067,9 +5033,9 @@ a.list-group-item-danger.active:focus {
   border-bottom-color: #d2491c;
 }
 .well {
-  width:255px;
   min-height: 20px;
   padding: 19px;
+  margin-bottom: 20px;
   background-color: #0d747c;
   border: 1px solid #0a565c;
   border-radius: 4px;
@@ -5915,10 +5881,4 @@ legend {
 }
 .popover {
   color: #444444;
-}
-
-.right-sidebar{
-    position: relative;
-    float:right;
-    width: 266px;
 }
